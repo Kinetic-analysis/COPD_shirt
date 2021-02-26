@@ -1,0 +1,18 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MCP73831-2DCI_MC
+D Linear Battery Charger Controller Li-Ion/Li-Pol 505mA 4.2V 8-Pin DFN EP Tube
+F https://www.arrow.com/en/products/mcp73831-2dcimc/microchip-technology
+$ENDCMP
+#
+$CMP MCP73831T-2ATI_OT
+D Microchip MCP73831T-2ATI/OT, Battery Charge Controller Lithium-Ion/Polymer, 500mA, 5-pin SOT-23
+F http://docs-emea.rs-online.com/webdocs/1381/0900766b81381747.pdf
+$ENDCMP
+#
+$CMP TPS63001DRCR
+D Switching Voltage Regulators 96% Buck-Boost Conv
+F https://datasheet.lcsc.com/szlcsc/Texas-Instruments-TI-TPS63001DRCR_C28060.pdf
+$ENDCMP
+#
+#End Doc Library
