@@ -1,0 +1,9 @@
+Manufacturer=C & K COMPONENTS
+PartNumber=PTS645SL43SMTR92 LFS
+PartCategory=Switch
+PackageCategory=Other
+PinCount=4
+Version=1.2
+Released=2019-10-16 11:01:25
+Downloaded=2021-03-11 10:56:01
+3D=N

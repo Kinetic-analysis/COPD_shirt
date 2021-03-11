@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PTS645SL43SMTR92_LFS'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "C & K COMPONENTS", "PTS645SL43SMTR92 LFS" (!) = "", "PTS645SL43SMTR92LFS", "Other", "", "", "PTS645SL43SMTR92 LFS", "https://www.arrow.com/en/products/pts645sl43smtr92lfs/ck", "Switch Tactile N.O. SPST Round Button Gull Wing 0.05A 12VDC 100000Cycles 1.27N SMD T/R", "https://www.ckswitches.com/media/1471/pts645.pdf", "4.4 mm"
+END_PART
+
+END.
