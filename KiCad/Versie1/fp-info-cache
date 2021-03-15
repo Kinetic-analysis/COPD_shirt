@@ -1,4 +1,4 @@
-16871602716091177
+16874833870324426
 Button_Switch_Keyboard
 SW_Cherry_MX_1.00u_PCB
 Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf
@@ -74970,6 +74970,13 @@ varistor SIOV
 2
 2
 Versie1_FootprintLib
+2x3DFN
+
+
+0
+0
+0
+Versie1_FootprintLib
 AP9211SAANHAC7
 U-DFN2030-6 (Type C)_1
 Integrated Circuit
@@ -74997,6 +75004,13 @@ Integrated Circuit
 0
 21
 21
+Versie1_FootprintLib
+MCP73831T-2ATI&slash_MC
+
+
+0
+9
+9
 Versie1_FootprintLib
 MCP73831T-2ATI_OT
 5-Lead (OT) SOT-23

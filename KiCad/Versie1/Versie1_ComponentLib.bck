@@ -1,0 +1,48 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP AP9221SA-CC-HAC-7
+D Battery Management Multicell Batt Manager U-DFN2030-6 T&R 3K
+F https://www.diodes.com/assets/Datasheets/AP9221.pdf
+$ENDCMP
+#
+$CMP B3U-1000P
+D OMRON ELECTRONIC COMPONENTS - B3U-1000P - SWITCH, SPST-NO, 0.05A, 12V, SMD
+F https://www.omron.com/ecb/products/pdf/en-b3u.pdf
+$ENDCMP
+#
+$CMP BNO080
+D IMU ACCEL/GYRO/MAG I2C 32BIT
+F http://www.hillcrestlabs.com/download/5a05f340566d07c196001ec1
+$ENDCMP
+#
+$CMP ISL91107IRTNZ-T7A
+D Integrated FET Regulators High Efficiency Buck-Boost Regulator with 4.1A Switches
+F https://www.renesas.com/en-us/www/doc/datasheet/isl91107ir.pdf
+$ENDCMP
+#
+$CMP MCP73831-2DCI_MC
+D Linear Battery Charger Controller Li-Ion/Li-Pol 505mA 4.2V 8-Pin DFN EP Tube
+F https://www.arrow.com/en/products/mcp73831-2dcimc/microchip-technology
+$ENDCMP
+#
+$CMP MCP73831T-2ATI_OT
+D Microchip MCP73831T-2ATI/OT, Battery Charge Controller Lithium-Ion/Polymer, 500mA, 5-pin SOT-23
+F http://docs-emea.rs-online.com/webdocs/1381/0900766b81381747.pdf
+$ENDCMP
+#
+$CMP PTS645SL43SMTR92_LFS
+D Switch Tactile N.O. SPST Round Button Gull Wing 0.05A 12VDC 100000Cycles 1.27N SMD T/R
+F https://www.ckswitches.com/media/1471/pts645.pdf
+$ENDCMP
+#
+$CMP SMTL4-RGY
+D LED Tri-Color Green/Red/Yellow 4-Pin PLCC T/R
+F http://uk.rs-online.com/web/p/products/1749651
+$ENDCMP
+#
+$CMP TPS63001DRCR
+D Switching Voltage Regulators 96% Buck-Boost Conv
+F https://datasheet.lcsc.com/szlcsc/Texas-Instruments-TI-TPS63001DRCR_C28060.pdf
+$ENDCMP
+#
+#End Doc Library
