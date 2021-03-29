@@ -1131,11 +1131,11 @@ Wire Wire Line
 	9300 2250 9300 2350
 Wire Notes Line
 	4750 4200 4750 8725
-Text Notes 1850 775  0    100  ~ 0
-USB + Charger
-Text Notes 4850 825  0    100  ~ 0
+Text Notes 1025 800  0    100  ~ 0
+USB 
+Text Notes 6000 850  0    100  ~ 0
 Battery Protection\n
-Text Notes 7975 850  0    100  ~ 0
+Text Notes 8625 850  0    100  ~ 0
 Power Latch\n
 Text Notes 7600 4700 0    100  ~ 0
 IMU 9 DoF\n\n
@@ -1262,7 +1262,7 @@ F 3 "~" H 15475 2925 50  0001 C CNN
 	1    15475 2925
 	1    0    0    -1  
 $EndComp
-Text Notes 14275 900  0    100  ~ 0
+Text Notes 14825 875  0    100  ~ 0
 LED's\n
 Wire Wire Line
 	14925 5550 14800 5550
@@ -2260,7 +2260,7 @@ F 4 "OSTVN02A150" H 14250 5550 50  0001 C CNN "ID"
 $EndComp
 Wire Notes Line
 	500  4200 16050 4200
-Text Notes 10850 875  0    100  ~ 0
+Text Notes 11625 850  0    100  ~ 0
 Buck-Boost Converter\n
 Text Notes 11675 4750 0    100  ~ 0
 Mounting Holes
@@ -2620,4 +2620,16 @@ F 3 "" H 3000 2400 60  0000 C CNN
 	1    3000 2400
 	1    0    0    -1  
 $EndComp
+Text Notes 3275 825  0    100  ~ 0
+Charger
+Wire Notes Line
+	13825 475  13825 4200
+Wire Notes Line
+	10600 475  10600 4200
+Wire Notes Line
+	7850 475  7850 4200
+Wire Notes Line
+	5350 475  5350 4200
+Wire Notes Line
+	2050 475  2050 4200
 $EndSCHEMATC
