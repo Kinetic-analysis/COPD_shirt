@@ -1,0 +1,24 @@
+Circuit: * C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\Relaxation Oscillator.asc
+
+WARNING: Less than two connections to node -3.3V.  This node is used by V2.
+Direct Newton iteration for .op point succeeded.
+Heightened Def Con from 0.123988 to 0.123988
+Heightened Def Con from 0.378373 to 0.378373
+
+Date: Wed Mar 31 01:27:55 2021
+Total elapsed time: 3.325 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 788399
+traniter = 788389
+tranpoints = 176659
+accept = 127587
+rejected = 49074
+matrix size = 22
+fillins = 18
+solver = Normal
+Matrix Compiler1: 1.77 KB object code size  0.3/0.2/[0.1]
+Matrix Compiler2: 1.84 KB object code size  0.1/0.2/[0.1]
+
