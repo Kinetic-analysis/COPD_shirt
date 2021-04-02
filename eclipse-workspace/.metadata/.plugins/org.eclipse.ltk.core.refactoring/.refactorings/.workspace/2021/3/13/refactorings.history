@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;ArduinoToESP_SPI&apos;" deleteContents="true" description="Delete resource &apos;ArduinoToESP_SPI&apos;" element1="/ArduinoToESP_SPI" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1617054466490"/>&#x0A;<refactoring comment="Delete resource &apos;ADC_test2&apos;" deleteContents="true" description="Delete resource &apos;ADC_test2&apos;" element1="/ADC_test2" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1617198049790"/>
+</session>
