@@ -14,10 +14,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         address = bytesAddressPair[1]
 
         clientMsg = "Message from Client:{}".format(message)
-        #clientIP  = "Client IP Address:{}".format(address)
+        clientIP  = "Client IP Address:{}".format(address)
         
         print(clientMsg)
-        #print(clientIP)
+        print(clientIP)
 
         # Sending a reply to client
-        #s.sendto(bytesToSend, address)
+        s.sendto(bytesToSend, address)
