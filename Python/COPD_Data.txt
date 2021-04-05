@@ -1,0 +1,20 @@
+05/04/2021 14:50:37
+Tijd van meting: 9982927660	Capcitieve Stretch sensor: 4211778307	Resistieve Stretch sensor: 0534926266
+Tijd van meting: 0650515629	Capcitieve Stretch sensor: 6474125911	Resistieve Stretch sensor: 6827727276
+Tijd van meting: 3449794076	Capcitieve Stretch sensor: 2769915509	Resistieve Stretch sensor: 4516533349
+Tijd van meting: 2232303467	Capcitieve Stretch sensor: 4417719407	Resistieve Stretch sensor: 4718918718
+Tijd van meting: 5335221205	Capcitieve Stretch sensor: 9714606791	Resistieve Stretch sensor: 2543777966
+Tijd van meting: 7550223328	Capcitieve Stretch sensor: 2204907724	Resistieve Stretch sensor: 4747220209
+Tijd van meting: 5879269360	Capcitieve Stretch sensor: 0187781699	Resistieve Stretch sensor: 7901379999
+Tijd van meting: 8604798363	Capcitieve Stretch sensor: 0723592773	Resistieve Stretch sensor: 7783443096
+Tijd van meting: 1757757720	Capcitieve Stretch sensor: 9242378370	Resistieve Stretch sensor: 3183671370
+Tijd van meting: 1159399710	Capcitieve Stretch sensor: 1114023752	Resistieve Stretch sensor: 0467101954
+Tijd van meting: 4511554085	Capcitieve Stretch sensor: 4222663623	Resistieve Stretch sensor: 4110136442
+Tijd van meting: 9014468996	Capcitieve Stretch sensor: 6815814175	Resistieve Stretch sensor: 5721727285
+Tijd van meting: 8237698653	Capcitieve Stretch sensor: 9706675157	Resistieve Stretch sensor: 3555007088
+Tijd van meting: 7795767931	Capcitieve Stretch sensor: 8175445487	Resistieve Stretch sensor: 2033776833
+Tijd van meting: 8745641996	Capcitieve Stretch sensor: 0429117465	Resistieve Stretch sensor: 6088064986
+Tijd van meting: 7517701904	Capcitieve Stretch sensor: 4174574010	Resistieve Stretch sensor: 1836223401
+Tijd van meting: 0567294683	Capcitieve Stretch sensor: 5930349990	Resistieve Stretch sensor: 2215970337
+Tijd van meting: 5520844202	Capcitieve Stretch sensor: 5103885978	Resistieve Stretch sensor: 5992147510
+Tijd van meting: 4211463952	Capcitieve Stretch sensor: 9614169724	Resistieve Stretch sensor: 0988589747
