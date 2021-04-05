@@ -1,23 +1,21 @@
-import socket
-
-HOST = '192.168.192.42' # accept any IP-adres
-PORT = 2000 # Port to listen on
-bufferSize  = 1024
-msgFromServer       = "Hello UDP Client"
-bytesToSend         = str.encode(msgFromServer)
-
-with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-    s.bind((HOST, PORT))
-    while True:
-        bytesAddressPair = s.recvfrom(bufferSize)
-        message = bytesAddressPair[0]
-        address = bytesAddressPair[1]
-
-        clientMsg = "Message from Client:{}".format(message)
-        #clientIP  = "Client IP Address:{}".format(address)
-        
-        print(clientMsg)
-        #print(clientIP)
-
-        # Sending a reply to client
-        #s.sendto(bytesToSend, address)
+# importing the required module
+import matplotlib.pyplot as plt
+  
+# x axis values
+x = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+# corresponding y axis values
+y = [1,2,3,4,5,4,3,2,1,2,3,4,5,4,3,2,1,2,3,4]
+  
+# plotting the points 
+plt.plot(x, y)
+  
+# naming the x axis
+plt.xlabel('Time')
+# naming the y axis
+plt.ylabel('Respiration')
+  
+# giving a title to my graph
+plt.title('Capacitive Stretch Sensor')
+  
+# function to show the plot
+plt.show()
