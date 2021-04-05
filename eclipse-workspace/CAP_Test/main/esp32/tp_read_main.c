@@ -1,0 +1,101 @@
+/* Touch Pad Read Example
+
+   This example code is in the Public Domain (or CC0 licensed, at your option.)
+
+   Unless required by applicable law or agreed to in writing, this
+   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied.
+*/
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/touch_pad.h"
+#include "esp_log.h"
+#include "driver/gpio.h"
+
+#define TOUCH_PAD_NO_CHANGE   (-1)
+#define TOUCH_THRESH_NO_USE   (0)
+#define TOUCH_FILTER_MODE_EN  (1)
+#define TOUCHPAD_FILTER_TOUCH_PERIOD (10)
+
+
+static void tp_example_led_task(void *pvParameter)
+{
+	while(1)
+	{
+		gpio_set_level(GPIO_NUM_4, 1);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		gpio_set_level(GPIO_NUM_4, 0);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+}
+
+/*
+  Read values sensed at all available touch pads.
+ Print out values in a loop on a serial monitor.
+ */
+static void tp_example_read_task(void *pvParameter)
+{
+	uint16_t counter = 0;
+    uint16_t touch_value;
+    uint16_t touch_filter_value;
+#if TOUCH_FILTER_MODE_EN
+    printf("Touch Sensor filter mode read, the output format is: \nTouchpad num:[raw data, filtered data]\n\n");
+#else
+    printf("Touch Sensor normal mode read, the output format is: \nTouchpad num:[raw data]\n\n");
+#endif
+    while (1) {
+    	counter++;
+#if TOUCH_FILTER_MODE_EN
+            // If open the filter mode, please use this API to get the touch pad count.
+            touch_pad_read_raw_data(TOUCH_PAD_NUM7, &touch_value);
+            touch_pad_read_filtered(TOUCH_PAD_NUM7, &touch_filter_value);
+
+            printf("Counter = %4d, T%d:[%4d,%4d] ", counter, TOUCH_PAD_NUM7, touch_value, touch_filter_value);
+#else
+            touch_pad_read(TOUCH_PAD_NUM7, &touch_value);
+            printf("T%d:[%4d] ", TOUCH_PAD_NUM7, touch_value);
+#endif
+            if(touch_value < 5000)
+            {
+            	//gpio_set_level(GPIO_NUM_4, 1);
+            }
+            else
+            {
+            	//gpio_set_level(GPIO_NUM_4, 0);
+            }
+        printf("\n");
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+    }
+}
+
+static void tp_example_touch_pad_init(void)
+{
+    touch_pad_config(TOUCH_PAD_NUM7, TOUCH_THRESH_NO_USE);
+}
+
+void app_main(void)
+{
+
+	gpio_pad_select_gpio(GPIO_NUM_4); //Green_LED
+	gpio_set_direction(GPIO_NUM_4, GPIO_MODE_OUTPUT);
+	gpio_set_level(GPIO_NUM_4, 0);
+    // Initialize touch pad peripheral.
+    // The default fsm mode is software trigger mode.
+    touch_pad_init();
+    // Set reference voltage for charging/discharging
+    // In this case, the high reference valtage will be 2.7V - 1V = 1.7V
+    // The low reference voltage will be 0.5
+    // The larger the range, the larger the pulse count value.
+    touch_pad_set_voltage(TOUCH_HVOLT_2V4, TOUCH_LVOLT_0V8, TOUCH_HVOLT_ATTEN_1V5);
+    touch_pad_set_cnt_mode(TOUCH_PAD_NUM7, TOUCH_PAD_SLOPE_7, TOUCH_PAD_TIE_OPT_LOW);
+    touch_pad_set_meas_time(0xffff, 0xffff);
+
+    tp_example_touch_pad_init();
+#if TOUCH_FILTER_MODE_EN
+    touch_pad_filter_start(TOUCHPAD_FILTER_TOUCH_PERIOD);
+#endif
+    // Start task to read values sensed by pads
+    xTaskCreate(&tp_example_read_task, "touch_pad_read_task", 2048, NULL, 5, NULL);
+    xTaskCreate(&tp_example_led_task, "touch_pad_led_task", 2048, NULL, 4, NULL);
+}
