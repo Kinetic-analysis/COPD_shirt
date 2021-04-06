@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/Gebruiker/eclipse-workspace/capacitivetest/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
-  include("C:/Users/Gebruiker/eclipse-workspace/capacitivetest/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
+  include("C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/capacitivetest/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
+  include("C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/capacitivetest/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
 
 endif()
 

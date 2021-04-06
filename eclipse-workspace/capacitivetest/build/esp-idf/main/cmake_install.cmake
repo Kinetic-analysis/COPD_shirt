@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Gebruiker/eclipse-workspace/capacitivetest/main
+# Install script for directory: C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/capacitivetest/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1428,7 +1428,7 @@ rule CXX_STATIC_LIBRARY_LINKER____idf_main
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\Gebruiker\eclipse-workspace\ADC_test2 -BC:\Users\Gebruiker\eclipse-workspace\ADC_test2\build
+  command = C:\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test2 -BC:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test2\build
   description = Re-running CMake...
   generator = 1
 
