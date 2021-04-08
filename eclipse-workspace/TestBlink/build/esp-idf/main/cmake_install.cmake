@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Gebruiker/eclipse-workspace/TestBlink/main
+# Install script for directory: C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/TestBlink/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
