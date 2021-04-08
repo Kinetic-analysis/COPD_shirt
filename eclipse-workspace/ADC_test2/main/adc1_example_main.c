@@ -15,6 +15,7 @@
 #include "esp_adc_cal.h"
 #include "esp_timer.h"
 #include <inttypes.h>
+#include "esp_pm.h"
 
 #define DEFAULT_VREF    3300        //Use adc2_vref_to_gpio() to obtain a better estimate
 #define NO_OF_SAMPLES   16          //Multisampling
@@ -57,6 +58,7 @@ static void print_char_val_type(esp_adc_cal_value_t val_type)
 
 void app_main(void)
 {
+	esp_pm_configure(ESP_PM_APB_FREQ_MAX);
 	float adc_reading = 0;
 	float timingMicros1 = 0;
 	float timingMicros2 = 0;
@@ -64,6 +66,7 @@ void app_main(void)
 	float c = 0;
 	float capacity = 0;
 	float a = 0;
+	float d = 0;
     //Check if Two Point or Vref are burned into eFuse
     check_efuse();
 
@@ -79,6 +82,8 @@ void app_main(void)
     gpio_pad_select_gpio(GPIO_NUM_27); //Red_LED
 	gpio_set_direction(GPIO_NUM_27, GPIO_MODE_OUTPUT);	//Red_LED
 	gpio_set_level(GPIO_NUM_27, 0);	//Red_LED
+	//adc_set_clk_div(0);
+
 
     //Continuously sample ADC1
     while (1) {
@@ -93,9 +98,10 @@ void app_main(void)
     			timingMicros2 = esp_timer_get_time();
     			b = timingMicros2-timingMicros1;
     			printf("Tijd = ");
-    			printf("%0.2f \n", b);
+    			printf("%0.2f \t", b);
+    			printf("timingMicros1 = %f \t timingMicros2 = %f \t", timingMicros1, timingMicros2);
     			c = b*1000;
-    			capacity = c/560000;
+    			capacity = c/180000;
     			printf("Capaciteit = ");
     			printf("%0.2f \n", capacity);
     			gpio_set_level(GPIO_NUM_27, 0);	//Red_LED
@@ -104,4 +110,5 @@ void app_main(void)
     	}
     	vTaskDelay(pdMS_TO_TICKS(1000));
     }
+
 }
