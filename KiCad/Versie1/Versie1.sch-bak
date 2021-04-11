@@ -1068,9 +1068,7 @@ $EndComp
 Text GLabel 9600 2250 2    50   Input ~ 0
 DC-DC_ENABLE
 Text GLabel 9600 2100 2    50   Input ~ 0
-uC_LATCH
-Text GLabel 8750 2700 0    50   Input ~ 0
-uC_SENSE
+LATCH
 Wire Wire Line
 	8775 2250 8850 2250
 Connection ~ 8850 2250
@@ -2632,4 +2630,36 @@ Wire Notes Line
 	5350 475  5350 4200
 Wire Notes Line
 	2050 475  2050 4200
+$Comp
+L Jumper:SolderJumper_2_Open JP8
+U 1 1 60628CC0
+P 9825 3150
+F 0 "JP8" H 9825 2925 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 9825 3016 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 9825 3150 50  0001 C CNN
+F 3 "~" H 9825 3150 50  0001 C CNN
+	1    9825 3150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP9
+U 1 1 6062B0D7
+P 9825 3525
+F 0 "JP9" H 9825 3300 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 9825 3391 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 9825 3525 50  0001 C CNN
+F 3 "~" H 9825 3525 50  0001 C CNN
+	1    9825 3525
+	-1   0    0    1   
+$EndComp
+Text GLabel 9975 3150 2    50   Input ~ 0
+uC_LATCH
+Text GLabel 9975 3525 2    50   Input ~ 0
+uC_SENSE
+Text GLabel 8750 2700 0    50   Input ~ 0
+SENSE
+Text GLabel 9675 3525 0    50   Input ~ 0
+SENSE
+Text GLabel 9675 3150 0    50   Input ~ 0
+LATCH
 $EndSCHEMATC

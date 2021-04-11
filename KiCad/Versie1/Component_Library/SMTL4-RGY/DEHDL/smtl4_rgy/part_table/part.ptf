@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'SMTL4_RGY'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Bivar", "SMTL4-RGY" (!) = "", "SMTL4RGY", "Other", "749-SMTL4RGY", "https://www.mouser.co.uk/ProductDetail/Bivar/SMTL4-RGY?qs=Mv7BduZupUh10TvMlqUsLw%3D%3D", "SMTL4-RGY", "https://www.arrow.com/en/products/smtl4-rgy/bivar", "LED Tri-Color Green/Red/Yellow 4-Pin PLCC T/R", "http://uk.rs-online.com/web/p/products/1749651", "1.85 mm"
+END_PART
+
+END.

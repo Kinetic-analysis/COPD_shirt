@@ -1,0 +1,9 @@
+Manufacturer=Hillcrest Laboratories, Inc.
+PartNumber=BNO080
+PartCategory=Accelerometer
+PackageCategory=Other
+PinCount=28
+Version=1.2
+Released=2018-09-18 09:55:51
+Downloaded=2021-03-05 09:11:13
+3D=Y

@@ -2003,18 +2003,7 @@ F 3 "~" H 12725 3375 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	11825 3200 11925 3200
-Wire Wire Line
 	12725 3200 12725 3275
-Connection ~ 11925 3200
-Wire Wire Line
-	11925 3200 12025 3200
-Connection ~ 12025 3200
-Wire Wire Line
-	12025 3200 12125 3200
-Connection ~ 12125 3200
-Wire Wire Line
-	12125 3200 12725 3200
 Wire Wire Line
 	12725 3200 12725 2400
 Wire Wire Line
@@ -2061,10 +2050,8 @@ Wire Wire Line
 	11425 2400 11425 2500
 Wire Wire Line
 	11425 2400 11225 2400
-Connection ~ 11425 2400
 Wire Wire Line
 	11225 2100 11425 2100
-Connection ~ 11425 2100
 Wire Wire Line
 	12725 2200 13150 2200
 $Comp
@@ -2105,18 +2092,7 @@ $EndComp
 Wire Wire Line
 	11825 1175 11825 1300
 Wire Wire Line
-	11925 1300 12025 1300
-Wire Wire Line
 	12625 1300 12625 2000
-Connection ~ 12025 1300
-Wire Wire Line
-	12025 1300 12125 1300
-Connection ~ 12125 1300
-Wire Wire Line
-	12125 1300 12225 1300
-Connection ~ 12225 1300
-Wire Wire Line
-	12225 1300 12625 1300
 Wire Wire Line
 	12625 1300 12800 1300
 Connection ~ 12625 1300
@@ -2662,4 +2638,8 @@ Text GLabel 9675 3525 0    50   Input ~ 0
 SENSE
 Text GLabel 9675 3150 0    50   Input ~ 0
 LATCH
+Wire Wire Line
+	11825 3200 12725 3200
+Wire Wire Line
+	11925 1300 12625 1300
 $EndSCHEMATC
