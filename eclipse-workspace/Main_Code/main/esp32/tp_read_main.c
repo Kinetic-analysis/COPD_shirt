@@ -50,8 +50,8 @@ static void GPIO_init(void)
 	gpio_pad_select_gpio(YELLOW_LED);
 	gpio_pad_select_gpio(RED_LED);
 	gpio_pad_select_gpio(VIBRATOR_MOTOR);
-	gpio_pad_select_gpio(RESISTIVE_STRETCH);
-	gpio_pad_select_gpio(BATT_VOLT);
+	//gpio_pad_select_gpio(RESISTIVE_STRETCH);
+	//gpio_pad_select_gpio(BATT_VOLT);
 
 	gpio_set_direction(uC_SENSE, GPIO_MODE_INPUT);
 	gpio_set_direction(uC_LATCH, GPIO_MODE_OUTPUT);
@@ -59,8 +59,8 @@ static void GPIO_init(void)
 	gpio_set_direction(YELLOW_LED, GPIO_MODE_OUTPUT);
 	gpio_set_direction(RED_LED, GPIO_MODE_OUTPUT);
 	gpio_set_direction(VIBRATOR_MOTOR, GPIO_MODE_OUTPUT);
-	gpio_set_direction(RESISTIVE_STRETCH, GPIO_MODE_INPUT);
-	gpio_set_direction(BATT_VOLT, GPIO_MODE_INPUT);
+	//gpio_set_direction(RESISTIVE_STRETCH, GPIO_MODE_INPUT);
+	//gpio_set_direction(BATT_VOLT, GPIO_MODE_INPUT);
 
 	gpio_set_level(uC_LATCH, 0);
 	gpio_set_level(GREEN_LED, 0);
