@@ -12,6 +12,11 @@
 #include "driver/touch_pad.h"
 #include "esp_log.h"
 #include "driver/gpio.h"
+#include "driver/adc.h"
+#include "esp_adc_cal.h"
+
+#define DEFAULT_VREF    	3300
+#define NO_OF_SAMPLES   	16
 
 #define uC_SENSE			GPIO_NUM_16
 #define uC_LATCH			GPIO_NUM_17
@@ -19,8 +24,23 @@
 #define YELLOW_LED			GPIO_NUM_26
 #define RED_LED				GPIO_NUM_27
 #define VIBRATOR_MOTOR		GPIO_NUM_33
-#define RESISTIVE_STRETCH	GPIO_NUM_34
-#define BATT_VOLT			GPIO_NUM_35
+
+static esp_adc_cal_characteristics_t *ADC_CHARS;
+static const adc_channel_t RESISTIVE_STRETCH = ADC_CHANNEL_6;
+static const adc_channel_t BATT_VOLT = ADC_CHANNEL_7;
+static const adc_bits_width_t WIDTH = ADC_WIDTH_BIT_12;
+static const adc_atten_t ATTEN = ADC_ATTEN_DB_0;
+static const adc_unit_t UNIT = ADC_UNIT_1;
+
+static void ADC_init(void)
+{
+	adc1_config_width(WIDTH);
+	adc1_config_channel_atten(RESISTIVE_STRETCH, ATTEN);
+	adc1_config_channel_atten(BATT_VOLT, ATTEN);
+
+	ADC_CHARS = calloc(1, sizeof(esp_adc_cal_characteristics_t));
+	esp_adc_cal_value_t val_type = esp_adc_cal_characterize(UNIT, ATTEN, WIDTH, DEFAULT_VREF, ADC_CHARS);
+}
 
 static void GPIO_init(void)
 {
@@ -49,26 +69,66 @@ static void GPIO_init(void)
 	gpio_set_level(VIBRATOR_MOTOR, 0);
 }
 
-static void LED_task(void *pvParameter)
+static void Resistive_stretch_task(void *pvParameter)
 {
-	gpio_set_level(YELLOW_LED, 0);
-	gpio_set_level(RED_LED, 0);
-	gpio_set_level(GREEN_LED, 1);
-	vTaskDelay(1000 / portTICK_PERIOD_MS);
-	gpio_set_level(GREEN_LED, 0);
-	gpio_set_level(RED_LED, 0);
-	gpio_set_level(YELLOW_LED, 1);
-	vTaskDelay(1000 / portTICK_PERIOD_MS);
-	gpio_set_level(GREEN_LED, 0);
-	gpio_set_level(YELLOW_LED, 0);
-	gpio_set_level(RED_LED, 1);
-	vTaskDelay(1000 / portTICK_PERIOD_MS);
+	float adc_voltage 	= 0;
+	float current 		= 0;
+	float voltage 		= 0;
+	float resistance 	= 0;
+	int adc_reading 	= 0;
+	int sens_voltage 	= 0;
+
+	while(1)
+	{
+		adc_reading = adc1_get_raw((adc1_channel_t)RESISTIVE_STRETCH);
+		adc_voltage = esp_adc_cal_raw_to_voltage(adc_reading, ADC_CHARS);
+        current = sens_voltage/1000000;
+        voltage = (3300-sens_voltage)/1000;
+        resistance = voltage/current;
+        printf("Stretch sensor resistance: %0.1fOhm\n", resistance);
+	}
+	vTaskDelay(100 / portTICK_PERIOD_MS);
+}
+
+static void Battery_task(void *pvParameter)
+{
+	uint32_t adc_voltage 	= 0;
+	int adc_reading 		= 0;
+	int batt_voltage 		= 0;
+
+	while(1)
+	{
+		adc_reading = adc1_get_raw((adc1_channel_t)BATT_VOLT);
+		adc_voltage = esp_adc_cal_raw_to_voltage(adc_reading, ADC_CHARS);
+		batt_voltage = 2*adc_voltage;
+		if(batt_voltage >= 3800)
+		{
+			gpio_set_level(YELLOW_LED, 0);
+			gpio_set_level(RED_LED, 0);
+			gpio_set_level(GREEN_LED, 1);
+		}
+		else if((batt_voltage > 3400) && (batt_voltage < 3800))
+		{
+			gpio_set_level(GREEN_LED, 0);
+			gpio_set_level(RED_LED, 0);
+			gpio_set_level(YELLOW_LED, 1);
+		}
+		else
+		{
+			gpio_set_level(GREEN_LED, 0);
+			gpio_set_level(YELLOW_LED, 0);
+			gpio_set_level(RED_LED, 1);
+		}
+		vTaskDelay(10000 / portTICK_PERIOD_MS);
+	}
 }
 
 
 void app_main(void)
 {
     GPIO_init();
+    ADC_init();
 
-    xTaskCreate(&LED_task, "RGY Led control", 2048, NULL, 5, NULL);
+    xTaskCreate(&Resistive_stretch_task, "Resistive stretch sensor", 2048, NULL, 5, NULL);
+    xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);
 }
