@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/Gebruiker/eclipse-workspace/ADC_test/build/esp-idf/esp_system/port/esp32/cmake_install.cmake")
+  include("C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/ADC_test/build/esp-idf/esp_system/port/esp32/cmake_install.cmake")
 
 endif()
 

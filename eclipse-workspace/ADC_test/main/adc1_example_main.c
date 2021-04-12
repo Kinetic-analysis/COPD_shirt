@@ -14,14 +14,14 @@
 #include "driver/adc.h"
 #include "esp_adc_cal.h"
 
-#define DEFAULT_VREF    1100        //Use adc2_vref_to_gpio() to obtain a better estimate
+#define DEFAULT_VREF    3300        //Use adc2_vref_to_gpio() to obtain a better estimate
 #define NO_OF_SAMPLES   1          //Multisampling
 
 static esp_adc_cal_characteristics_t *adc_chars;
 static const adc_channel_t channel6 = ADC_CHANNEL_6;     //GPIO34 if ADC1
 static const adc_channel_t channel7 = ADC_CHANNEL_7;     //GPIO35 if ADC1
 static const adc_bits_width_t width = ADC_WIDTH_BIT_12;
-static const adc_atten_t atten = ADC_ATTEN_DB_0;
+static const adc_atten_t atten = ADC_ATTEN_DB_11;
 static const adc_unit_t unit = ADC_UNIT_1;
 
 
@@ -96,8 +96,8 @@ void app_main(void)
         //Convert adc_reading to voltage in mV
         vStretch = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
         current = vStretch/1000000;
-        voltage = (3300-vStretch)/1000;
-        resistance = voltage/current;
+        voltage = 3300-vStretch;
+        resistance = voltage/current/1000;
         //printf("vStretch: %0.1f, current: %0.1f, voltage: %0.1f, resistance: %0.1f\n", vStretch, current, voltage, resistance);
         printf("Channel 7: Raw: %d\tStretch sensor resistance: %0.1fOhm\n", adc_reading, resistance);
         vTaskDelay(pdMS_TO_TICKS(100));

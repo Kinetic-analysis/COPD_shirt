@@ -29,8 +29,13 @@ static esp_adc_cal_characteristics_t *ADC_CHARS;
 static const adc_channel_t RESISTIVE_STRETCH = ADC_CHANNEL_6;
 static const adc_channel_t BATT_VOLT = ADC_CHANNEL_7;
 static const adc_bits_width_t WIDTH = ADC_WIDTH_BIT_12;
-static const adc_atten_t ATTEN = ADC_ATTEN_DB_0;
+static const adc_atten_t ATTEN = ADC_WIDTH_BIT_12;
 static const adc_unit_t UNIT = ADC_UNIT_1;
+
+void IRAM_ATTR Power_Latch_ISR_Handler(void *arg)
+{
+		gpio_set_level(uC_LATCH, 0);
+}
 
 static void ADC_init(void)
 {
@@ -50,8 +55,6 @@ static void GPIO_init(void)
 	gpio_pad_select_gpio(YELLOW_LED);
 	gpio_pad_select_gpio(RED_LED);
 	gpio_pad_select_gpio(VIBRATOR_MOTOR);
-	//gpio_pad_select_gpio(RESISTIVE_STRETCH);
-	//gpio_pad_select_gpio(BATT_VOLT);
 
 	gpio_set_direction(uC_SENSE, GPIO_MODE_INPUT);
 	gpio_set_direction(uC_LATCH, GPIO_MODE_OUTPUT);
@@ -59,14 +62,12 @@ static void GPIO_init(void)
 	gpio_set_direction(YELLOW_LED, GPIO_MODE_OUTPUT);
 	gpio_set_direction(RED_LED, GPIO_MODE_OUTPUT);
 	gpio_set_direction(VIBRATOR_MOTOR, GPIO_MODE_OUTPUT);
-	//gpio_set_direction(RESISTIVE_STRETCH, GPIO_MODE_INPUT);
-	//gpio_set_direction(BATT_VOLT, GPIO_MODE_INPUT);
 
-	gpio_set_level(uC_LATCH, 0);
 	gpio_set_level(GREEN_LED, 0);
 	gpio_set_level(YELLOW_LED, 0);
 	gpio_set_level(RED_LED, 0);
 	gpio_set_level(VIBRATOR_MOTOR, 0);
+	gpio_set_level(uC_LATCH, 1);
 }
 
 static void Resistive_stretch_task(void *pvParameter)
@@ -85,9 +86,9 @@ static void Resistive_stretch_task(void *pvParameter)
         current = sens_voltage/1000000;
         voltage = (3300-sens_voltage)/1000;
         resistance = voltage/current;
-        printf("Stretch sensor resistance: %0.1fOhm\n", resistance);
+        //printf("Stretch sensor resistance: %0.1fOhm\n", resistance);
 	}
-	vTaskDelay(100 / portTICK_PERIOD_MS);
+	vTaskDelay(1 / portTICK_PERIOD_MS);
 }
 
 static void Battery_task(void *pvParameter)
@@ -101,6 +102,9 @@ static void Battery_task(void *pvParameter)
 		adc_reading = adc1_get_raw((adc1_channel_t)BATT_VOLT);
 		adc_voltage = esp_adc_cal_raw_to_voltage(adc_reading, ADC_CHARS);
 		batt_voltage = 2*adc_voltage;
+		printf("adc_reading = %d\n", adc_reading);
+		printf("adc_voltage = %d\n", adc_voltage);
+		printf("batt_voltage = %d\n", batt_voltage);
 		if(batt_voltage >= 3800)
 		{
 			gpio_set_level(YELLOW_LED, 0);
@@ -119,7 +123,7 @@ static void Battery_task(void *pvParameter)
 			gpio_set_level(YELLOW_LED, 0);
 			gpio_set_level(RED_LED, 1);
 		}
-		vTaskDelay(10000 / portTICK_PERIOD_MS);
+		vTaskDelay(500 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -128,6 +132,12 @@ void app_main(void)
 {
     GPIO_init();
     ADC_init();
+
+	printf("ESP STARTED\n");
+	vTaskDelay(2500 / portTICK_PERIOD_MS);
+	gpio_set_intr_type(uC_SENSE, GPIO_INTR_POSEDGE);
+	gpio_install_isr_service(0);
+	gpio_isr_handler_add(uC_SENSE, Power_Latch_ISR_Handler, NULL);
 
     xTaskCreate(&Resistive_stretch_task, "Resistive stretch sensor", 2048, NULL, 5, NULL);
     xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);

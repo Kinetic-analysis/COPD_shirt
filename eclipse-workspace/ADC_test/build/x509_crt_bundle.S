@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Gebruiker/eclipse-workspace/ADC_test/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/ADC_test/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

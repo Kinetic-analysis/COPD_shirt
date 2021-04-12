@@ -50,3 +50,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+eclipse-workspace/.metadata/.plugins/org.eclipse.cdt.ui/global-build.log
+eclipse-workspace/.metadata/.plugins/org.eclipse.cdt.ui/global-build.log
