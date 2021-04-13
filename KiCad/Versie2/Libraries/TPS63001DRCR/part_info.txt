@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=TPS63001DRCR
+PartCategory=Integrated Circuit
+PackageCategory=Small Outline No-lead
+PinCount=11
+Version=1.1
+Released=2020-09-14 12:51:41
+Downloaded=2021-02-26 13:08:26
+3D=Y

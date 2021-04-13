@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "ISL91107IRTNZ-T7A"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2019-12-12-06:51:08)
+    (mountForm default
+        (footprintRef "QFN50P300X400X80-21N")
+        (spec "System")
+    )
+)

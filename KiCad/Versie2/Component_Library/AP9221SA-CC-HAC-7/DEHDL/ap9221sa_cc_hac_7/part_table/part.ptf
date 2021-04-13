@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AP9221SA_CC_HAC_7'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Diodes Inc.", "AP9221SA-CC-HAC-7" (!) = "", "AP9211SAANHAC7", "Other", "621-AP9221SA-CCHAC-7", "https://www.mouser.co.uk/ProductDetail/Diodes-Incorporated/AP9221SA-CC-HAC-7/?qs=xZ%2FP%252Ba9zWqYP2BSSx9w0XQ%3D%3D", "AP9221SA-CC-HAC-7", "https://www.arrow.com/en/products/ap9221sa-cc-hac-7/diodes-incorporated", "Battery Management Multicell Batt Manager U-DFN2030-6 T&R 3K", "https://www.diodes.com/assets/Datasheets/AP9221.pdf", "0.6 mm"
+END_PART
+
+END.

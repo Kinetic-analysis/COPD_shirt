@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TPS63001DRCR
+D Switching Voltage Regulators 96% Buck-Boost Conv
+K
+F https://datasheet.lcsc.com/szlcsc/Texas-Instruments-TI-TPS63001DRCR_C28060.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "BNO080"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2018-09-18-09:55:51)
+    (mountForm default
+        (footprintRef "BNO080")
+        (spec "System")
+    )
+)

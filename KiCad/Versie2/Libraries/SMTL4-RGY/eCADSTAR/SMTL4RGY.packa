@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "SMTL4-RGY"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2019-12-31-11:08:15)
+    (mountForm default
+        (footprintRef "SMTL4RGY")
+        (spec "System")
+    )
+)

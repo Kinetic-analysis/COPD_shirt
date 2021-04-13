@@ -1,0 +1,9 @@
+Manufacturer=Renesas Electronics
+PartNumber=ISL91107IRTNZ-T7A
+PartCategory=Integrated Circuit
+PackageCategory=Quad Flat No-Lead
+PinCount=21
+Version=3.1
+Released=2019-12-27 13:44:26
+Downloaded=2021-03-11 15:07:24
+3D=Y

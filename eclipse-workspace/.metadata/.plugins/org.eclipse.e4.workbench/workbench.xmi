@@ -10,6 +10,7 @@
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1614639616795"/>
     <persistedState key="show_in_time" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;show_in_time>&#xD;&#xA;&lt;id IMemento.internal.id=&quot;org.eclipse.cdt.ui.CView&quot;/>&#xD;&#xA;&lt;/show_in_time>"/>
     <tags>topLevel</tags>
+    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_IqzwwpfrEeufweq8H0wTeg" selectedElement="_Iqzww5frEeufweq8H0wTeg" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_Iqzww5frEeufweq8H0wTeg" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_IqzwxJfrEeufweq8H0wTeg">
         <children xsi:type="advanced:Perspective" xmi:id="_IqzwxJfrEeufweq8H0wTeg" elementId="org.eclipse.cdt.ui.CPerspective" selectedElement="_IqzwxZfrEeufweq8H0wTeg" label="C/C++" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/view16/c_pers.gif">
@@ -83,11 +84,10 @@
                   <tags>categoryTag:General</tags>
                 </children>
               </children>
-              <children xsi:type="basic:PartSashContainer" xmi:id="_Iqzwy5frEeufweq8H0wTeg" containerData="4656" selectedElement="_IqzwzZfrEeufweq8H0wTeg">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_Iqzwy5frEeufweq8H0wTeg" containerData="4656" selectedElement="_IqzwzJfrEeufweq8H0wTeg">
                 <children xsi:type="advanced:Placeholder" xmi:id="_IqzwzJfrEeufweq8H0wTeg" elementId="org.eclipse.ui.editorss" containerData="8015" ref="_Iqzy0JfrEeufweq8H0wTeg"/>
                 <children xsi:type="basic:PartStack" xmi:id="_IqzwzZfrEeufweq8H0wTeg" elementId="bottom" containerData="1985" selectedElement="_Iqzw0pfrEeufweq8H0wTeg">
                   <tags>General</tags>
-                  <tags>active</tags>
                   <children xsi:type="advanced:Placeholder" xmi:id="_IqzwzpfrEeufweq8H0wTeg" elementId="org.eclipse.ui.views.ProblemView" toBeRendered="false" ref="_IqzzV5frEeufweq8H0wTeg" closeable="true">
                     <tags>View</tags>
                     <tags>categoryTag:General</tags>
@@ -190,6 +190,7 @@
           </children>
         </children>
         <children xsi:type="basic:PartStack" xmi:id="_Iqzy0ZfrEeufweq8H0wTeg" elementId="PartStack@69430c61" containerData="4804" selectedElement="_O_EJUJuqEeueJP3LZiOniA">
+          <tags>active</tags>
           <children xsi:type="basic:Part" xmi:id="_QxmrgJuKEeuHdY2R1y2VDQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="gpio_example_main.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
             <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;gpio_example_main.c&quot; partName=&quot;gpio_example_main.c&quot; title=&quot;gpio_example_main.c&quot; tooltip=&quot;Power_Latch/main/gpio_example_main.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Power_Latch/main/gpio_example_main.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;521&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
             <tags>Editor</tags>
@@ -221,10 +222,12 @@
             <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           </children>
           <children xsi:type="basic:Part" xmi:id="_O_EJUJuqEeueJP3LZiOniA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="tcp_client.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
-            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;tcp_client.c&quot; partName=&quot;tcp_client.c&quot; title=&quot;tcp_client.c&quot; tooltip=&quot;TCP_Test/main/tcp_client.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/TCP_Test/main/tcp_client.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;7418&quot; selectionTopPixel=&quot;2308&quot;/>&#xD;&#xA;&lt;/editor>"/>
+            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;tcp_client.c&quot; partName=&quot;tcp_client.c&quot; title=&quot;tcp_client.c&quot; tooltip=&quot;TCP_Test/main/tcp_client.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/TCP_Test/main/tcp_client.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;5626&quot; selectionTopPixel=&quot;3480&quot;/>&#xD;&#xA;&lt;/editor>"/>
             <tags>Editor</tags>
             <tags>removeOnHide</tags>
             <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
+            <tags>active</tags>
+            <tags>activeOnClose</tags>
           </children>
           <children xsi:type="basic:Part" xmi:id="_B2cucJvEEeueJP3LZiOniA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="mcpwm_basic_config_example.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
             <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;mcpwm_basic_config_example.c&quot; partName=&quot;mcpwm_basic_config_example.c&quot; title=&quot;mcpwm_basic_config_example.c&quot; tooltip=&quot;PWM_Test/main/mcpwm_basic_config_example.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/PWM_Test/main/mcpwm_basic_config_example.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;231&quot; selectionOffset=&quot;590&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
@@ -262,7 +265,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_IqzzQZfrEeufweq8H0wTeg" elementId="org.eclipse.cdt.ui.CView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="C/C++ Projects" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/view16/cview.gif" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.cdt.internal.ui.cview.CView"/>
       <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.cdt.ui"/>
-      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view horizontalPosition=&quot;0&quot; verticalPosition=&quot;22&quot;>&#xD;&#xA;&lt;expanded>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\LED_PWM&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\LED_PWM\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\Main_Code\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\Main_Code\main\esp32&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TCP_Test&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TCP_Test\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TestBlink&quot;/>&#xD;&#xA;&lt;/expanded>&#xD;&#xA;&lt;selection>&#xD;&#xA;&lt;element path=&quot;C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/TCP_Test/main/tcp_client.c&quot;/>&#xD;&#xA;&lt;/selection>&#xD;&#xA;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;>&#xD;&#xA;&lt;xmlDefinedFilters>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ArchiveFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.NonCElementFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ForwardDeclarationFilter&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.SharedFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.UsingDeclarationFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.ui.CView_patternFilterId_.*&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.AnonymousStructFilter&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ClosedProjectFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.NonCProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ObjectFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ExecutableFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.MacroDirectiveFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;/xmlDefinedFilters>&#xD;&#xA;&lt;/customFilters>&#xD;&#xA;&lt;/view>"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view horizontalPosition=&quot;0&quot; verticalPosition=&quot;17&quot;>&#xD;&#xA;&lt;expanded>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\ADC_test\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\LED_PWM&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\LED_PWM\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TCP_Test&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TCP_Test\main&quot;/>&#xD;&#xA;&lt;element path=&quot;C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\TestBlink&quot;/>&#xD;&#xA;&lt;/expanded>&#xD;&#xA;&lt;selection>&#xD;&#xA;&lt;element path=&quot;C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/TCP_Test/main/tcp_client.c&quot;/>&#xD;&#xA;&lt;/selection>&#xD;&#xA;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;>&#xD;&#xA;&lt;xmlDefinedFilters>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ArchiveFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.NonCElementFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ForwardDeclarationFilter&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.SharedFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.UsingDeclarationFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.ui.CView_patternFilterId_.*&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.AnonymousStructFilter&quot; isEnabled=&quot;true&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ClosedProjectFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.NonCProjectsFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ObjectFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.ExecutableFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;child filterId=&quot;org.eclipse.cdt.internal.ui.CView.MacroDirectiveFilter&quot; isEnabled=&quot;false&quot;/>&#xD;&#xA;&lt;/xmlDefinedFilters>&#xD;&#xA;&lt;/customFilters>&#xD;&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:C/C++</tags>
       <menus xmi:id="_IqzzQpfrEeufweq8H0wTeg" elementId="org.eclipse.cdt.ui.CView">
@@ -349,8 +352,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view>&#xD;&#xA;&lt;terminalConnections id=&quot;org.eclipse.tm.terminal.view.ui.TerminalsView&quot;/>&#xD;&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:Terminal</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_Iq0YRZfrEeufweq8H0wTeg" elementId="org.eclipse.tm.terminal.view.ui.TerminalsView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -395,7 +396,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Iq0YXpfrEeufweq8H0wTeg" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_hI_PAJudEeueJP3LZiOniA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Iq1qG5frEeufweq8H0wTeg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_QsjagJvZEeuoCJxrVu4FGg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Iq1qG5frEeufweq8H0wTeg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Iq0YbpfrEeufweq8H0wTeg" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -426,7 +427,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Iq0YyJfrEeufweq8H0wTeg" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_hJBrQJudEeueJP3LZiOniA" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_Iq1pzJfrEeufweq8H0wTeg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Qsl2wJvZEeuoCJxrVu4FGg" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_Iq1pzJfrEeufweq8H0wTeg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Iq0Y1JfrEeufweq8H0wTeg" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

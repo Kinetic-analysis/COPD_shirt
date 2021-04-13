@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'BNO080'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Hillcrest Laboratories, Inc.", "BNO080" (!) = "", "BNO080", "Other", "", "", "", "", "IMU ACCEL/GYRO/MAG I2C 32BIT", "http://www.hillcrestlabs.com/download/5a05f340566d07c196001ec1", "1.18 mm"
+END_PART
+
+END.

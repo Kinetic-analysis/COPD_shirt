@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ISL91107IRTNZ_T7A'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Renesas Electronics", "ISL91107IRTNZ-T7A" (!) = "", "QFN50P300X400X80-21N", "Quad Flat No-Lead", "968-ISL91107IRTNZT7A", "https://www.mouser.co.uk/ProductDetail/Renesas-Intersil/ISL91107IRTNZ-T7A/?qs=DXptKE%252B5xICfvCrqtryiaQ%3D%3D", "ISL91107IRTNZ-T7A", "https://www.arrow.com/en/products/isl91107irtnz-t7a/renesas-electronics", "Integrated FET Regulators High Efficiency Buck-Boost Regulator with 4.1A Switches", "https://www.renesas.com/en-us/www/doc/datasheet/isl91107ir.pdf", "0.8 mm"
+END_PART
+
+END.

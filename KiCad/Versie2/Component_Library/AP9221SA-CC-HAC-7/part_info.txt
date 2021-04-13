@@ -1,0 +1,9 @@
+Manufacturer=Diodes Inc.
+PartNumber=AP9221SA-CC-HAC-7
+PartCategory=Integrated Circuit
+PackageCategory=Other
+PinCount=7
+Version=2.2
+Released=2019-10-15 15:42:06
+Downloaded=2021-03-10 23:22:54
+3D=Y

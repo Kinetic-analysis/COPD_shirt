@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'MCP73831T_2ATI_OT'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Microchip", "MCP73831T-2ATI/OT" (!) = "", "SOT95P270X145-5N", "SOT23 (5-Pin)", "579-MCP73831T-2ATIOT", "https://www.mouser.co.uk/ProductDetail/Microchip-Technology/MCP73831T-2ATI-OT/?qs=yUQqVecv4qsZbioEUu%252B83g%3D%3D", "MCP73831T-2ATI/OT", "https://www.arrow.com/en/products/mcp73831t-2atiot/microchip-technology", "Microchip MCP73831T-2ATI/OT, Battery Charge Controller Lithium-Ion/Polymer, 500mA, 5-pin SOT-23", "http://docs-emea.rs-online.com/webdocs/1381/0900766b81381747.pdf", "1.45 mm"
+END_PART
+
+END.
