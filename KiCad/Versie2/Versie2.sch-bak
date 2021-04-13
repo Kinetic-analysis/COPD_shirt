@@ -672,7 +672,7 @@ F 3 "~" H 6275 6700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Versie1_ComponentLib:BNO080 AC1
+L Versie2-rescue:BNO080-Versie1_ComponentLib AC1
 U 1 1 60428C78
 P 7300 5500
 F 0 "AC1" H 8250 5765 50  0000 C CNN
@@ -1310,12 +1310,12 @@ Wire Wire Line
 $Comp
 L power:+3.3V #PWR069
 U 1 1 607C0C20
-P 14550 5350
-F 0 "#PWR069" H 14550 5200 50  0001 C CNN
-F 1 "+3.3V" H 14565 5523 50  0000 C CNN
-F 2 "" H 14550 5350 50  0001 C CNN
-F 3 "" H 14550 5350 50  0001 C CNN
-	1    14550 5350
+P 14550 5150
+F 0 "#PWR069" H 14550 5000 50  0001 C CNN
+F 1 "+3.3V" H 14565 5323 50  0000 C CNN
+F 2 "" H 14550 5150 50  0001 C CNN
+F 3 "" H 14550 5150 50  0001 C CNN
+	1    14550 5150
 	1    0    0    -1  
 $EndComp
 Text GLabel 975  6900 0    50   Input ~ 0
@@ -1628,7 +1628,7 @@ F 3 "~" H 14450 6100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 14925 5550 2    50   Input ~ 0
-Resistive_Stretch_OUT
+Resistive_Stretch2
 Text GLabel 14150 6100 0    50   Input ~ 0
 Vibrator_MOTOR
 Wire Wire Line
@@ -1645,8 +1645,6 @@ Text Notes 14850 4825 0    100  ~ 0
 Motor
 Wire Wire Line
 	14450 5450 14550 5450
-Wire Wire Line
-	14550 5450 14550 5350
 Wire Wire Line
 	14450 5650 14550 5650
 Wire Wire Line
@@ -2168,7 +2166,7 @@ Connection ~ 12800 1300
 Wire Wire Line
 	12800 1300 13125 1300
 $Comp
-L Versie1_ComponentLib:SMTL4-RGY LED1
+L Versie2-rescue:SMTL4-RGY-Versie1_ComponentLib LED1
 U 1 1 60D2A45D
 P 15725 1800
 F 0 "LED1" H 16475 1435 50  0000 C CNN
@@ -2243,7 +2241,7 @@ Wire Notes Line
 Text Notes 13150 7175 0    100  ~ 0
 Power Flags
 $Comp
-L Versie1_ComponentLib:B3U-1000P S1
+L Versie2-rescue:B3U-1000P-Versie1_ComponentLib S1
 U 1 1 6132C3D6
 P 8775 2250
 F 0 "S1" H 9067 1885 50  0000 C CNN
@@ -2546,7 +2544,7 @@ Connection ~ 2450 2500
 Wire Wire Line
 	2450 2850 2450 3025
 $Comp
-L Versie1_ComponentLib:AP9221SA-CC-HAC-7 IC1
+L Versie2-rescue:AP9221SA-CC-HAC-7-Versie1_ComponentLib IC1
 U 1 1 6129DE70
 P 6400 2025
 F 0 "IC1" H 6900 2290 50  0000 C CNN
@@ -2565,7 +2563,7 @@ F 11 "https://www.arrow.com/en/products/ap9221sa-cc-hac-7/diodes-incorporated" H
 	1    0    0    -1  
 $EndComp
 $Comp
-L Versie1_ComponentLib:ISL91107IRTNZ-T7A IC2
+L Versie2-rescue:ISL91107IRTNZ-T7A-Versie1_ComponentLib IC2
 U 1 1 608B800E
 P 11425 2000
 F 0 "IC2" H 12025 711 50  0000 C CNN
@@ -2584,7 +2582,7 @@ F 11 "https://www.arrow.com/en/products/isl91107irtnz-t7a/renesas-electronics" H
 	1    0    0    -1  
 $EndComp
 $Comp
-L Versie1_ComponentLib:MCP73831T-2ATI_MC U2
+L Versie2-rescue:MCP73831T-2ATI_MC-Versie1_ComponentLib U2
 U 1 1 60507045
 P 3000 2400
 F 0 "U2" H 3850 2787 60  0000 C CNN
@@ -2642,4 +2640,54 @@ Wire Wire Line
 	11825 3200 12725 3200
 Wire Wire Line
 	11925 1300 12625 1300
+$Comp
+L Connector:Screw_Terminal_01x02 J?
+U 1 1 60775C74
+P 14250 5350
+F 0 "J?" H 14375 5300 50  0000 C CNN
+F 1 "Screw_Terminal_01x02" H 14330 5251 50  0001 L CNN
+F 2 "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal" H 14250 5350 50  0001 C CNN
+F 3 "~" H 14250 5350 50  0001 C CNN
+F 4 "OSTVN02A150" H 14250 5350 50  0001 C CNN "ID"
+	1    14250 5350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14450 5250 14550 5250
+Wire Wire Line
+	14550 5250 14550 5150
+Wire Wire Line
+	14550 5250 14550 5450
+Connection ~ 14550 5250
+Wire Wire Line
+	14450 5350 14800 5350
+$Comp
+L power:GND #PWR?
+U 1 1 607BC68A
+P 14800 4975
+F 0 "#PWR?" H 14800 4725 50  0001 C CNN
+F 1 "GND" H 14805 4802 50  0000 C CNN
+F 2 "" H 14800 4975 50  0001 C CNN
+F 3 "" H 14800 4975 50  0001 C CNN
+	1    14800 4975
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 607BBF0F
+P 14800 5125
+F 0 "R?" H 14725 5125 50  0000 R CNN
+F 1 "1k" V 14800 5175 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 14730 5125 50  0001 C CNN
+F 3 "~" H 14800 5125 50  0001 C CNN
+	1    14800 5125
+	-1   0    0    1   
+$EndComp
+Text GLabel 14925 5350 2    50   Input ~ 0
+Resistive_Stretch1
+Wire Wire Line
+	14800 5275 14800 5350
+Connection ~ 14800 5350
+Wire Wire Line
+	14800 5350 14925 5350
 $EndSCHEMATC
