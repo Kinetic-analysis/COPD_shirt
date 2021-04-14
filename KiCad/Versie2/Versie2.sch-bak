@@ -2690,4 +2690,222 @@ Wire Wire Line
 Connection ~ 14800 5350
 Wire Wire Line
 	14800 5350 14925 5350
+$Comp
+L Timer:NE555 U?
+U 1 1 60832BF0
+P 1525 10050
+F 0 "U?" H 1525 10631 50  0000 C CNN
+F 1 "NE555" H 1525 10540 50  0000 C CNN
+F 2 "" H 1525 10050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne555.pdf" H 1525 10050 50  0001 C CNN
+	1    1525 10050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1025 9850 925  9850
+Wire Wire Line
+	925  9850 925  9350
+Wire Wire Line
+	925  9350 2150 9350
+Wire Wire Line
+	2150 9350 2150 10250
+Wire Wire Line
+	2150 10250 2025 10250
+Wire Wire Line
+	1525 9650 2275 9650
+$Comp
+L Device:R R?
+U 1 1 60868848
+P 2275 9800
+F 0 "R?" V 2225 10025 50  0000 C CNN
+F 1 "10k" V 2275 9800 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 2205 9800 50  0001 C CNN
+F 3 "~" H 2275 9800 50  0001 C CNN
+	1    2275 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6086ADB0
+P 2275 10100
+F 0 "R?" V 2225 10325 50  0000 C CNN
+F 1 "180k" V 2275 10100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 2205 10100 50  0001 C CNN
+F 3 "~" H 2275 10100 50  0001 C CNN
+	1    2275 10100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2275 9950 2025 9950
+Wire Wire Line
+	2025 9950 2025 10050
+Connection ~ 2275 9950
+Wire Wire Line
+	2150 10250 2275 10250
+Connection ~ 2150 10250
+Wire Wire Line
+	2275 10250 2375 10250
+Connection ~ 2275 10250
+Text GLabel 2375 10250 2    50   Input ~ 0
+Capacitive_Stretch1
+Wire Wire Line
+	1525 9650 825  9650
+Wire Wire Line
+	825  9650 825  10250
+Wire Wire Line
+	825  10250 1025 10250
+Connection ~ 1525 9650
+Wire Wire Line
+	1025 10050 925  10050
+Wire Wire Line
+	925  10050 925  10325
+$Comp
+L Device:C_Small C?
+U 1 1 60909870
+P 925 10425
+F 0 "C?" H 700 10475 50  0000 L CNN
+F 1 "10nF" H 675 10350 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 925 10425 50  0001 C CNN
+F 3 "~" H 925 10425 50  0001 C CNN
+	1    925  10425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2025 9850 2025 9475
+Wire Wire Line
+	2025 9475 2350 9475
+Text GLabel 2350 9475 2    50   Input ~ 0
+Capacitive_Stretch1_OUT
+$Comp
+L power:GND #PWR?
+U 1 1 609265BF
+P 1525 10450
+F 0 "#PWR?" H 1525 10200 50  0001 C CNN
+F 1 "GND" H 1530 10277 50  0000 C CNN
+F 2 "" H 1525 10450 50  0001 C CNN
+F 3 "" H 1525 10450 50  0001 C CNN
+	1    1525 10450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6092782F
+P 925 10525
+F 0 "#PWR?" H 925 10275 50  0001 C CNN
+F 1 "GND" H 930 10352 50  0000 C CNN
+F 2 "" H 925 10525 50  0001 C CNN
+F 3 "" H 925 10525 50  0001 C CNN
+	1    925  10525
+	1    0    0    -1  
+$EndComp
+$Comp
+L Timer:NE555 U?
+U 1 1 6094C39D
+P 4475 10050
+F 0 "U?" H 4475 10631 50  0000 C CNN
+F 1 "NE555" H 4475 10540 50  0000 C CNN
+F 2 "" H 4475 10050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne555.pdf" H 4475 10050 50  0001 C CNN
+	1    4475 10050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3975 9850 3875 9850
+Wire Wire Line
+	3875 9850 3875 9350
+Wire Wire Line
+	3875 9350 5100 9350
+Wire Wire Line
+	5100 9350 5100 10250
+Wire Wire Line
+	5100 10250 4975 10250
+Wire Wire Line
+	4475 9650 5225 9650
+$Comp
+L Device:R R?
+U 1 1 6094C3A9
+P 5225 9800
+F 0 "R?" V 5175 10025 50  0000 C CNN
+F 1 "10k" V 5225 9800 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5155 9800 50  0001 C CNN
+F 3 "~" H 5225 9800 50  0001 C CNN
+	1    5225 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6094C3AF
+P 5225 10100
+F 0 "R?" V 5175 10325 50  0000 C CNN
+F 1 "180k" V 5225 10100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5155 10100 50  0001 C CNN
+F 3 "~" H 5225 10100 50  0001 C CNN
+	1    5225 10100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5225 9950 4975 9950
+Wire Wire Line
+	4975 9950 4975 10050
+Connection ~ 5225 9950
+Wire Wire Line
+	5100 10250 5225 10250
+Connection ~ 5100 10250
+Wire Wire Line
+	5225 10250 5325 10250
+Connection ~ 5225 10250
+Text GLabel 5325 10250 2    50   Input ~ 0
+Capacitive_Stretch2
+Wire Wire Line
+	4475 9650 3775 9650
+Wire Wire Line
+	3775 9650 3775 10250
+Wire Wire Line
+	3775 10250 3975 10250
+Connection ~ 4475 9650
+Wire Wire Line
+	3975 10050 3875 10050
+Wire Wire Line
+	3875 10050 3875 10325
+$Comp
+L Device:C_Small C?
+U 1 1 6094C3C3
+P 3875 10425
+F 0 "C?" H 3650 10475 50  0000 L CNN
+F 1 "10nF" H 3625 10350 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3875 10425 50  0001 C CNN
+F 3 "~" H 3875 10425 50  0001 C CNN
+	1    3875 10425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4975 9850 4975 9475
+Wire Wire Line
+	4975 9475 5300 9475
+Text GLabel 5300 9475 2    50   Input ~ 0
+Capacitive_Stretch2_OUT
+$Comp
+L power:GND #PWR?
+U 1 1 6094C3CC
+P 4475 10450
+F 0 "#PWR?" H 4475 10200 50  0001 C CNN
+F 1 "GND" H 4480 10277 50  0000 C CNN
+F 2 "" H 4475 10450 50  0001 C CNN
+F 3 "" H 4475 10450 50  0001 C CNN
+	1    4475 10450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6094C3D2
+P 3875 10525
+F 0 "#PWR?" H 3875 10275 50  0001 C CNN
+F 1 "GND" H 3880 10352 50  0000 C CNN
+F 2 "" H 3875 10525 50  0001 C CNN
+F 3 "" H 3875 10525 50  0001 C CNN
+	1    3875 10525
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	6350 8725 6350 11225
 $EndSCHEMATC

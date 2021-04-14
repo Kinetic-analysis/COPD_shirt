@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ICM_20948'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "TDK InvenSense", "ICM-20948" (!) = "", "QFN40P300X300X105-25N-D", "Quad Flat No-Lead", "410-ICM-20948", "https://www.mouser.co.uk/ProductDetail/TDK-InvenSense/ICM-20948?qs=u4fy%2FsgLU9OtGc31yF%2Friw%3D%3D", "", "", "IMUs - Inertial Measurement Units World's Lowest Power 9-Axis MEMS MotionTracking Device", "https://datasheet.datasheetarchive.com/originals/dk/DKDS-31/602366.pdf", "1.05 mm"
+END_PART
+
+END.

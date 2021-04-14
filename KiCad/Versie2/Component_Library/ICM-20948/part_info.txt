@@ -1,0 +1,9 @@
+Manufacturer=TDK InvenSense
+PartNumber=ICM-20948
+PartCategory=Integrated Circuit
+PackageCategory=Quad Flat No-Lead
+PinCount=25
+Version=1.1
+Released=2021-03-26 14:10:34
+Downloaded=2021-04-14 17:54:39
+3D=Y
