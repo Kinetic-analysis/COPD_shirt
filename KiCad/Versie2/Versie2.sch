@@ -66,32 +66,8 @@ F 3 "" H 800 8025 50  0001 C CNN
 	1    800  8025
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+3.3V #PWR03
-U 1 1 603BFEA9
-P 800 7475
-F 0 "#PWR03" H 800 7325 50  0001 C CNN
-F 1 "+3.3V" H 815 7648 50  0000 C CNN
-F 2 "" H 800 7475 50  0001 C CNN
-F 3 "" H 800 7475 50  0001 C CNN
-	1    800  7475
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	925  7550 800  7550
-Wire Wire Line
-	800  7550 800  7475
-$Comp
-L power:+3.3V #PWR06
-U 1 1 603C35A1
-P 1625 6800
-F 0 "#PWR06" H 1625 6650 50  0001 C CNN
-F 1 "+3.3V" H 1640 6973 50  0000 C CNN
-F 2 "" H 1625 6800 50  0001 C CNN
-F 3 "" H 1625 6800 50  0001 C CNN
-	1    1625 6800
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+3.3V #PWR015
 U 1 1 603C3FDD
@@ -493,8 +469,6 @@ Wire Wire Line
 Wire Wire Line
 	1550 6900 1625 6900
 Wire Wire Line
-	1625 6900 1625 6800
-Wire Wire Line
 	1050 6900 975  6900
 Wire Wire Line
 	1050 7000 975  7000
@@ -602,9 +576,9 @@ Text GLabel 3625 6925 2    50   Input ~ 0
 uC_LATCH
 Text GLabel 3625 7725 2    50   Input ~ 0
 Red_LED
-Text GLabel 3625 7525 2    50   Input ~ 0
+Text GLabel 3625 7925 2    50   Input ~ 0
 Green_LED
-Text GLabel 3625 7625 2    50   Input ~ 0
+Text GLabel 3625 7825 2    50   Input ~ 0
 Yellow_LED
 Wire Wire Line
 	3625 7525 3525 7525
@@ -2412,13 +2386,13 @@ F 3 "" H 9750 10950 50  0001 C CNN
 $EndComp
 NoConn ~ 7950 10650
 NoConn ~ 7950 9950
-Text GLabel 2200 6025 0    50   Input ~ 0
+Text GLabel 3625 7625 2    50   Input ~ 0
 Capacitive_Stretch1_OUT
-Text GLabel 2200 6125 0    50   Input ~ 0
+Text GLabel 3625 7525 2    50   Input ~ 0
 Capacitive_Stretch2_OUT
-Text GLabel 3625 8025 2    50   Input ~ 0
+Text GLabel 2200 6125 0    50   Input ~ 0
 Resistive_Stretch2
-Text GLabel 3625 7925 2    50   Input ~ 0
+Text GLabel 2200 6025 0    50   Input ~ 0
 Resistive_Stretch1
 Text GLabel 3625 6225 2    50   Input ~ 0
 ESP_SD_CS
@@ -2426,7 +2400,7 @@ Text GLabel 3625 6025 2    50   Input ~ 0
 Buzzer_IN
 Text GLabel 3625 7325 2    50   Input ~ 0
 Vibrator_MOTOR2
-Text GLabel 3625 7825 2    50   Input ~ 0
+Text GLabel 3625 8025 2    50   Input ~ 0
 Extern_Sensor
 Wire Wire Line
 	6050 7500 6050 7675
@@ -3160,4 +3134,6 @@ F 3 "" H 13150 5100 50  0001 C CNN
 $EndComp
 Text GLabel 13250 5175 2    50   Input ~ 0
 Extern_Sensor
+NoConn ~ 1625 6900
+NoConn ~ 800  7550
 $EndSCHEMATC
