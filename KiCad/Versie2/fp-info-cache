@@ -1,4 +1,4 @@
-16874853191889434
+16879708879944035
 Button_Switch_Keyboard
 SW_Cherry_MX_1.00u_PCB
 Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf
@@ -74998,6 +74998,13 @@ Accelerometer
 28
 28
 Versie1_FootprintLib
+IMU_Testpins
+
+
+0
+6
+6
+Versie1_FootprintLib
 ISL91107IRTNZ-T7A
 L20.3x4A
 Integrated Circuit
@@ -75025,6 +75032,20 @@ Switch
 0
 4
 4
+Versie1_FootprintLib
+Pin_Header_2x3_1.27mm_CONN
+
+
+0
+6
+6
+Versie1_FootprintLib
+Pin_Header_2x5_1.27mm_CONN
+
+
+0
+10
+10
 Versie1_FootprintLib
 SMTL4RGY
 SMTL4-RGY-2

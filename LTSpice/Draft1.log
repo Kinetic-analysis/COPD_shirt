@@ -1,41 +1,21 @@
 Circuit: * C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\Draft1.asc
 
-Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
-Starting Gmin stepping
-Gmin = 10
-Gmin = 1.07374
-Gmin = 0.115292
-Gmin = 0.0123794
-Gmin = 0.00132923
-Gmin = 0.000142725
-Gmin = 1.5325e-005
-Gmin = 1.6455e-006
-Gmin = 1.76685e-007
-Gmin = 1.89714e-008
-Gmin = 2.03704e-009
-Gmin = 2.18725e-010
-Gmin = 2.34854e-011
-Gmin = 2.52173e-012
-Gmin = 2.70769e-013
-Gmin = 0
-Gmin stepping succeeded in finding the operating point.
+Direct Newton iteration for .op point succeeded.
 
-
-Date: Tue Mar 02 23:45:17 2021
-Total elapsed time: 0.179 seconds.
+Date: Fri Apr 16 11:22:58 2021
+Total elapsed time: 0.021 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2563
+totiter = 2091
 traniter = 2088
 tranpoints = 1045
 accept = 1045
 rejected = 0
-matrix size = 57
-fillins = 47
+matrix size = 2
+fillins = 0
 solver = Normal
-Thread vector: 7.9/6.5[2] 2.6/2.2[2] 1.5/1.5[1] 0.2/2.1[1]  2592/500
-Matrix Compiler1: 6.95 KB object code size  1.1/0.6/[0.3]
-Matrix Compiler2: 6.06 KB object code size  1.0/1.8/[0.5]
+Matrix Compiler1: 54 bytes object code size  0.0/0.0/[0.0]
+Matrix Compiler2:      10 opcodes  0.0/[0.0]/0.0
 
