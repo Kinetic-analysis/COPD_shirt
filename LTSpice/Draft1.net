@@ -1,8 +1,0 @@
-* C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\Draft1.asc
-V1 4.2V 0 4.2 Rser=100m
-V2 3.3V 0 3.3 Rser=50m
-R1 4.2V 3.3V 1
-R2 3.3V 0 1
-.tran 1
-.backanno
-.end
