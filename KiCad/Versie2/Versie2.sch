@@ -1227,19 +1227,6 @@ Connection ~ 6325 2025
 Wire Wire Line
 	6125 2225 6125 2275
 $Comp
-L power:+BATT #PWR034
-U 1 1 61361E8C
-P 6125 2650
-F 0 "#PWR034" H 6125 2500 50  0001 C CNN
-F 1 "+BATT" H 6140 2823 50  0000 C CNN
-F 2 "" H 6125 2650 50  0001 C CNN
-F 3 "" H 6125 2650 50  0001 C CNN
-	1    6125 2650
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6125 2575 6125 2650
-$Comp
 L Device:Battery_Cell BT1
 U 1 1 61377EAE
 P 5775 2400
@@ -1253,18 +1240,16 @@ $EndComp
 $Comp
 L power:+BATT #PWR029
 U 1 1 6137B3A0
-P 5775 2650
-F 0 "#PWR029" H 5775 2500 50  0001 C CNN
-F 1 "+BATT" H 5790 2823 50  0000 C CNN
-F 2 "" H 5775 2650 50  0001 C CNN
-F 3 "" H 5775 2650 50  0001 C CNN
-	1    5775 2650
+P 5775 2950
+F 0 "#PWR029" H 5775 2800 50  0001 C CNN
+F 1 "+BATT" H 5790 3123 50  0000 C CNN
+F 2 "" H 5775 2950 50  0001 C CNN
+F 3 "" H 5775 2950 50  0001 C CNN
+	1    5775 2950
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	5775 2300 5775 2025
-Wire Wire Line
-	5775 2600 5775 2650
 NoConn ~ 7400 2225
 Wire Wire Line
 	7525 2125 7525 2625
@@ -1314,17 +1299,6 @@ F 2 "" H 2450 1725 50  0001 C CNN
 F 3 "" H 2450 1725 50  0001 C CNN
 	1    2450 1725
 	1    0    0    -1  
-$EndComp
-$Comp
-L power:+BATT #PWR013
-U 1 1 60590892
-P 2675 3025
-F 0 "#PWR013" H 2675 2875 50  0001 C CNN
-F 1 "+BATT" H 2690 3198 50  0000 C CNN
-F 2 "" H 2675 3025 50  0001 C CNN
-F 3 "" H 2675 3025 50  0001 C CNN
-	1    2675 3025
-	-1   0    0    1   
 $EndComp
 $Comp
 L power:GND #PWR021
@@ -3224,4 +3198,34 @@ F 3 "https://www.hirose.com/product/en/download_file/key_name/DM3/category/Catal
 $EndComp
 NoConn ~ 9675 10725
 NoConn ~ 9675 10825
+$Comp
+L Device:Polyfuse_Small F1
+U 1 1 6093DBC4
+P 5775 2775
+F 0 "F1" H 5843 2821 50  0000 L CNN
+F 1 "Polyfuse_Small" H 5843 2730 50  0000 L CNN
+F 2 "Fuse:Fuse_0402_1005Metric" H 5825 2575 50  0001 L CNN
+F 3 "~" H 5775 2775 50  0001 C CNN
+	1    5775 2775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5775 2600 5775 2625
+Wire Wire Line
+	5775 2875 5775 2950
+Wire Wire Line
+	5775 2625 6125 2625
+Wire Wire Line
+	6125 2625 6125 2575
+Connection ~ 5775 2625
+Wire Wire Line
+	5775 2625 5775 2675
+Wire Wire Line
+	5775 2625 5475 2625
+Wire Wire Line
+	5475 2625 5475 2725
+Text GLabel 5475 2725 3    50   Input ~ 0
+Batt_Before_Fuse
+Text GLabel 2675 3025 3    50   Input ~ 0
+Batt_Before_Fuse
 $EndSCHEMATC
