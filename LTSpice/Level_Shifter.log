@@ -1,0 +1,21 @@
+Circuit: * C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\Level_Shifter.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Sat Apr 17 20:31:42 2021
+Total elapsed time: 1.911 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 568968
+traniter = 568962
+tranpoints = 164361
+accept = 120116
+rejected = 44245
+matrix size = 17
+fillins = 0
+solver = Normal
+Matrix Compiler1: 802 bytes object code size  0.2/0.1/[0.1]
+Matrix Compiler2: 1.37 KB object code size  0.1/0.2/[0.1]
+

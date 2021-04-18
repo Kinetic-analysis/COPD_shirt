@@ -3199,12 +3199,12 @@ $EndComp
 NoConn ~ 9675 10725
 NoConn ~ 9675 10825
 $Comp
-L Device:Polyfuse_Small F?
+L Device:Polyfuse_Small F1
 U 1 1 6093DBC4
 P 5775 2775
-F 0 "F?" H 5843 2821 50  0000 L CNN
+F 0 "F1" H 5843 2821 50  0000 L CNN
 F 1 "Polyfuse_Small" H 5843 2730 50  0000 L CNN
-F 2 "" H 5825 2575 50  0001 L CNN
+F 2 "Fuse:Fuse_0402_1005Metric" H 5825 2575 50  0001 L CNN
 F 3 "~" H 5775 2775 50  0001 C CNN
 	1    5775 2775
 	1    0    0    -1  

@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\KiCad\Versie2\Versie2.sch)
-    (date "17-4-2021 14:07:17")
+    (date "18-4-2021 02:27:01")
     (tool "Eeschema (5.1.5)-2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -787,7 +787,7 @@
       (tstamp 6144335B))
     (comp (ref F1)
       (value Polyfuse_Small)
-      (footprint Fuse:Fuse_0402_1005Metric)
+      (footprint Fuse:Fuse_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part Polyfuse_Small) (description "Resettable fuse, polymeric positive temperature coefficient, small symbol"))
       (sheetpath (names /) (tstamps /))
