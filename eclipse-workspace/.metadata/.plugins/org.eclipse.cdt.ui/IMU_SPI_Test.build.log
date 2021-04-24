@@ -1,1 +1,4 @@
-No esp launch target found. Please create/select the correct 'Launch Target'
+cmake --build . -- -v
+[1/3] cmd.exe /C "cd /D C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\IMU_SPI_Test\build\bootloader && C:\.espressif\tools\cmake\3.16.4\bin\cmake.exe --build ."
+ninja: no work to do.
+Build complete (0 errors, 0 warnings): C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\IMU_SPI_Test\build

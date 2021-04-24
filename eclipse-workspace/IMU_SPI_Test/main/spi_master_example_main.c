@@ -363,286 +363,13 @@ static void send_line_finish(spi_device_handle_t spi)
     }
 }
 
-void printHeader(void)
-{
-	//Print the four byte header
-	printf("Header:");
-	for (uint8_t x = 0; x < 4; x++)
-	{
-		printf(" ");
-		if (shtpHeader[x] < 0x10)
-			printf("0");
-		printf("%X", shtpHeader[x]);
-	}
-	printf("\n");
-}
 
-void printPacket(void)
-{
-	uint16_t packetLength = (uint16_t)shtpHeader[1] << 8 | shtpHeader[0];
-
-	//Print the four byte header
-	printf("Header:");
-	for (uint8_t x = 0; x < 4; x++)
-	{
-		printf(" ");
-		if (shtpHeader[x] < 0x10)
-			printf("0");
-		printf("%X",shtpHeader[x]);
-	}
-
-	uint8_t printLength = packetLength - 4;
-	if (printLength > 40)
-		printLength = 40; //Artificial limit. We don't want the phone book.
-
-	printf(" Body:");
-	for (uint8_t x = 0; x < printLength; x++)
-	{
-		printf(" ");
-		if (shtpData[x] < 0x10)
-			printf("0");
-		printf("%X", shtpData[x]);
-	}
-
-	if (packetLength & 1 << 15)
-	{
-		printf(" [Continued packet] ");
-		packetLength &= ~(1 << 15);
-	}
-
-	printf(" Length:");
-	printf("%d", packetLength);
-
-	printf(" Channel:");
-	if (shtpHeader[2] == 0)
-		printf("Command");
-	else if (shtpHeader[2] == 1)
-		printf("Executable");
-	else if (shtpHeader[2] == 2)
-		printf("Control");
-	else if (shtpHeader[2] == 3)
-		printf("Sensor-report");
-	else if (shtpHeader[2] == 4)
-		printf("Wake-report");
-	else if (shtpHeader[2] == 5)
-		printf("Gyro-vector");
-	else
-		printf("%d",shtpHeader[2]);
-
-	printf("\n");
-}
-
-bool waitForSPI(void)
-{
-	for (uint8_t counter = 0; counter < 125; counter++) //Don't got more than 255
-	{
-		if(gpio_get_level(PIN_NUM_INT) == 0)
-		{
-			printf("INT HIGH\n");
-			return true;
-		}
-		else
-		{
-			printf("SPI Wait\n");
-		}
-		vTaskDelay(10 / portTICK_RATE_MS);
-	}
-	printf("SPI INT timeout\n");
-	return (false);
-}
-
-bool receivePacket(spi_device_handle_t spi)
-{
-//	if (gpio_get_level(PIN_NUM_INT) == 1)
-//	{
-//		return false; //data not available
-//	}
-
-	spi_transaction_t t;
-	gpio_set_level(PIN_NUM_CS, 0);
-
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.flags = SPI_TRANS_USE_RXDATA;
-	spi_device_transmit(spi, &t);
-	uint8_t packetLSB;
-	uint8_t *data1 = &packetLSB;
-	*data1 = t.rx_data[0];
-
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.flags = SPI_TRANS_USE_RXDATA;
-	spi_device_transmit(spi, &t);
-	uint8_t packetMSB;
-	uint8_t *data2 = &packetMSB;
-	*data2 = t.rx_data[0];
-
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.flags = SPI_TRANS_USE_RXDATA;
-	spi_device_transmit(spi, &t);
-	uint8_t channelNumber;
-	uint8_t *data3 = &channelNumber;
-	*data3 = t.rx_data[0];
-
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.flags = SPI_TRANS_USE_RXDATA;
-	spi_device_transmit(spi, &t);
-	uint8_t sequenceNumber;
-	uint8_t *data4 = &sequenceNumber;
-	*data4 = t.rx_data[0];
-
-	shtpHeader[0] = *data1;
-	shtpHeader[1] = *data2;
-	shtpHeader[2] = *data3;
-	shtpHeader[3] = *data4;
-
-	//Calculate the number of data bytes in this packet
-	uint16_t dataLength = (((uint16_t)packetMSB) << 8) | ((uint16_t)packetLSB);
-	dataLength &= ~(1 << 15); //Clear the MSbit.
-	//This bit indicates if this package is a continuation of the last. Ignore it for now.
-	//TODO catch this as an error and exit
-//	if (dataLength == 0)
-//	{
-//		//Packet is empty
-//		printHeader();
-//		return (false); //All done
-//	}
-	dataLength -= 4; //Remove the header bytes from the data count
-
-	//Read incoming data into the shtpData array
-	for (uint16_t dataSpot = 0; dataSpot < dataLength; dataSpot++)
-	{
-		memset(&t, 0, sizeof(t));
-		t.length = 8;
-		t.flags = SPI_TRANS_USE_RXDATA;
-		spi_device_transmit(spi, &t);
-		uint8_t incoming = t.rx_data[0];
-
-		if (dataSpot < 128)	//BNO080 can respond with upto 270 bytes, avoid overflow
-		{
-			shtpData[dataSpot] = incoming; //Store data into the shtpData array
-		}
-	}
-
-	gpio_set_level(PIN_NUM_CS, 1);
-
-	return true;
-}
-
-bool sendPacket(spi_device_handle_t spi, uint8_t channelNumber, uint8_t dataLength)
-{
-	uint8_t packetLength = dataLength + 4;
-	spi_transaction_t t;
-	gpio_set_level(PIN_NUM_CS, 0);
-
-	uint8_t data1 = (packetLength & 0xFF);
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.tx_buffer = (&data1);
-	spi_device_transmit(spi, &t);
-
-	uint8_t data2 = (packetLength >> 8);
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.tx_buffer = (&data2);
-	spi_device_transmit(spi, &t);
-
-	uint8_t data3 = (channelNumber);
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.tx_buffer = (&data3);
-	spi_device_transmit(spi, &t);
-
-	uint8_t data4 = (sequenceNumber[channelNumber]++);
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.tx_buffer = (&data4);
-	spi_device_transmit(spi, &t);
-
-	for(uint8_t i = 0; i < dataLength; i++)
-	{
-		memset(&t, 0, sizeof(t));
-		t.length = 8;
-		t.tx_buffer = (&shtpData[i]);
-		spi_device_transmit(spi, &t);
-	}
-
-	gpio_set_level(PIN_NUM_CS, 1);
-
-	return true;
-}
-
-
-bool beginSPI(spi_device_handle_t spi)
+void beginSPI(spi_device_handle_t spi)
 {
     gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_WAKE, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_RSTT, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_INT, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(PIN_NUM_INT, GPIO_PULLUP_ONLY);
-
     gpio_set_level(PIN_NUM_CS, 1);		//CS = Hoog
-    gpio_set_level(PIN_NUM_WAKE, 1);	//Before boot up the PS0/WAK pin must be high to enter SPI mode
-    gpio_set_level(PIN_NUM_RSTT, 0);		//Reset BNO080
-    vTaskDelay(2 / portTICK_RATE_MS);	//Min length not specified in datasheet
-    gpio_set_level(PIN_NUM_RSTT, 1);		//Bring out of reset
-
-    //Wait for first assertion of INT before using WAK pin. Can take ~104ms
-    waitForSPI();
 
 
-    printf("Begin SPI\n");
-
-    waitForSPI(); //Wait for assertion of INT before reading Init response
-    receivePacket(spi);
-
-    waitForSPI();
-    receivePacket(spi);
-
-    shtpData[0] = 0xF9;
-    shtpData[1] = 0;
-    printf("%X", shtpData[0]);
-
-
-    sendPacket(spi, 2, 2);
-
-    waitForSPI();
-    printf("Hallo\n");
-	if (receivePacket(spi) == true)
-	{
-		printf("Hallo\n");
-		printf("%X", shtpData[0]);
-		if (shtpData[0] == 1)
-		{
-			printf("Hallo\n");
-			printf("SW Version Major: 0x");
-//			printf("%X", shtpData[2]);
-//			printf(" SW Version Minor: 0x");
-//			printf("%X", shtpData[3]);
-//			uint32_t SW_Part_Number = ((uint32_t)shtpData[7] << 24) | ((uint32_t)shtpData[6] << 16) | ((uint32_t)shtpData[5] << 8) | ((uint32_t)shtpData[4]);
-//			printf(" SW Part Number: 0x");
-//			printf("%X", SW_Part_Number);
-//			uint32_t SW_Build_Number = ((uint32_t)shtpData[11] << 24) | ((uint32_t)shtpData[10] << 16) | ((uint32_t)shtpData[9] << 8) | ((uint32_t)shtpData[8]);
-//			printf(" SW Build Number: 0x");
-//			printf("%X", SW_Build_Number);
-//			uint16_t SW_Version_Patch = ((uint16_t)shtpData[13] << 8) | ((uint16_t)shtpData[12]);
-//			printf(" SW Version Patch: 0x");
-//			printf("%X", SW_Version_Patch);
-			return (true);
-		}
-		else
-		{
-			printf("lol\n");
-		}
-	}
-	else
-	{
-		printf("receivePacket not true\n");
-	}
-
-    return true;
 }
 
 //Simple routine to generate some patterns and send them to the LCD. Don't expect anything too
@@ -680,67 +407,54 @@ static void display_pretty_colors(spi_device_handle_t spi)
     }
 }
 
-void testSPI(spi_device_handle_t spi)
+bool IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data)
 {
-    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_WAKE, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_RSTT, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_NUM_INT, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(PIN_NUM_INT, GPIO_PULLUP_ONLY);
+	spi_transaction_t t;
+	uint8_t buf[2];
 
-    gpio_set_level(PIN_NUM_CS, 1);		//CS = Hoog
-    gpio_set_level(PIN_NUM_WAKE, 1);	//Before boot up the PS0/WAK pin must be high to enter SPI mode
-    gpio_set_level(PIN_NUM_RSTT, 0);		//Reset BNO080
-    vTaskDelay(100 / portTICK_RATE_MS);	//Min length not specified in datasheet
-    gpio_set_level(PIN_NUM_RSTT, 1);		//Bring out of reset
+	gpio_set_level(PIN_NUM_CS, 0);
 
-    //Wait for first assertion of INT before using WAK pin. Can take ~104ms
-    waitForSPI();
+	reg &= 0x7f;
+	buf[0] = reg;
+	buf[1] = data;
+	memset(&t, 0, sizeof(t));
+	t.length = 8*2;
+	t.tx_buffer = buf;
 
-    vTaskDelay(100 / portTICK_RATE_MS);	//Min length not specified in datasheet
+	spi_device_transmit(spi, &t);
+	gpio_set_level(PIN_NUM_CS, 1);
+	return true;
+}
 
-//	if (gpio_get_level(PIN_NUM_INT) == 1)
-//	{
-//		return false; //data not available
-//	}
-
+bool IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data)
+{
 	spi_transaction_t t;
 	gpio_set_level(PIN_NUM_CS, 0);
 
+	reg |= 0x80;
+	memset(&t, 0, sizeof(t));
+	t.length = 8;
+	t.tx_buffer = &reg;
+	spi_device_transmit(spi, &t);
+
 	memset(&t, 0, sizeof(t));
 	t.length = 8;
 	t.flags = SPI_TRANS_USE_RXDATA;
 	spi_device_transmit(spi, &t);
-	uint8_t packetLSB;
-	uint8_t *data1 = &packetLSB;
-	*data1 = t.rx_data[0];
-
-	vTaskDelay(100 / portTICK_RATE_MS);	//Min length not specified in datasheet
-
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.flags = SPI_TRANS_USE_RXDATA;
-	spi_device_transmit(spi, &t);
-	uint8_t sequenceNumber;
-	uint8_t *data4 = &sequenceNumber;
-	*data4 = t.rx_data[0];
 
 	gpio_set_level(PIN_NUM_CS, 1);
+	*data = t.rx_data[0];
 
-	shtpHeader[0] = *data1;
-	shtpHeader[3] = *data4;
+	return true;
+}
 
-	printf("\nshtpHeader[0] = %d\n", shtpHeader[0]);
-	printf("\nshtpHeader[0] = %d\n", shtpHeader[3]);
+void IMU_read_ID(spi_device_handle_t spi)
+{
+	uint8_t reg = 0x00;
+	uint8_t id;
 
-	gpio_set_level(PIN_NUM_CS, 0);
-	uint8_t testint = 2;
-	memset(&t, 0, sizeof(t));
-	t.length = 8;
-	t.tx_buffer = &testint;
-	spi_device_transmit(spi, &t);
-
-	gpio_set_level(PIN_NUM_CS, 1);
+	IMU_read_reg(spi, reg, &id);
+	printf("IMU ID: 0x%02X\n", id);
 }
 
 void app_main(void)
@@ -757,7 +471,7 @@ void app_main(void)
     };
     spi_device_interface_config_t devcfg={
         .clock_speed_hz=1000000,           //Clock out at 10 MHz
-        .mode=3,                                //SPI mode 3
+        .mode=0,                                //SPI mode 3
         .spics_io_num=-1,               //CS pin
         .queue_size=7,                          //We want to be able to queue 7 transactions at a time
         .pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
@@ -769,20 +483,11 @@ void app_main(void)
     ret=spi_bus_add_device(IMU_HOST, &devcfg, &spi);
     ESP_ERROR_CHECK(ret);
 
-
-    if(beginSPI(spi) == false)
+    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
+    gpio_set_level(PIN_NUM_CS, 1);		//CS = Hoog
+    IMU_read_ID(spi);
+    while(1)
     {
-    	printf("BNO080 over SPI not detected\n");
+    	//nothing
     }
-
-    //testSPI(spi);
-
-    //Initialize the LCD
-//    lcd_init(spi);
-//    //Initialize the effect displayed
-//    ret=pretty_effect_init();
-//    ESP_ERROR_CHECK(ret);
-//
-//    //Go do nice stuff.
-//    display_pretty_colors(spi);
 }

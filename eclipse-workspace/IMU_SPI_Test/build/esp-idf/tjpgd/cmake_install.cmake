@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Gebruiker/eclipse-workspace/IMU_SPI_Test/components/tjpgd
+# Install script for directory: C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/IMU_SPI_Test/components/tjpgd
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

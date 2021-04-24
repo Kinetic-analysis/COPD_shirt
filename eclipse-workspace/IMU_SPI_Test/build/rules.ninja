@@ -1457,7 +1457,7 @@ rule CXX_STATIC_LIBRARY_LINKER____idf_tjpgd
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\Gebruiker\eclipse-workspace\IMU_SPI_Test -BC:\Users\Gebruiker\eclipse-workspace\IMU_SPI_Test\build
+  command = C:\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\IMU_SPI_Test -BC:\Users\Gebruiker\Documents\GitHub\COPD_shirt\eclipse-workspace\IMU_SPI_Test\build
   description = Re-running CMake...
   generator = 1
 

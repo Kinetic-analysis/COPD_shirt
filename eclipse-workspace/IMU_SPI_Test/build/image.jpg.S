@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Gebruiker/eclipse-workspace/IMU_SPI_Test/main/image.jpg
+/* * Data converted from C:/Users/Gebruiker/Documents/GitHub/COPD_shirt/eclipse-workspace/IMU_SPI_Test/main/image.jpg
  */
 .data
 .section .rodata.embedded
