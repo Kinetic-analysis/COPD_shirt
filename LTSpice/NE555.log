@@ -1,22 +1,21 @@
 Circuit: * C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\NE555.asc
 
 Direct Newton iteration for .op point succeeded.
-Heightened Def Con from 0.017859 to 0.017859
 
-Date: Thu Apr 08 00:23:47 2021
-Total elapsed time: 2.592 seconds.
+Date: Mon Apr 26 22:50:10 2021
+Total elapsed time: 0.156 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 1260586
-traniter = 1260578
-tranpoints = 260258
-accept = 203321
-rejected = 56938
-matrix size = 14
+totiter = 35972
+traniter = 35964
+tranpoints = 8100
+accept = 6402
+rejected = 1698
+matrix size = 29
 fillins = 0
 solver = Normal
-Matrix Compiler1: 384 bytes object code size  0.1/0.1/[0.0]
-Matrix Compiler2: 776 bytes object code size  0.1/0.1/[0.1]
+Matrix Compiler1: 828 bytes object code size  0.2/0.1/[0.1]
+Matrix Compiler2: 1.58 KB object code size  0.1/0.2/[0.1]
 
