@@ -112,37 +112,144 @@ void IMU_read_ID(spi_device_handle_t spi)
 	printf("IMU ID: 0x%02X\n", id);
 }
 
-void IMU_read_Temp(spi_device_handle_t spi)
+void IMU_read_ID2(spi_device_handle_t spi)
 {
-	uint8_t reg1 = 0x06;
-	uint8_t TEMP_OUT_H;
-	//uint8_t reg2 = 0x2E;
-	//uint8_t TEMP_OUT_L;
+	uint8_t reg = 0x01;
+	uint8_t id;
 
-	IMU_read_reg(spi, reg1, &TEMP_OUT_H);
-	//IMU_read_reg(spi, reg2, &TEMP_OUT_L);
-	printf("IMU Temp: 0x%02X\n", TEMP_OUT_H);
-	//printf("IMU Temp: 0x%02X, 0x%02X\n", TEMP_OUT_H, TEMP_OUT_L);
+	IMU_read_reg(spi, reg, &id);
+	printf("IMU ID: 0x%02X\n", id);
 }
 
-void IMU_read_Temp2(spi_device_handle_t spi)
+void IMU_read_data(spi_device_handle_t spi)
 {
-	uint8_t reg1 = 0x39;
-	uint8_t TEMP_OUT_H;
-	uint8_t reg2 = 0x3A;
-	uint8_t TEMP_OUT_L;
-	float finalwaarde;
 
+	// https://devzone.nordicsemi.com/f/nordic-q-a/36615/invensense-icm-20948
+
+	uint8_t reg1;
+	uint8_t reg2;
+	uint8_t TEMP_OUT_H;
+	uint8_t TEMP_OUT_L;
+	uint8_t X_ACCEL_OUT_H;
+	uint8_t X_ACCEL_OUT_L;
+	uint8_t Y_ACCEL_OUT_H;
+	uint8_t Y_ACCEL_OUT_L;
+	uint8_t Z_ACCEL_OUT_H;
+	uint8_t Z_ACCEL_OUT_L;
+	uint8_t X_GYRO_OUT_H;
+	uint8_t X_GYRO_OUT_L;
+	uint8_t Y_GYRO_OUT_H;
+	uint8_t Y_GYRO_OUT_L;
+	uint8_t Z_GYRO_OUT_H;
+	uint8_t Z_GYRO_OUT_L;
+	uint8_t X_MAGN_OUT_H;
+	uint8_t X_MAGN_OUT_L;
+	uint8_t Y_MAGN_OUT_H;
+	uint8_t Y_MAGN_OUT_L;
+	uint8_t Z_MAGN_OUT_H;
+	uint8_t Z_MAGN_OUT_L;
+	uint16_t TEMP_OUT = 0x0000;
+	uint16_t X_ACCEL_OUT = 0x0000;
+	uint16_t Y_ACCEL_OUT = 0x0000;
+	uint16_t Z_ACCEL_OUT = 0x0000;
+	uint16_t X_GYRO_OUT = 0x0000;
+	uint16_t Y_GYRO_OUT = 0x0000;
+	uint16_t Z_GYRO_OUT = 0x0000;
+	uint16_t X_MAGN_OUT = 0x0000;
+	uint16_t Y_MAGN_OUT = 0x0000;
+	uint16_t Z_MAGN_OUT = 0x0000;
+
+	float Temp_finalwaarde;
+	float X_ACCEL_finalwaarde;
+	float Y_ACCEL_finalwaarde;
+	float Z_ACCEL_finalwaarde;
+	float X_GYRO_finalwaarde;
+	float Y_GYRO_finalwaarde;
+	float Z_GYRO_finalwaarde;
+	float X_MAGN_finalwaarde;
+	float Y_MAGN_finalwaarde;
+	float Z_MAGN_finalwaarde;
+
+	reg1 = 0x39;
+	reg2 = 0x3A;
 	IMU_read_reg(spi, reg1, &TEMP_OUT_H);
 	IMU_read_reg(spi, reg2, &TEMP_OUT_L);
-
-	uint16_t TEMP_OUT = 0x0000;
 	TEMP_OUT = (TEMP_OUT_H << 8);
 	TEMP_OUT |= TEMP_OUT_L;
-	printf("IMU Temp: 0x%02X, 0x%02X\n", TEMP_OUT_H, TEMP_OUT_L);
-	printf("IMU Temp: 0x%04X\n", TEMP_OUT);
-	finalwaarde = ((TEMP_OUT-20)/333.87)+21;
-	printf("IMU Temp: %0.2f\n", finalwaarde);
+	reg1 = 0x2D;
+	reg2 = 0x2E;
+	IMU_read_reg(spi, reg1, &X_ACCEL_OUT_H);
+	IMU_read_reg(spi, reg2, &X_ACCEL_OUT_L);
+	reg1 = 0x2F;
+	reg2 = 0x30;
+	IMU_read_reg(spi, reg1, &Y_ACCEL_OUT_H);
+	IMU_read_reg(spi, reg2, &Y_ACCEL_OUT_L);
+	reg1 = 0x31;
+	reg2 = 0x32;
+	IMU_read_reg(spi, reg1, &Z_ACCEL_OUT_H);
+	IMU_read_reg(spi, reg2, &Z_ACCEL_OUT_L);
+	reg1 = 0x33;
+	reg2 = 0x34;
+	IMU_read_reg(spi, reg1, &X_GYRO_OUT_H);
+	IMU_read_reg(spi, reg2, &X_GYRO_OUT_L);
+	reg1 = 0x35;
+	reg2 = 0x36;
+	IMU_read_reg(spi, reg1, &Y_GYRO_OUT_H);
+	IMU_read_reg(spi, reg2, &Y_GYRO_OUT_L);
+	reg1 = 0x37;
+	reg2 = 0x38;
+	IMU_read_reg(spi, reg1, &Z_GYRO_OUT_H);
+	IMU_read_reg(spi, reg2, &Z_GYRO_OUT_L);
+//	reg1 = 0x31;
+//	reg2 = 0x32;
+//	IMU_read_reg(spi, reg1, &X_MAGN_OUT_H);
+//	IMU_read_reg(spi, reg2, &X_MAGN_OUT_L);
+//	reg1 = 0x31;
+//	reg2 = 0x32;
+//	IMU_read_reg(spi, reg1, &Y_MAGN_OUT_H);
+//	IMU_read_reg(spi, reg2, &Y_MAGN_OUT_L);
+//	reg1 = 0x31;
+//	reg2 = 0x32;
+//	IMU_read_reg(spi, reg1, &Z_MAGN_OUT_H);
+//	IMU_read_reg(spi, reg2, &Z_MAGN_OUT_L);
+
+
+	TEMP_OUT = (TEMP_OUT_H << 8);
+	TEMP_OUT |= TEMP_OUT_L;
+	X_ACCEL_OUT = (X_ACCEL_OUT_H << 8);
+	X_ACCEL_OUT |= X_ACCEL_OUT_L;
+	Y_ACCEL_OUT = (Y_ACCEL_OUT_H << 8);
+	Y_ACCEL_OUT |= Y_ACCEL_OUT_L;
+	Z_ACCEL_OUT = (Z_ACCEL_OUT_H << 8);
+	Z_ACCEL_OUT |= Z_ACCEL_OUT_L;
+	X_GYRO_OUT = (X_GYRO_OUT_H << 8);
+	X_GYRO_OUT |= X_GYRO_OUT_L;
+	Y_GYRO_OUT = (Y_GYRO_OUT_H << 8);
+	Y_GYRO_OUT |= Y_GYRO_OUT_L;
+	Z_GYRO_OUT = (Z_GYRO_OUT_H << 8);
+	Z_GYRO_OUT |= Z_GYRO_OUT_L;
+
+
+
+
+	Temp_finalwaarde = ((TEMP_OUT-20)/333.87)+21;
+	X_ACCEL_finalwaarde = X_ACCEL_OUT/16.384;
+	Y_ACCEL_finalwaarde = Y_ACCEL_OUT/16.384;
+	Z_ACCEL_finalwaarde = Z_ACCEL_OUT/16.384;
+	X_GYRO_finalwaarde = X_GYRO_OUT/131;
+	Y_GYRO_finalwaarde = Y_GYRO_OUT/131;
+	Z_GYRO_finalwaarde = Z_GYRO_OUT/131;
+
+	printf("Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t"
+			"Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t"
+			"Temp (C) = [%0.2f]\n"
+			,X_ACCEL_finalwaarde
+			,Y_ACCEL_finalwaarde
+			,Z_ACCEL_finalwaarde
+			,X_GYRO_finalwaarde
+			,Y_GYRO_finalwaarde
+			,Z_GYRO_finalwaarde
+			,Temp_finalwaarde);
 }
 
 spi_device_handle_t SPI_init(void)
@@ -190,9 +297,9 @@ void app_main(void)
 
     while(1)
     {
-    	IMU_read_ID(spi);
-    	IMU_read_Temp(spi);
-    	IMU_read_Temp2(spi);
+    	//IMU_read_ID(spi);
+    	//IMU_read_data(spi);
+    	IMU_read_ID2(spi);
     	vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
