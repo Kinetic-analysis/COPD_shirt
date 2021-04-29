@@ -248,105 +248,6 @@ void IMU_read_ID2(spi_device_handle_t spi)
 	printf("REG_BANK_SEL: 0x%02X\n", read);
 }
 
-void IMU_read_data(spi_device_handle_t spi)
-{
-
-	// https://devzone.nordicsemi.com/f/nordic-q-a/36615/invensense-icm-20948
-
-	uint8_t reg1;
-	uint8_t reg2;
-	uint8_t TEMP_OUT_H;
-	uint8_t TEMP_OUT_L;
-	uint8_t X_ACCEL_OUT_H;
-	uint8_t X_ACCEL_OUT_L;
-	uint8_t Y_ACCEL_OUT_H;
-	uint8_t Y_ACCEL_OUT_L;
-	uint8_t Z_ACCEL_OUT_H;
-	uint8_t Z_ACCEL_OUT_L;
-	uint8_t X_GYRO_OUT_H;
-	uint8_t X_GYRO_OUT_L;
-	uint8_t Y_GYRO_OUT_H;
-	uint8_t Y_GYRO_OUT_L;
-	uint8_t Z_GYRO_OUT_H;
-	uint8_t Z_GYRO_OUT_L;
-
-	int16_t TEMP_OUT;
-	int16_t X_ACCEL_OUT;
-	int16_t Y_ACCEL_OUT;
-	int16_t Z_ACCEL_OUT;
-	int16_t X_GYRO_OUT;
-	int16_t Y_GYRO_OUT;
-	int16_t Z_GYRO_OUT;
-
-
-	float Temp_finalwaarde = 0;
-	float X_ACCEL_finalwaarde = 0;
-	float Y_ACCEL_finalwaarde = 0;
-	float Z_ACCEL_finalwaarde = 0;
-	float X_GYRO_finalwaarde;
-	float Y_GYRO_finalwaarde;
-	float Z_GYRO_finalwaarde;
-
-
-	reg1 = 0x39;
-	reg2 = 0x3A;
-	IMU_read_reg(spi, reg1, &TEMP_OUT_H);
-	IMU_read_reg(spi, reg2, &TEMP_OUT_L);
-	TEMP_OUT = (TEMP_OUT_H << 8);
-	TEMP_OUT |= TEMP_OUT_L;
-	reg1 = 0x2D;
-	reg2 = 0x2E;
-	IMU_read_reg(spi, reg1, &X_ACCEL_OUT_H);
-	IMU_read_reg(spi, reg2, &X_ACCEL_OUT_L);
-	reg1 = 0x2F;
-	reg2 = 0x30;
-	IMU_read_reg(spi, reg1, &Y_ACCEL_OUT_H);
-	IMU_read_reg(spi, reg2, &Y_ACCEL_OUT_L);
-	reg1 = 0x31;
-	reg2 = 0x32;
-	IMU_read_reg(spi, reg1, &Z_ACCEL_OUT_H);
-	IMU_read_reg(spi, reg2, &Z_ACCEL_OUT_L);
-	reg1 = 0x33;
-	reg2 = 0x34;
-	IMU_read_reg(spi, reg1, &X_GYRO_OUT_H);
-	IMU_read_reg(spi, reg2, &X_GYRO_OUT_L);
-	reg1 = 0x35;
-	reg2 = 0x36;
-	IMU_read_reg(spi, reg1, &Y_GYRO_OUT_H);
-	IMU_read_reg(spi, reg2, &Y_GYRO_OUT_L);
-	reg1 = 0x37;
-	reg2 = 0x38;
-	IMU_read_reg(spi, reg1, &Z_GYRO_OUT_H);
-	IMU_read_reg(spi, reg2, &Z_GYRO_OUT_L);
-
-	TEMP_OUT = ((TEMP_OUT_H << 8) | (TEMP_OUT_L & 0xFF));
-	X_ACCEL_OUT = ((X_ACCEL_OUT_H << 8) | (X_ACCEL_OUT_L & 0xFF));
-	Y_ACCEL_OUT = ((Y_ACCEL_OUT_H << 8) | (Y_ACCEL_OUT_L & 0xFF));
-	Z_ACCEL_OUT = ((Z_ACCEL_OUT_H << 8) | (Z_ACCEL_OUT_L & 0xFF));
-	X_GYRO_OUT = ((X_GYRO_OUT_H << 8) | (X_GYRO_OUT_L & 0xFF));
-	Y_GYRO_OUT = ((Y_GYRO_OUT_H << 8) | (Y_GYRO_OUT_L & 0xFF));
-	Z_GYRO_OUT = ((Z_GYRO_OUT_H << 8) | (Z_GYRO_OUT_L & 0xFF));
-
-	Temp_finalwaarde = ((TEMP_OUT-20)/333.87)+21;
-	X_ACCEL_finalwaarde = X_ACCEL_OUT/16.384;
-	Y_ACCEL_finalwaarde = Y_ACCEL_OUT/16.384;
-	Z_ACCEL_finalwaarde = Z_ACCEL_OUT/16.384;
-	X_GYRO_finalwaarde = X_GYRO_OUT/131;
-	Y_GYRO_finalwaarde = Y_GYRO_OUT/131;
-	Z_GYRO_finalwaarde = Z_GYRO_OUT/131;
-
-	printf("Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t"
-			"Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t"
-			"Temp (C) = [%0.2f]\n"
-			,X_ACCEL_finalwaarde
-			,Y_ACCEL_finalwaarde
-			,Z_ACCEL_finalwaarde
-			,X_GYRO_finalwaarde
-			,Y_GYRO_finalwaarde
-			,Z_GYRO_finalwaarde
-			,Temp_finalwaarde);
-}
-
 spi_device_handle_t SPI_init(void)
 {
     esp_err_t ret;
@@ -378,86 +279,86 @@ spi_device_handle_t SPI_init(void)
     return spi;
 }
 
-
-
-void IMU_read_Magneto2(spi_device_handle_t spi)
+void IMU_init_Magneto(spi_device_handle_t spi)
 {
-	uint8_t reg;
-	uint8_t data;
-	uint8_t read;
+	uint8_t read[12];
+	uint8_t reg[12] = {0x7F, 0x03, 0x7F, 0x01, 0x02, 0x03, 0x04, 0x06, 0x05, 0x03, 0x04, 0x7F};
+	uint8_t write[12] = {0x00, 0x20, 0x30, 0x17, 0x01, 0x0C, 0x31, 0x08, 0x8A, 0x8C, 0x11, 0x00};
 
-	uint8_t X_MAGN_OUT_H;
-	uint8_t X_MAGN_OUT_L;
-	uint8_t Y_MAGN_OUT_H;
-	uint8_t Y_MAGN_OUT_L;
-	uint8_t Z_MAGN_OUT_H;
-	uint8_t Z_MAGN_OUT_L;
 
-	int16_t X_MAGN_OUT;
-	int16_t Y_MAGN_OUT;
-	int16_t Z_MAGN_OUT;
-
-	float X_MAGN_finalwaarde;
-	float Y_MAGN_finalwaarde;
-	float Z_MAGN_finalwaarde;
-
-	//read EXT_SLV_SENS_DATA_00
-	reg = 0x3B;
-	IMU_read_reg(spi, reg, &X_MAGN_OUT_L);
-	//printf("EXT_SLV_SENS_DATA_00: 0x%02X\n", X_MAGN_OUT_L);
-	reg = 0x3C;
-	IMU_read_reg(spi, reg, &X_MAGN_OUT_H);
-	//printf("EXT_SLV_SENS_DATA_01: 0x%02X\n", X_MAGN_OUT_H);
-	reg = 0x3D;
-	IMU_read_reg(spi, reg, &Y_MAGN_OUT_L);
-	//printf("EXT_SLV_SENS_DATA_02: 0x%02X\n", Y_MAGN_OUT_L);
-	reg = 0x3E;
-	IMU_read_reg(spi, reg, &Y_MAGN_OUT_H);
-	//printf("EXT_SLV_SENS_DATA_03: 0x%02X\n", Y_MAGN_OUT_H);
-	reg = 0x3F;
-	IMU_read_reg(spi, reg, &Z_MAGN_OUT_L);
-	//printf("EXT_SLV_SENS_DATA_04: 0x%02X\n", Z_MAGN_OUT_L);
-	reg = 0x40;
-	IMU_read_reg(spi, reg, &Z_MAGN_OUT_H);
-	//printf("EXT_SLV_SENS_DATA_05: 0x%02X\n", Z_MAGN_OUT_H);
-	reg = 0x41;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_06: 0x%02X\n", read);
-	reg = 0x42;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_07: 0x%02X\n", read);
-	reg = 0x43;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_08: 0x%02X\n", read);
-	reg = 0x44;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_09: 0x%02X\n", read);
-	reg = 0x45;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_10: 0x%02X\n", read);
-	reg = 0x46;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_11: 0x%02X\n", read);
-	reg = 0x47;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_12: 0x%02X\n", read);
-	reg = 0x48;
-	IMU_read_reg(spi, reg, &read);
-	//printf("EXT_SLV_SENS_DATA_13: 0x%02X\n", read);
-
-	X_MAGN_OUT = ((X_MAGN_OUT_H << 8) | (X_MAGN_OUT_L & 0xFF));
-	Y_MAGN_OUT = ((Y_MAGN_OUT_H << 8) | (Y_MAGN_OUT_L & 0xFF));
-	Z_MAGN_OUT = ((Z_MAGN_OUT_H << 8) | (Z_MAGN_OUT_L & 0xFF));
-
-	X_MAGN_finalwaarde = X_MAGN_OUT*0.15;
-	Y_MAGN_finalwaarde = Y_MAGN_OUT*0.15;
-	Z_MAGN_finalwaarde = Z_MAGN_OUT*0.15;
-
-	printf("Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
-			,X_MAGN_finalwaarde
-			,Y_MAGN_finalwaarde
-			,Z_MAGN_finalwaarde);
+	for(int i = 0; i < 12; i++)
+	{
+		IMU_write_reg(spi, reg[i], write[i]);
+		IMU_read_reg(spi, reg[i], &read[i]);
+	}
 }
+
+void IMU_read_Magneto(spi_device_handle_t spi)
+{
+	uint8_t reg[14] = {0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48};
+	uint8_t data_HL[14];
+	int16_t data_OUT[7];
+	float data_Final[7];
+
+	for(int i = 0; i < 14; i++)
+	{
+		IMU_read_reg(spi, reg[i], &data_HL[i]);
+	}
+
+	data_OUT[0] = ((data_HL[1] << 8) | (data_HL[0] & 0xFF));
+	data_OUT[1] = ((data_HL[3] << 8) | (data_HL[2] & 0xFF));
+	data_OUT[2] = ((data_HL[5] << 8) | (data_HL[4] & 0xFF));
+
+	data_Final[0] = data_OUT[0]*0.15;
+	data_Final[1] = data_OUT[1]*0.15;
+	data_Final[2] = data_OUT[2]*0.15;
+
+	printf("Magneto (uT) = [%0.2f, %0.2f, %0.2f]\n"
+			, data_Final[0], data_Final[1], data_Final[2]);
+}
+
+void IMU_read_data(spi_device_handle_t spi)
+{
+
+	// https://devzone.nordicsemi.com/f/nordic-q-a/36615/invensense-icm-20948
+
+	uint8_t reg[28] = {0x39, 0x3A, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
+					   0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48};
+	uint8_t data_HL[28];
+	int16_t data_OUT[14];
+	float data_Final[14];
+
+	for(int i = 0; i < 28; i++)
+	{
+		IMU_read_reg(spi, reg[i], &data_HL[i]);
+	}
+
+	data_OUT[0] = ((data_HL[0] << 8) | (data_HL[1] & 0xFF));
+	data_OUT[1] = ((data_HL[2] << 8) | (data_HL[3] & 0xFF));
+	data_OUT[2] = ((data_HL[4] << 8) | (data_HL[5] & 0xFF));
+	data_OUT[3] = ((data_HL[6] << 8) | (data_HL[7] & 0xFF));
+	data_OUT[4] = ((data_HL[8] << 8) | (data_HL[9] & 0xFF));
+	data_OUT[5] = ((data_HL[10] << 8) | (data_HL[11] & 0xFF));
+	data_OUT[6] = ((data_HL[12] << 8) | (data_HL[13] & 0xFF));
+
+	data_OUT[7] = ((data_HL[15] << 8) | (data_HL[14] & 0xFF));
+	data_OUT[8] = ((data_HL[17] << 8) | (data_HL[16] & 0xFF));
+	data_OUT[9] = ((data_HL[19] << 8) | (data_HL[18] & 0xFF));
+
+	data_Final[0] = ((data_OUT[0]-20)/333.87)+21;
+	data_Final[1] = data_OUT[1]/16.384;
+	data_Final[2] = data_OUT[2]/16.384;
+	data_Final[3] = data_OUT[3]/16.384;
+	data_Final[4] = data_OUT[4]/131;
+	data_Final[5] = data_OUT[5]/131;
+	data_Final[6] = data_OUT[6]/131;
+	data_Final[7] = data_OUT[7]*0.15;
+	data_Final[8] = data_OUT[8]*0.15;
+	data_Final[9] = data_OUT[9]*0.15;
+	printf("Temp (C) = [%0.2f]\t Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
+			, data_Final[0], data_Final[1], data_Final[2], data_Final[3], data_Final[4], data_Final[5], data_Final[6], data_Final[7], data_Final[8], data_Final[9]);
+}
+
 
 
 void app_main(void)
@@ -469,11 +370,12 @@ void app_main(void)
 	IMU_write_reg(spi, reg, data);
     IMU_read_ID(spi);
     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    IMU_read_ID2(spi);
+    //IMU_read_ID2(spi);
+    IMU_init_Magneto(spi);
     while(1)
     {
-    	//IMU_read_data(spi);
-    	IMU_read_Magneto2(spi);
+    	IMU_read_data(spi);
+    	//IMU_read_Magneto(spi);
     	vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }

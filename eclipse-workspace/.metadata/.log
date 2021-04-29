@@ -2836,3 +2836,224 @@ PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;
 
 !ENTRY org.eclipse.cdt.core 1 0 2021-04-29 18:19:56.366
 !MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,978 sec: 6.004 declarations; 9.054 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+!SESSION 2021-04-29 18:24:05.417 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-04-29 18:24:16.391
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.562
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.564
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.566
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.973
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.973
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 18:24:22.974
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:30:15.924
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 1,88 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:31:22.249
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 1,08 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:32:05.641
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:32:06.685
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 1,08 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:32:28.535
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:32:28.998
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,98 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:33:11.618
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:33:12.026
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,951 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:35:09.521
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:35:09.658
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,785 sec: 5.978 declarations; 9.016 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:38:19.105
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:38:19.965
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,896 sec: 5.978 declarations; 9.016 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-29 21:39:37.087
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-29 21:39:37.289
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,876 sec: 5.979 declarations; 8.968 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:43:53.181
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,719 sec: 5.991 declarations; 9.010 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:44:05.456
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:44:06.255
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,806 sec: 5.991 declarations; 9.010 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:44:27.131
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:44:27.828
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,73 sec: 5.991 declarations; 9.012 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:46:15.393
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,764 sec: 5.964 declarations; 8.723 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:46:43.985
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:46:44.158
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,71 sec: 5.969 declarations; 8.760 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:47:05.739
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:47:06.443
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,716 sec: 5.969 declarations; 8.760 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:47:11.879
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:47:12.583
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,711 sec: 5.969 declarations; 8.760 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:51:21.803
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:51:21.970
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,698 sec: 5.974 declarations; 8.908 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:51:43.724
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:51:43.742
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,654 sec: 5.974 declarations; 8.908 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:54:55.957
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:54:56.674
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,758 sec: 5.975 declarations; 8.914 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:59:31.273
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,696 sec: 5.975 declarations; 8.933 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 00:59:49.014
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 00:59:49.186
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,701 sec: 5.975 declarations; 8.933 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+!SESSION 2021-04-30 01:01:19.410 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-04-30 01:01:36.081
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.terminal.connector.serial 4 0 2021-04-30 01:01:38.231
+!MESSAGE Error opening \\.\COM5 (5)
+!STACK 0
+java.io.IOException: Error opening \\.\COM5 (5)
+	at org.eclipse.cdt.serial.SerialPort.open0(Native Method)
+	at org.eclipse.cdt.serial.SerialPort.open(SerialPort.java:316)
+	at com.espressif.idf.terminal.connector.serial.connector.SerialConnector.connect(SerialConnector.java:79)
+	at org.eclipse.tm.internal.terminal.connector.TerminalConnector.connect(TerminalConnector.java:181)
+	at org.eclipse.tm.internal.terminal.emulator.VT100TerminalControl.connectTerminal(VT100TerminalControl.java:423)
+	at org.eclipse.tm.terminal.view.ui.tabs.TabFolderManager.createTabItem(TabFolderManager.java:320)
+	at org.eclipse.tm.terminal.view.ui.manager.ConsoleManager.openConsole(ConsoleManager.java:473)
+	at org.eclipse.tm.terminal.view.ui.manager.ConsoleManager.openConsole(ConsoleManager.java:408)
+	at org.eclipse.tm.terminal.view.ui.services.TerminalService$2.doRun(TerminalService.java:299)
+	at org.eclipse.tm.terminal.view.ui.services.TerminalService$2.lambda$0(TerminalService.java:271)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4001)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3629)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1157)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.314
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.316
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.318
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.918
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.919
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:43.919
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY com.espressif.idf.core 1 0 2021-04-30 01:01:48.315
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-04-30 01:01:49.682
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 1,73 sec: 5.975 declarations; 8.933 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
