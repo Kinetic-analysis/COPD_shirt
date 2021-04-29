@@ -378,64 +378,85 @@ spi_device_handle_t SPI_init(void)
     return spi;
 }
 
+
+
 void IMU_read_Magneto2(spi_device_handle_t spi)
 {
 	uint8_t reg;
 	uint8_t data;
 	uint8_t read;
 
+	uint8_t X_MAGN_OUT_H;
+	uint8_t X_MAGN_OUT_L;
+	uint8_t Y_MAGN_OUT_H;
+	uint8_t Y_MAGN_OUT_L;
+	uint8_t Z_MAGN_OUT_H;
+	uint8_t Z_MAGN_OUT_L;
 
-}
+	int16_t X_MAGN_OUT;
+	int16_t Y_MAGN_OUT;
+	int16_t Z_MAGN_OUT;
 
-void IMU_read_Magneto2(spi_device_handle_t spi)
-{
-	uint8_t reg;
-	uint8_t data;
-	uint8_t read;
+	float X_MAGN_finalwaarde;
+	float Y_MAGN_finalwaarde;
+	float Z_MAGN_finalwaarde;
 
 	//read EXT_SLV_SENS_DATA_00
 	reg = 0x3B;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_00: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &X_MAGN_OUT_L);
+	//printf("EXT_SLV_SENS_DATA_00: 0x%02X\n", X_MAGN_OUT_L);
 	reg = 0x3C;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_01: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &X_MAGN_OUT_H);
+	//printf("EXT_SLV_SENS_DATA_01: 0x%02X\n", X_MAGN_OUT_H);
 	reg = 0x3D;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_02: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &Y_MAGN_OUT_L);
+	//printf("EXT_SLV_SENS_DATA_02: 0x%02X\n", Y_MAGN_OUT_L);
 	reg = 0x3E;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_03: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &Y_MAGN_OUT_H);
+	//printf("EXT_SLV_SENS_DATA_03: 0x%02X\n", Y_MAGN_OUT_H);
 	reg = 0x3F;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_04: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &Z_MAGN_OUT_L);
+	//printf("EXT_SLV_SENS_DATA_04: 0x%02X\n", Z_MAGN_OUT_L);
 	reg = 0x40;
-	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_05: 0x%02X\n", read);
+	IMU_read_reg(spi, reg, &Z_MAGN_OUT_H);
+	//printf("EXT_SLV_SENS_DATA_05: 0x%02X\n", Z_MAGN_OUT_H);
 	reg = 0x41;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_06: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_06: 0x%02X\n", read);
 	reg = 0x42;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_07: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_07: 0x%02X\n", read);
 	reg = 0x43;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_08: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_08: 0x%02X\n", read);
 	reg = 0x44;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_09: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_09: 0x%02X\n", read);
 	reg = 0x45;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_10: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_10: 0x%02X\n", read);
 	reg = 0x46;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_11: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_11: 0x%02X\n", read);
 	reg = 0x47;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_12: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_12: 0x%02X\n", read);
 	reg = 0x48;
 	IMU_read_reg(spi, reg, &read);
-	printf("EXT_SLV_SENS_DATA_13: 0x%02X\n", read);
+	//printf("EXT_SLV_SENS_DATA_13: 0x%02X\n", read);
+
+	X_MAGN_OUT = ((X_MAGN_OUT_H << 8) | (X_MAGN_OUT_L & 0xFF));
+	Y_MAGN_OUT = ((Y_MAGN_OUT_H << 8) | (Y_MAGN_OUT_L & 0xFF));
+	Z_MAGN_OUT = ((Z_MAGN_OUT_H << 8) | (Z_MAGN_OUT_L & 0xFF));
+
+	X_MAGN_finalwaarde = X_MAGN_OUT*0.15;
+	Y_MAGN_finalwaarde = Y_MAGN_OUT*0.15;
+	Z_MAGN_finalwaarde = Z_MAGN_OUT*0.15;
+
+	printf("Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
+			,X_MAGN_finalwaarde
+			,Y_MAGN_finalwaarde
+			,Z_MAGN_finalwaarde);
 }
 
 
@@ -451,8 +472,8 @@ void app_main(void)
     IMU_read_ID2(spi);
     while(1)
     {
-    	IMU_read_data(spi);
-    	//IMU_read_Magneto(spi);
+    	//IMU_read_data(spi);
+    	IMU_read_Magneto2(spi);
     	vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
