@@ -38,38 +38,9 @@
 #define PIN_NUM_CLK  18
 #define PIN_NUM_CS   5
 
-
 //To speed up transfers, every SPI transfer sends a bunch of lines. This define specifies how many. More means more memory use,
 //but less overhead for setting up / finishing transfers. Make sure 240 is dividable by this.
 #define PARALLEL_LINES 16
-
-
-
-//This function is called (in irq context!) just before a transmission starts. It will
-//set the D/C line to the value indicated in the user field.
-void lcd_spi_pre_transfer_callback(spi_transaction_t *t)
-{
-    //
-}
-
-void beginSPI(spi_device_handle_t spi)
-{
-    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_NUM_CS, 1);		//CS = Hoog
-
-
-}
-
-int16_t TwosComplement_To_Integer(uint16_t integer)
-{
-	int16_t value = integer;
-    if((integer >> 15) == 0b0000000000000001) //if its negative
-    {
-    	value = ~integer;
-    	value = (integer + 1)*-1;
-    }
-    return value;
-}
 
 bool IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data)
 {
@@ -114,6 +85,8 @@ bool IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data)
 
 void IMU_read_ID(spi_device_handle_t spi)
 {
+	//Leest de ID van de IMU sensor
+	//De ID van de IMU is 0xAE
 	uint8_t reg = 0x00;
 	uint8_t id;
 
@@ -132,122 +105,6 @@ void IMU_read_ID(spi_device_handle_t spi)
 	printf("IMU ID: 0x%02X\n", id);
 }
 
-void IMU_read_gyro_registers(spi_device_handle_t spi)
-{
-	uint8_t reg;
-	uint8_t read;
-	uint8_t write;
-
-	reg = 0x7F;
-	write = 0x20;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("REG_BANK_SEL: 0x%02X\n", read);
-
-	reg = 0x01;
-	write = 0x01;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("GYRO_CONFIG_1: 0x%02X\n", read);
-
-	reg = 0x7F;
-	write = 0x00;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("REG_BANK_SEL: 0x%02X\n", read);
-}
-
-void IMU_read_ID2(spi_device_handle_t spi)
-{
-	uint8_t reg;
-	uint8_t read;
-	uint8_t write;
-
-	//write REG_BANK_SEL
-	reg = 0x7F;
-	write = 0x00;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("REG_BANK_SEL: 0x%02X\n", read);
-
-	//write USER_CTRL
-	reg = 0x03;
-	write = 0x20;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("USER_CTRL: 0x%02X\n", read);
-
-	//write REG_BANK_SEL
-	reg = 0x7F;
-	write = 0x30;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("REG_BANK_SEL: 0x%02X\n", read);
-
-	//write I2C_MST_CTRL
-	reg = 0x01;
-	write = 0x17;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_MST_CTRL: 0x%02X\n", read);
-
-	//write I2C_MST_DELAY_CTRL
-	reg = 0x02;
-	write = 0x01;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_MST_DELAY_CTRL: 0x%02X\n", read);
-
-	//write I2C_SLV0_ADDR
-	reg = 0x03;
-	write = 0x0C;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_ADDR: 0x%02X\n", read);
-
-	//write I2C_SLV0_REG
-	reg = 0x04;
-	write = 0x31;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_REG: 0x%02X\n", read);
-
-	//write I2C_SLV0_DO
-	reg = 0x06;
-	write = 0x08;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_REG: 0x%02X\n", read);
-
-	//write I2C_SLV0_CTRL
-	reg = 0x05;
-	write = 0x8A;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_CTRL: 0x%02X\n", read);
-
-	//write I2C_SLV0_ADDR
-	reg = 0x03;
-	write = 0x8C;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_ADDR: 0x%02X\n", read);
-
-	//write I2C_SLV0_REG
-	reg = 0x04;
-	write = 0x11;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("I2C_SLV0_REG: 0x%02X\n", read);
-
-	//write REG_BANK_SEL
-	reg = 0x7F;
-	write = 0x00;
-	IMU_write_reg(spi, reg, write);
-	IMU_read_reg(spi, reg, &read);
-	printf("REG_BANK_SEL: 0x%02X\n", read);
-}
-
 spi_device_handle_t SPI_init(void)
 {
     esp_err_t ret;
@@ -261,11 +118,11 @@ spi_device_handle_t SPI_init(void)
         .max_transfer_sz=PARALLEL_LINES*320*2+8
     };
     spi_device_interface_config_t devcfg={
-        .clock_speed_hz=1000000,           //Clock out at 10 MHz
+        .clock_speed_hz=1000000,           		//Clock out at 1 MHz
         .mode=0,                                //SPI mode 3
-        .spics_io_num=-1,               //CS pin
+        .spics_io_num=-1,               		//CS pin
         .queue_size=7,                          //We want to be able to queue 7 transactions at a time
-        .pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
+        //.pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
     };
     //Initialize the SPI bus
     ret=spi_bus_initialize(IMU_HOST, &buscfg, 1);
@@ -275,46 +132,23 @@ spi_device_handle_t SPI_init(void)
     ESP_ERROR_CHECK(ret);
 
     gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_NUM_CS, 1);		//CS = Hoog
+    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
     return spi;
 }
 
 void IMU_init_Magneto(spi_device_handle_t spi)
 {
+	//Initialiseert de magneto om te communiceren met de ICM-20498 via I2C
+	//De magnetometer data wordt in de externe slave registers geplaatst
 	uint8_t read[12];
 	uint8_t reg[12] = {0x7F, 0x03, 0x7F, 0x01, 0x02, 0x03, 0x04, 0x06, 0x05, 0x03, 0x04, 0x7F};
 	uint8_t write[12] = {0x00, 0x20, 0x30, 0x17, 0x01, 0x0C, 0x31, 0x08, 0x8A, 0x8C, 0x11, 0x00};
-
 
 	for(int i = 0; i < 12; i++)
 	{
 		IMU_write_reg(spi, reg[i], write[i]);
 		IMU_read_reg(spi, reg[i], &read[i]);
 	}
-}
-
-void IMU_read_Magneto(spi_device_handle_t spi)
-{
-	uint8_t reg[14] = {0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48};
-	uint8_t data_HL[14];
-	int16_t data_OUT[7];
-	float data_Final[7];
-
-	for(int i = 0; i < 14; i++)
-	{
-		IMU_read_reg(spi, reg[i], &data_HL[i]);
-	}
-
-	data_OUT[0] = ((data_HL[1] << 8) | (data_HL[0] & 0xFF));
-	data_OUT[1] = ((data_HL[3] << 8) | (data_HL[2] & 0xFF));
-	data_OUT[2] = ((data_HL[5] << 8) | (data_HL[4] & 0xFF));
-
-	data_Final[0] = data_OUT[0]*0.15;
-	data_Final[1] = data_OUT[1]*0.15;
-	data_Final[2] = data_OUT[2]*0.15;
-
-	printf("Magneto (uT) = [%0.2f, %0.2f, %0.2f]\n"
-			, data_Final[0], data_Final[1], data_Final[2]);
 }
 
 void IMU_read_data(spi_device_handle_t spi)
@@ -330,33 +164,41 @@ void IMU_read_data(spi_device_handle_t spi)
 
 	for(int i = 0; i < 28; i++)
 	{
-		IMU_read_reg(spi, reg[i], &data_HL[i]);
+		IMU_read_reg(spi, reg[i], &data_HL[i]);	//Leest alle sensor registers uit
 	}
 
-	data_OUT[0] = ((data_HL[0] << 8) | (data_HL[1] & 0xFF));
-	data_OUT[1] = ((data_HL[2] << 8) | (data_HL[3] & 0xFF));
-	data_OUT[2] = ((data_HL[4] << 8) | (data_HL[5] & 0xFF));
-	data_OUT[3] = ((data_HL[6] << 8) | (data_HL[7] & 0xFF));
-	data_OUT[4] = ((data_HL[8] << 8) | (data_HL[9] & 0xFF));
-	data_OUT[5] = ((data_HL[10] << 8) | (data_HL[11] & 0xFF));
-	data_OUT[6] = ((data_HL[12] << 8) | (data_HL[13] & 0xFF));
 
-	data_OUT[7] = ((data_HL[15] << 8) | (data_HL[14] & 0xFF));
-	data_OUT[8] = ((data_HL[17] << 8) | (data_HL[16] & 0xFF));
-	data_OUT[9] = ((data_HL[19] << 8) | (data_HL[18] & 0xFF));
+	data_OUT[0] = ((data_HL[0] << 8) | (data_HL[1] & 0xFF));	//Combineert high en low byte van temperatuur sensor met two's complement
+	data_OUT[1] = ((data_HL[2] << 8) | (data_HL[3] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
+	data_OUT[2] = ((data_HL[4] << 8) | (data_HL[5] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
+	data_OUT[3] = ((data_HL[6] << 8) | (data_HL[7] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
+	data_OUT[4] = ((data_HL[8] << 8) | (data_HL[9] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
+	data_OUT[5] = ((data_HL[10] << 8) | (data_HL[11] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
+	data_OUT[6] = ((data_HL[12] << 8) | (data_HL[13] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
 
-	data_Final[0] = ((data_OUT[0]-20)/333.87)+21;
-	data_Final[1] = data_OUT[1]/16.384;
-	data_Final[2] = data_OUT[2]/16.384;
-	data_Final[3] = data_OUT[3]/16.384;
-	data_Final[4] = data_OUT[4]/131;
-	data_Final[5] = data_OUT[5]/131;
-	data_Final[6] = data_OUT[6]/131;
-	data_Final[7] = data_OUT[7]*0.15;
-	data_Final[8] = data_OUT[8]*0.15;
-	data_Final[9] = data_OUT[9]*0.15;
-	printf("Temp (C) = [%0.2f]\t Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
-			, data_Final[0], data_Final[1], data_Final[2], data_Final[3], data_Final[4], data_Final[5], data_Final[6], data_Final[7], data_Final[8], data_Final[9]);
+	data_OUT[7] = ((data_HL[15] << 8) | (data_HL[14] & 0xFF));	//Combineert high en low byte van Magnetometer X-as met Little Endian
+	data_OUT[8] = ((data_HL[17] << 8) | (data_HL[16] & 0xFF));	//Combineert high en low byte van Magnetometer Y-as met Little Endian
+	data_OUT[9] = ((data_HL[19] << 8) | (data_HL[18] & 0xFF));	//Combineert high en low byte van Magnetometer Z-as met Little Endian
+
+	data_Final[0] = ((data_OUT[0]-20)/333.87)+21;	//Berekend de temperatuur in graden celcius
+	data_Final[1] = data_OUT[1]/16.384;				//Berekend de accelerometer waarde van de X-axis in mg
+	data_Final[2] = data_OUT[2]/16.384;				//Berekend de accelerometer waarde van de Y-axis in mg
+	data_Final[3] = data_OUT[3]/16.384;				//Berekend de accelerometer waarde van de Z-axis in mg
+	data_Final[4] = data_OUT[4]/131;				//Berekend de gyroscope waarde van de X-axis in dps
+	data_Final[5] = data_OUT[5]/131;				//Berekend de gyroscope waarde van de Y-axis in dps
+	data_Final[6] = data_OUT[6]/131;				//Berekend de gyroscope waarde van de Z-axis in dps
+	data_Final[7] = data_OUT[7]*0.15;				//Berekend de magnetometer waarde van de X-axis in uT
+	data_Final[8] = data_OUT[8]*0.15;				//Berekend de magnetometer waarde van de Y-axis in uT
+	data_Final[9] = data_OUT[9]*0.15;				//Berekend de magnetometer waarde van de Z-axis in uT
+
+	printf("Temp (C) = [%0.2f]\t "
+			"Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t "
+			"Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t "
+			"Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
+			, data_Final[0],
+			data_Final[1], data_Final[2], data_Final[3],
+			data_Final[4], data_Final[5], data_Final[6],
+			data_Final[7], data_Final[8], data_Final[9]);
 }
 
 
@@ -367,15 +209,12 @@ void app_main(void)
 	uint8_t data = 0x01;
 	spi_device_handle_t spi;
 	spi = SPI_init();
-	IMU_write_reg(spi, reg, data);
-    IMU_read_ID(spi);
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
-    //IMU_read_ID2(spi);
-    IMU_init_Magneto(spi);
+	IMU_write_reg(spi, reg, data); 				//Selecteerd de klok van de IMU
+    IMU_read_ID(spi);							//Leest de ID van de IMU
+    IMU_init_Magneto(spi);						//Initialiseert de magnetometer voor communicatie
     while(1)
     {
     	IMU_read_data(spi);
-    	//IMU_read_Magneto(spi);
     	vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }

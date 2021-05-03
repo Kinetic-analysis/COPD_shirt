@@ -30,7 +30,6 @@
 #include "driver/timer.h"
 #include <inttypes.h>
 
-
 #define DEFAULT_VREF    	3300
 #define NO_OF_SAMPLES   	16
 
@@ -40,6 +39,16 @@
 #define YELLOW_LED			GPIO_NUM_26
 #define RED_LED				GPIO_NUM_27
 #define VIBRATOR_MOTOR		GPIO_NUM_33
+
+#if defined(CONFIG_EXAMPLE_IPV4)
+#define HOST_IP_ADDR CONFIG_EXAMPLE_IPV4_ADDR
+#elif defined(CONFIG_EXAMPLE_IPV6)
+#define HOST_IP_ADDR CONFIG_EXAMPLE_IPV6_ADDR
+#else
+#define HOST_IP_ADDR ""
+#endif
+
+#define PORT CONFIG_EXAMPLE_PORT
 
 static esp_adc_cal_characteristics_t *ADC_CHARS;
 static const adc_channel_t RESISTIVE_STRETCH = ADC_CHANNEL_6;
@@ -61,14 +70,104 @@ static const adc_unit_t UNIT = ADC_UNIT_1;
 static const char *TAG = "example";
 static const char *payload = "Message from ESP32 ";
 
-volatile int64_t starttime;
-volatile int knop = 0;
+volatile int64_t start_measure_time;
+volatile int start_measure = 0;
 
-void IRAM_ATTR Touchpad_ISR_Handler(void *arg)
+// ************************ //
+// Aan/Uit button interrupt //
+// ************************ //
+void IRAM_ATTR Power_Latch_ISR_Handler(void *arg)
 {
-	knop = 1;
+		gpio_set_level(uC_LATCH, 0);
 }
 
+// ************************************* //
+// Interrupt GPIO om metingen te starten //
+// ************************************* //
+void IRAM_ATTR Touchpad_ISR_Handler(void *arg)
+{
+	start_measure = 1;
+}
+
+// ****************** //
+// GPIO initialisatie //
+// ****************** //
+static void GPIO_init(void)
+{
+	gpio_pad_select_gpio(uC_SENSE);
+	gpio_pad_select_gpio(uC_LATCH);
+	gpio_pad_select_gpio(GREEN_LED);
+	gpio_pad_select_gpio(YELLOW_LED);
+	gpio_pad_select_gpio(RED_LED);
+
+	gpio_set_direction(uC_SENSE, GPIO_MODE_INPUT);
+	gpio_set_direction(uC_LATCH, GPIO_MODE_OUTPUT);
+	gpio_set_direction(GREEN_LED, GPIO_MODE_OUTPUT);
+	gpio_set_direction(YELLOW_LED, GPIO_MODE_OUTPUT);
+	gpio_set_direction(RED_LED, GPIO_MODE_OUTPUT);
+
+	gpio_set_level(GREEN_LED, 0);
+	gpio_set_level(YELLOW_LED, 0);
+	gpio_set_level(RED_LED, 0);
+	gpio_set_level(uC_LATCH, 1); //Zet systeem meteen aan
+}
+
+// *********************** //
+// Interrupt initialisatie //
+// *********************** //
+static void Interrupt_init(void)
+{
+	gpio_set_intr_type(uC_SENSE, GPIO_INTR_POSEDGE);
+	gpio_pad_select_gpio(GPIO_NUM_2);
+	gpio_set_direction(GPIO_NUM_2, GPIO_MODE_INPUT);
+	gpio_set_intr_type(GPIO_NUM_2, GPIO_INTR_NEGEDGE);
+	gpio_install_isr_service(0);
+	gpio_isr_handler_add(uC_SENSE, Power_Latch_ISR_Handler, NULL);
+	gpio_isr_handler_add(GPIO_NUM_2, Touchpad_ISR_Handler, NULL);
+}
+
+// ****************** //
+// ADC initisalisatie //
+// ****************** //
+static void ADC_init(void)
+{
+	adc1_config_width(WIDTH);
+	adc1_config_channel_atten(RESISTIVE_STRETCH, ATTEN);
+	adc1_config_channel_atten(BATT_VOLT, ATTEN);
+
+	ADC_CHARS = calloc(1, sizeof(esp_adc_cal_characteristics_t));
+	esp_adc_cal_characterize(UNIT, ATTEN, WIDTH, DEFAULT_VREF, ADC_CHARS);
+}
+
+// *********************** //
+// Trilmotor initialisatie //
+// *********************** //
+static void Motor1_init(void)
+{
+	//De trilmotor GPIO wordt geinitialiseerd met een frequentie van 25kHz en een resolutie van 8 bits
+	ledc_timer_config_t motor1_timer;
+	motor1_timer.speed_mode = LEDC_LOW_SPEED_MODE;
+	motor1_timer.duty_resolution = LEDC_TIMER_8_BIT;
+	motor1_timer.timer_num = LEDC_TIMER_0;
+	motor1_timer.freq_hz = 25000;
+	motor1_timer.clk_cfg = LEDC_AUTO_CLK;
+	ledc_timer_config(&motor1_timer);
+
+	ledc_channel_config_t motor1_channel;
+	motor1_channel.gpio_num = 33;
+	motor1_channel.speed_mode = LEDC_LOW_SPEED_MODE;
+	motor1_channel.channel = LEDC_CHANNEL_0;
+	motor1_channel.intr_type = LEDC_INTR_DISABLE;
+	motor1_channel.timer_sel = LEDC_TIMER_0;
+	motor1_channel.duty = 0;
+	motor1_channel.hpoint = 0;
+	ledc_channel_config(&motor1_channel);
+	ledc_fade_func_install(0);
+}
+
+// ************************ //
+// TCP Client initialisatie //
+// ************************ //
 static void tcp_client_init(void)
 {
     ESP_ERROR_CHECK(nvs_flash_init());
@@ -77,6 +176,23 @@ static void tcp_client_init(void)
     ESP_ERROR_CHECK(example_connect());
 }
 
+// ************** //
+// Trilmotor taak //
+// ************** //
+static void Motor1_task(void *pvParameter)
+{
+	while(1)
+	{
+		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0, 0);
+		vTaskDelay(5000 / portTICK_PERIOD_MS);
+		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 128, 0);
+		vTaskDelay(5000 / portTICK_PERIOD_MS);
+	}
+}
+
+// ************************ //
+// TCP Client taak //
+// ************************ //
 static void tcp_client_task(void *pvParameters)
 {
     char rx_buffer[128];
@@ -153,41 +269,11 @@ static void tcp_client_task(void *pvParameters)
 	}
 }
 
-void IRAM_ATTR Power_Latch_ISR_Handler(void *arg)
-{
-		gpio_set_level(uC_LATCH, 0);
-}
 
-static void ADC_init(void)
-{
-	adc1_config_width(WIDTH);
-	adc1_config_channel_atten(RESISTIVE_STRETCH, ATTEN);
-	adc1_config_channel_atten(BATT_VOLT, ATTEN);
 
-	ADC_CHARS = calloc(1, sizeof(esp_adc_cal_characteristics_t));
-	esp_adc_cal_characterize(UNIT, ATTEN, WIDTH, DEFAULT_VREF, ADC_CHARS);
-}
-
-static void GPIO_init(void)
-{
-	gpio_pad_select_gpio(uC_SENSE);
-	gpio_pad_select_gpio(uC_LATCH);
-	gpio_pad_select_gpio(GREEN_LED);
-	gpio_pad_select_gpio(YELLOW_LED);
-	gpio_pad_select_gpio(RED_LED);
-
-	gpio_set_direction(uC_SENSE, GPIO_MODE_INPUT);
-	gpio_set_direction(uC_LATCH, GPIO_MODE_OUTPUT);
-	gpio_set_direction(GREEN_LED, GPIO_MODE_OUTPUT);
-	gpio_set_direction(YELLOW_LED, GPIO_MODE_OUTPUT);
-	gpio_set_direction(RED_LED, GPIO_MODE_OUTPUT);
-
-	gpio_set_level(GREEN_LED, 0);
-	gpio_set_level(YELLOW_LED, 0);
-	gpio_set_level(RED_LED, 0);
-	gpio_set_level(uC_LATCH, 1);
-}
-
+// ***************************** //
+// Resistive Stretch Sensor taak //
+// ***************************** //
 static void Resistive_stretch_task(void *pvParameter)
 {
 	float adc_voltage 	= 0;
@@ -198,7 +284,7 @@ static void Resistive_stretch_task(void *pvParameter)
 	int64_t temp = 0;
 	int64_t microseconden = 0;
 
-	while(knop == 1)
+	while(start_measure == 1)
 	{
 		adc_reading = adc1_get_raw((adc1_channel_t)RESISTIVE_STRETCH);
 		adc_voltage = esp_adc_cal_raw_to_voltage(adc_reading, ADC_CHARS);
@@ -208,12 +294,15 @@ static void Resistive_stretch_task(void *pvParameter)
         //printf("adc_reading: %dOhm\n", adc_reading);
         //printf("adc_voltage: %0.1fOhm\n", adc_voltage);
         temp = esp_timer_get_time();
-        microseconden = temp - starttime;
+        microseconden = temp - start_measure_time;
         printf("%" PRId64 ", %0.1fOhm\n", microseconden, resistance);
         vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
 }
 
+// *********************** //
+// Battery management taak //
+// *********************** //
 static void Battery_task(void *pvParameter)
 {
 	uint32_t adc_voltage 	= 0;
@@ -222,65 +311,38 @@ static void Battery_task(void *pvParameter)
 
 	while(1)
 	{
+		//Leest de ADC en berekend de batterij spanning
 		adc_reading = adc1_get_raw((adc1_channel_t)BATT_VOLT);
 		adc_voltage = esp_adc_cal_raw_to_voltage(adc_reading, ADC_CHARS);
 		batt_voltage = 2*adc_voltage;
-		//printf("adc_reading = %d\n", adc_reading);
-		//printf("adc_voltage = %d\n", adc_voltage);
-		//printf("batt_voltage = %d\n", batt_voltage);
+		//Als batterij spanning boven de 3.8V is, wordt de groene led aangestuurd
 		if(batt_voltage >= 3800)
 		{
 			gpio_set_level(YELLOW_LED, 0);
 			gpio_set_level(RED_LED, 0);
 			gpio_set_level(GREEN_LED, 1);
 		}
+		//Als de batterij spanning tussen de 3.4V en 3.8V is, wordt de oranje led aangestuurd
 		else if((batt_voltage > 3400) && (batt_voltage < 3800))
 		{
 			gpio_set_level(GREEN_LED, 0);
 			gpio_set_level(RED_LED, 0);
 			gpio_set_level(YELLOW_LED, 1);
 		}
-		else
+		//Als de batterij spanning tussen de 3.0V en 3.4V is, wordt de groene led aangestuurd
+		else if((batt_voltage > 3000) && (batt_voltage < 3000))
 		{
 			gpio_set_level(GREEN_LED, 0);
 			gpio_set_level(YELLOW_LED, 0);
 			gpio_set_level(RED_LED, 1);
 		}
+		//Als de batterij spanning onder de 3V is, wordt het systeem uitgezet
+		else
+		{
+			gpio_set_level(uC_LATCH, 0);
+		}
 		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
-}
-
-static void Motor1_task(void *pvParameter)
-{
-	while(1)
-	{
-		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0, 0);
-		vTaskDelay(5000 / portTICK_PERIOD_MS);
-		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 128, 0);
-		vTaskDelay(5000 / portTICK_PERIOD_MS);
-	}
-}
-
-static void Motor1_init(void)
-{
-	ledc_timer_config_t motor1_timer;
-	motor1_timer.speed_mode = LEDC_LOW_SPEED_MODE;
-	motor1_timer.duty_resolution = LEDC_TIMER_8_BIT;
-	motor1_timer.timer_num = LEDC_TIMER_0;
-	motor1_timer.freq_hz = 25000;
-	motor1_timer.clk_cfg = LEDC_AUTO_CLK;
-	ledc_timer_config(&motor1_timer);
-
-	ledc_channel_config_t motor1_channel;
-	motor1_channel.gpio_num = 33;
-	motor1_channel.speed_mode = LEDC_LOW_SPEED_MODE;
-	motor1_channel.channel = LEDC_CHANNEL_0;
-	motor1_channel.intr_type = LEDC_INTR_DISABLE;
-	motor1_channel.timer_sel = LEDC_TIMER_0;
-	motor1_channel.duty = 0;
-	motor1_channel.hpoint = 0;
-	ledc_channel_config(&motor1_channel);
-	ledc_fade_func_install(0);
 }
 
 void app_main(void)
@@ -288,26 +350,18 @@ void app_main(void)
 	Motor1_init();
     GPIO_init();
     ADC_init();
+    Interrupt_init();
+    tcp_client_init();
 
 	printf("ESP STARTED\n");
 	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);
 	vTaskDelay(2500 / portTICK_PERIOD_MS);
-	gpio_set_intr_type(uC_SENSE, GPIO_INTR_POSEDGE);
-
-
-	gpio_pad_select_gpio(GPIO_NUM_2);
-	gpio_set_direction(GPIO_NUM_2, GPIO_MODE_INPUT);
-	gpio_set_intr_type(GPIO_NUM_2, GPIO_INTR_NEGEDGE);
-	gpio_install_isr_service(0);
-	gpio_isr_handler_add(uC_SENSE, Power_Latch_ISR_Handler, NULL);
-	gpio_isr_handler_add(GPIO_NUM_2, Touchpad_ISR_Handler, NULL);
-	//xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 5, NULL);
-	while(knop == 0)
+	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 5, NULL);
+	while(start_measure == 0)
 	{
 		//nothing
 	}
-
+	start_measure_time = esp_timer_get_time();
     xTaskCreate(&Resistive_stretch_task, "Resistive stretch sensor", 2048, NULL, 5, NULL);
-    starttime = esp_timer_get_time();
-    //xTaskCreate(&tcp_client_task, "tcp_client", 4096, NULL, 5, NULL);
+    xTaskCreate(&tcp_client_task, "tcp_client", 4096, NULL, 5, NULL);
 }
