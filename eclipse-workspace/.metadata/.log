@@ -3978,3 +3978,89 @@ java.lang.NullPointerException: Cannot invoke "org.eclipse.core.resources.IResou
 
 !ENTRY org.eclipse.cdt.core 1 0 2021-05-04 00:06:48.987
 !MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,773 sec: 5.950 declarations; 8.691 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+!SESSION 2021-05-04 09:39:37.643 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-04 09:39:59.344
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.107
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.109
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.112
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.846
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.846
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:40:17.847
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:42:14.734
+!MESSAGE IDF path C:\esp-idf\esp-idf_v4.2
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:42:14.827
+!MESSAGE IDF path C:\esp-idf\esp-idf_v4.2
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:43:39.648
+!MESSAGE Source Template path:C:\esp-idf\esp-idf_v4.2\examples\get-started\hello_world
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:43:40.495
+!MESSAGE Indexed 'HelloWorld' (1 sources, 33 headers) in 0,694 sec: 1.093 declarations; 1.709 references; 5 unresolved inclusions; 0 syntax errors; 11 unresolved names (0,39%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:47:58.250
+!MESSAGE Indexed 'HelloWorld' (1 sources, 33 headers) in 0,189 sec: 1.093 declarations; 1.709 references; 5 unresolved inclusions; 0 syntax errors; 11 unresolved names (0,39%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:54:12.972
+!MESSAGE Indexed 'HelloWorld' (1 sources, 98 headers) in 0,634 sec: 3.369 declarations; 4.309 references; 0 unresolved inclusions; 3 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:55:40.122
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:55:41.212
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 1,03 sec: 5.950 declarations; 8.691 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:56:20.896
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:56:21.872
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,987 sec: 5.950 declarations; 8.691 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 09:57:43.205
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 09:57:44.107
+!MESSAGE Indexed 'IMU_SPI_Test' (8 sources, 136 headers) in 0,911 sec: 5.950 declarations; 8.691 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.089
+!MESSAGE Command id:com.espressif.idf.ui.command.install
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.089
+!MESSAGE IDF_PATH :C:\esp-idf\esp-idf_v4.2
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.090
+!MESSAGE GIT path:null
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.091
+!MESSAGE SOFTWARE\Python\PythonCore\3.6\InstallPath
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.093
+!MESSAGE C:\Users\Gebruiker\AppData\Local\Programs\Python\Python36\python.exe
