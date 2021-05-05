@@ -4064,3 +4064,535 @@ PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;
 
 !ENTRY com.espressif.idf.core 1 0 2021-05-04 10:42:56.093
 !MESSAGE C:\Users\Gebruiker\AppData\Local\Programs\Python\Python36\python.exe
+!SESSION 2021-05-04 21:24:43.154 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-04 21:25:03.270
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.303
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.306
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.310
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.980
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.980
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:25:25.981
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:31:56.267
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:31:58.646
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 2,29 sec: 4.430 declarations; 5.800 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:32:21.411
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:32:22.331
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,926 sec: 4.430 declarations; 5.800 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:35:28.121
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:35:28.365
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,89 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:35:54.052
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:35:54.305
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,785 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:36:38.706
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:36:39.162
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,956 sec: 4.430 declarations; 5.800 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 21:36:55.619
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 21:36:55.769
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,677 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:10:22.820
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:10:23.592
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,804 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:10:27.896
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:10:28.559
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,676 sec: 4.430 declarations; 5.800 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:13:09.382
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:13:09.458
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,612 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:15:12.208
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:15:12.363
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,666 sec: 4.430 declarations; 5.800 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:16:42.027
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:16:42.214
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,714 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:17:54.190
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:17:54.252
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,592 sec: 4.448 declarations; 5.911 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:19:33.165
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:19:33.233
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,6 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:20:59.768
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:20:59.805
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,565 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:21:24.730
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:21:24.791
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,574 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:22:05.347
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:22:05.369
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,552 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:22:31.814
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:22:31.858
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,551 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:25:50.968
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:25:51.000
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,559 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:26:28.706
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:26:28.740
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,565 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:27:14.603
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:27:14.604
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,529 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:28:01.210
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:28:01.240
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,559 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:28:43.690
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:28:43.712
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,554 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:29:12.221
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:29:12.240
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,546 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:30:38.283
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:30:38.300
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,546 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:31:30.862
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:31:30.895
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,558 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:32:14.856
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:32:14.861
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,537 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:33:07.632
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,547 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:33:07.697
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:33:42.744
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:33:42.789
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,581 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:35:23.899
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:35:23.931
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,561 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:36:05.375
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:36:05.396
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,553 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:36:57.437
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,526 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:36:57.438
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:37:53.384
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:37:53.423
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,581 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:39:06.178
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:39:06.224
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,574 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:39:53.681
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,576 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:39:53.734
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:40:19.321
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:40:19.411
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,599 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:42:57.043
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:42:57.063
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,547 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:43:56.554
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:43:56.568
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,543 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:45:05.025
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:45:05.045
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,556 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:46:42.857
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:46:42.886
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,56 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:48:35.566
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:48:35.596
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,56 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:49:04.478
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,546 sec: 4.430 declarations; 5.796 references; 4 unresolved inclusions; 5 syntax errors; 11 unresolved names (0,11%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:49:18.742
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:49:19.131
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,921 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:49:53.249
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,582 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:49:55.344
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,567 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:49:55.388
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:51:07.196
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:51:07.264
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,596 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:51:52.079
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:51:52.086
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,533 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:53:19.752
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:53:19.786
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,56 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:54:26.971
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:54:26.994
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,551 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:54:56.752
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:54:57.314
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,587 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 22:58:34.696
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 22:58:34.724
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,561 sec: 4.448 declarations; 5.895 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,097%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:01:19.827
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:01:20.480
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,686 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:21:49.381
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:21:49.979
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,625 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:21:54.576
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:21:55.257
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,688 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:22:41.975
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:22:41.996
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,546 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:38:00.429
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:38:01.061
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,658 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:38:38.319
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,547 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:38:38.384
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:40:30.290
+!MESSAGE Indexed 'capacitivetest' (7 sources, 126 headers) in 0,571 sec: 4.448 declarations; 5.905 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,096%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-04 23:40:37.411
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-04 23:40:37.444
+!MESSAGE Indexed 'capacitivetest' (6 sources, 126 headers) in 0,54 sec: 4.430 declarations; 5.797 references; 4 unresolved inclusions; 5 syntax errors; 10 unresolved names (0,098%)
+!SESSION 2021-05-05 00:29:57.845 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-05 00:35:24.955
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.032
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.036
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.038
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.626
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.627
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:35:44.627
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:45:22.099
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 1,86 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:45:24.950
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:45:25.832
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,888 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:51:52.659
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:51:53.416
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,789 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:51:58.775
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:51:59.527
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,759 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:52:21.622
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:52:22.364
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,748 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:52:59.818
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:52:59.885
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,596 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:53:23.137
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:53:23.772
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,641 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 00:57:09.187
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 00:57:09.797
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,638 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:00:46.479
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:00:47.187
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,744 sec: 4.213 declarations; 5.698 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:00:58.011
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:00:58.609
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,616 sec: 4.195 declarations; 5.593 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:13:41.439
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:13:42.086
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,68 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:13:49.941
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:13:50.530
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,597 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:19:24.017
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:19:24.793
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,809 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:19:34.474
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:19:35.057
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,591 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:21:26.130
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:21:26.803
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,716 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:21:32.039
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:21:32.699
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,668 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:21:40.925
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:21:41.774
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,858 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:22:20.250
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:22:20.830
+!MESSAGE Indexed 'TestBlink' (5 sources, 118 headers) in 0,587 sec: 4.195 declarations; 5.588 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:23:04.403
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:23:04.943
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,571 sec: 4.213 declarations; 5.688 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:26:44.484
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:26:45.140
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,686 sec: 4.213 declarations; 5.698 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.espressif.idf.core 1 0 2021-05-05 01:27:24.322
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-05-05 01:27:24.909
+!MESSAGE Indexed 'TestBlink' (6 sources, 118 headers) in 0,616 sec: 4.213 declarations; 5.698 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)

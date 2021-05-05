@@ -29,7 +29,7 @@ void IRAM_ATTR Touchpad_ISR_Handler(void *arg)
 
 static void Cap_NE555_Task(void *pvParameter)
 {
-	float Value = 0;
+	int64_t Value = 0;
 	int64_t temp = 0;
 	int64_t microseconden = 0;
 	while(knop == 1)
@@ -37,7 +37,8 @@ static void Cap_NE555_Task(void *pvParameter)
 		temp = esp_timer_get_time();
 		microseconden = temp - starttime;
 		Value = PeriodCount;
-		printf("%" PRId64 ", %0.1f\n", microseconden, Value);
+		printf("%" PRId64 "," "%" PRId64 "\n", microseconden, Value);
+		//printf("%" PRId64 "\n", Value);
 		vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
 }

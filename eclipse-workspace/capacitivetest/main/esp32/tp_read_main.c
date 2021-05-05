@@ -53,16 +53,17 @@ static void tp_example_read_task(void *pvParameter)
     	temp = esp_timer_get_time();
     	microseconden = temp - starttime;
 
-    	touch_pad_read(TOUCH_PAD_NUM7, &touch_filter_value);
+    	touch_pad_read(TOUCH_PAD_NUM3, &touch_filter_value);
 
         printf("%" PRId64 ", %4d\n", microseconden, touch_filter_value);
+    	//printf("%4d\n", touch_filter_value);
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
 
 static void tp_example_touch_pad_init(void)
 {
-    touch_pad_config(TOUCH_PAD_NUM7, TOUCH_THRESH_NO_USE);
+    touch_pad_config(TOUCH_PAD_NUM3, TOUCH_THRESH_NO_USE);
 }
 
 void app_main(void)
@@ -78,14 +79,11 @@ void app_main(void)
     // In this case, the high reference valtage will be 2.7V - 1V = 1.7V
     // The low reference voltage will be 0.5
     // The larger the range, the larger the pulse count value.
-    touch_pad_set_voltage(TOUCH_HVOLT_2V4, TOUCH_LVOLT_0V6, TOUCH_HVOLT_ATTEN_1V5);
-    touch_pad_set_cnt_mode(TOUCH_PAD_NUM7, TOUCH_PAD_SLOPE_7, TOUCH_PAD_TIE_OPT_LOW);
-    touch_pad_set_meas_time(0xffff, 0xffff);
+    touch_pad_set_voltage(TOUCH_HVOLT_2V4, TOUCH_LVOLT_0V5, TOUCH_HVOLT_ATTEN_1V5);
+    touch_pad_set_cnt_mode(TOUCH_PAD_NUM3, TOUCH_PAD_SLOPE_1, TOUCH_PAD_TIE_OPT_LOW);
+    touch_pad_set_meas_time(0x0001, 0xffff);
 
     tp_example_touch_pad_init();
-#if TOUCH_FILTER_MODE_EN
-    touch_pad_filter_start(TOUCHPAD_FILTER_TOUCH_PERIOD);
-#endif
 
 	timer_config_t capSensor;
     capSensor.alarm_en = TIMER_ALARM_DIS;

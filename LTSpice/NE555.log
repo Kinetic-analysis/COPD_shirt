@@ -2,20 +2,20 @@ Circuit: * C:\Users\Gebruiker\Documents\GitHub\COPD_shirt\LTSpice\NE555.asc
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Mon Apr 26 22:50:10 2021
-Total elapsed time: 0.156 seconds.
+Date: Wed May 05 00:47:27 2021
+Total elapsed time: 1.370 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 35972
-traniter = 35964
-tranpoints = 8100
-accept = 6402
-rejected = 1698
+totiter = 512175
+traniter = 512167
+tranpoints = 107106
+accept = 82899
+rejected = 24207
 matrix size = 29
 fillins = 0
 solver = Normal
-Matrix Compiler1: 828 bytes object code size  0.2/0.1/[0.1]
-Matrix Compiler2: 1.58 KB object code size  0.1/0.2/[0.1]
+Matrix Compiler1: 828 bytes object code size  0.3/0.2/[0.1]
+Matrix Compiler2: 1.58 KB object code size  0.2/0.3/[0.2]
 
