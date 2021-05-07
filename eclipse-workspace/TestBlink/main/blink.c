@@ -39,7 +39,7 @@ static void Cap_NE555_Task(void *pvParameter)
 		Value = PeriodCount;
 		printf("%" PRId64 "," "%" PRId64 "\n", microseconden, Value);
 		//printf("%" PRId64 "\n", Value);
-		vTaskDelay(10 / portTICK_PERIOD_MS);
+		vTaskDelay(1 / portTICK_PERIOD_MS);
 	}
 }
 
