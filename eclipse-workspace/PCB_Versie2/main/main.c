@@ -353,6 +353,27 @@ static void Vibrator_motor_init(void)
 	ledc_fade_func_install(0);
 }
 
+static void Speaker_init(void)
+{
+	ledc_timer_config_t Speaker_timer;
+	Speaker_timer.speed_mode = LEDC_LOW_SPEED_MODE;
+	Speaker_timer.duty_resolution = LEDC_TIMER_8_BIT;
+	Speaker_timer.timer_num = LEDC_TIMER_1;
+	Speaker_timer.freq_hz = 1000;
+	Speaker_timer.clk_cfg = LEDC_AUTO_CLK;
+	ledc_timer_config(&Speaker_timer);
+
+	ledc_channel_config_t Speaker_channel;
+	Speaker_channel.gpio_num = 25;
+	Speaker_channel.speed_mode = LEDC_LOW_SPEED_MODE;
+	Speaker_channel.channel = LEDC_TIMER_1;
+	Speaker_channel.intr_type = LEDC_INTR_DISABLE;
+	Speaker_channel.timer_sel = LEDC_TIMER_1;
+	Speaker_channel.duty = 128;
+	Speaker_channel.hpoint = 0;
+	ledc_channel_config(&Speaker_channel);
+}
+
 // ************************ //
 // TCP Client initialisatie //
 // ************************ //
@@ -367,6 +388,26 @@ static void tcp_client_init(void)
 // ************** //
 // Trilmotor taak //
 // ************** //
+static void Speaker_task(void *pvParameter)
+{
+	uint32_t frequency = 1000;
+	while(1)
+	{
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 1000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 2000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 3000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 4000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 3000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_1, 2000);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+}
+
 static void Motor1_task(void *pvParameter)
 {
 	while(1)
@@ -541,7 +582,7 @@ static void Battery_task(void *pvParameter)
 		{
 			Control_led(0,0,1);
 		}
-		else
+		if((Battery_mV < 3000))
 		{
 			gpio_set_level(Power_on_off_pin, 0);
 		}
@@ -557,17 +598,19 @@ static void tp_example_touch_pad_init(void)
 void app_main(void)
 {
 	Vibrator_motor_init();
+	Speaker_init();
     GPIO_init();
     ADC_init();
     Interrupt_init();
-    tcp_client_init();
+    //tcp_client_init();
     start_measure_time = esp_timer_get_time();
 	printf("ESP STARTED\n");
 	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);
 	vTaskDelay(2500 / portTICK_PERIOD_MS);
 	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 5, NULL);
-    xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 5, NULL);
-    xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 2048, NULL, 5, NULL);
+	xTaskCreate(&Speaker_task, "Speaker", 2048, NULL, 5, NULL);
+    //xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 5, NULL);
+    //xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 2048, NULL, 5, NULL);
 //    xTaskCreate(&tcp_client_task, "tcp_client", 4096, NULL, 5, NULL);
 	uint8_t reg = 0x06;
 	uint8_t data = 0x01;
