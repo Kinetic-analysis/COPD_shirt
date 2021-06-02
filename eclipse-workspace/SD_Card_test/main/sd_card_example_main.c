@@ -17,6 +17,7 @@
 #include "driver/spi_common.h"
 #include "sdmmc_cmd.h"
 #include "sdkconfig.h"
+#include "driver/gpio.h"
 
 #ifdef CONFIG_IDF_TARGET_ESP32
 #include "driver/sdmmc_host.h"
@@ -50,18 +51,52 @@ static const char *TAG = "example";
 // initialized in SPI mode, it can not be reinitialized in SD mode without
 // toggling power to the card.
 
-#ifdef USE_SPI_MODE
+
 // Pin mapping when using SPI mode.
 // With this mapping, SD card can be used both in SPI and 1-line SD mode.
 // Note that a pull-up on CS line is required in SD mode.
-#define PIN_NUM_MISO 2
-#define PIN_NUM_MOSI 15
-#define PIN_NUM_CLK  14
-#define PIN_NUM_CS   13
-#endif //USE_SPI_MODE
+#define PIN_NUM_MISO 19
+#define PIN_NUM_MOSI 23
+#define PIN_NUM_CLK  18
+#define PIN_NUM_CS   4
+
+
+#define Power_sense_pin			GPIO_NUM_34
+#define Power_on_off_pin		GPIO_NUM_33
+#define Green_led_pin			GPIO_NUM_17
+#define Yellow_led_pin			GPIO_NUM_16
+#define Red_led_pin				GPIO_NUM_21
+#define Vibrator_motor1_pin		GPIO_NUM_22
+#define Vibrator_motor2_pin		GPIO_NUM_26
+#define Touch_sensor			GPIO_NUM_2
+#define Battery					GPIO_NUM_35
+#define USE_SPI_MODE
+
+static void GPIO_init(void)
+{
+	gpio_pad_select_gpio(Power_sense_pin);
+	gpio_pad_select_gpio(Power_on_off_pin);
+	gpio_pad_select_gpio(Green_led_pin);
+	gpio_pad_select_gpio(Yellow_led_pin);
+	gpio_pad_select_gpio(Red_led_pin);
+	gpio_pad_select_gpio(Battery);
+
+	gpio_set_direction(Power_sense_pin, GPIO_MODE_INPUT);
+	gpio_set_direction(Power_on_off_pin, GPIO_MODE_OUTPUT);
+	gpio_set_direction(Green_led_pin, GPIO_MODE_OUTPUT);
+	gpio_set_direction(Yellow_led_pin, GPIO_MODE_OUTPUT);
+	gpio_set_direction(Red_led_pin, GPIO_MODE_OUTPUT);
+	gpio_set_direction(Battery, GPIO_MODE_INPUT);
+
+	gpio_set_level(Green_led_pin, 1);
+	gpio_set_level(Yellow_led_pin, 0);
+	gpio_set_level(Red_led_pin, 0);
+	gpio_set_level(Power_on_off_pin, 1); //Zet systeem meteen aan
+}
 
 void app_main(void)
 {
+	GPIO_init();
     esp_err_t ret;
     // Options for mounting the filesystem.
     // If format_if_mount_failed is set to true, SD card will be partitioned and
@@ -83,28 +118,28 @@ void app_main(void)
     // Note: esp_vfs_fat_sdmmc/sdspi_mount is all-in-one convenience functions.
     // Please check its source code and implement error recovery when developing
     // production applications.
-#ifndef USE_SPI_MODE
-    ESP_LOGI(TAG, "Using SDMMC peripheral");
-    sdmmc_host_t host = SDMMC_HOST_DEFAULT();
-
-    // This initializes the slot without card detect (CD) and write protect (WP) signals.
-    // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
-    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
-
-    // To use 1-line SD mode, uncomment the following line:
-    // slot_config.width = 1;
-
-    // GPIOs 15, 2, 4, 12, 13 should have external 10k pull-ups.
-    // Internal pull-ups are not sufficient. However, enabling internal pull-ups
-    // does make a difference some boards, so we do that here.
-    gpio_set_pull_mode(15, GPIO_PULLUP_ONLY);   // CMD, needed in 4- and 1- line modes
-    gpio_set_pull_mode(2, GPIO_PULLUP_ONLY);    // D0, needed in 4- and 1-line modes
-    gpio_set_pull_mode(4, GPIO_PULLUP_ONLY);    // D1, needed in 4-line mode only
-    gpio_set_pull_mode(12, GPIO_PULLUP_ONLY);   // D2, needed in 4-line mode only
-    gpio_set_pull_mode(13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
-
-    ret = esp_vfs_fat_sdmmc_mount(mount_point, &host, &slot_config, &mount_config, &card);
-#else
+//#ifndef USE_SPI_MODE
+//    ESP_LOGI(TAG, "Using SDMMC peripheral");
+//    sdmmc_host_t host = SDMMC_HOST_DEFAULT();
+//
+//    // This initializes the slot without card detect (CD) and write protect (WP) signals.
+//    // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
+//    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
+//
+//    // To use 1-line SD mode, uncomment the following line:
+//    // slot_config.width = 1;
+//
+//    // GPIOs 15, 2, 4, 12, 13 should have external 10k pull-ups.
+//    // Internal pull-ups are not sufficient. However, enabling internal pull-ups
+//    // does make a difference some boards, so we do that here.
+//    gpio_set_pull_mode(15, GPIO_PULLUP_ONLY);   // CMD, needed in 4- and 1- line modes
+//    gpio_set_pull_mode(2, GPIO_PULLUP_ONLY);    // D0, needed in 4- and 1-line modes
+//    gpio_set_pull_mode(4, GPIO_PULLUP_ONLY);    // D1, needed in 4-line mode only
+//    gpio_set_pull_mode(12, GPIO_PULLUP_ONLY);   // D2, needed in 4-line mode only
+//    gpio_set_pull_mode(13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
+//
+//    ret = esp_vfs_fat_sdmmc_mount(mount_point, &host, &slot_config, &mount_config, &card);
+//#else
     ESP_LOGI(TAG, "Using SPI peripheral");
 
     sdmmc_host_t host = SDSPI_HOST_DEFAULT();
@@ -129,7 +164,7 @@ void app_main(void)
     slot_config.host_id = host.slot;
 
     ret = esp_vfs_fat_sdspi_mount(mount_point, &host, &slot_config, &mount_config, &card);
-#endif //USE_SPI_MODE
+//#endif //USE_SPI_MODE
 
     if (ret != ESP_OK) {
         if (ret == ESP_FAIL) {
@@ -153,7 +188,9 @@ void app_main(void)
         ESP_LOGE(TAG, "Failed to open file for writing");
         return;
     }
-    fprintf(f, "Hello %s!\n", card->cid.name);
+    //fprintf(f, "Hello %s!\n", card->cid.name);
+    fprintf(f, "Goeie dag!\n");
+    fprintf(f, "Goeie dag numero twee!\n");
     fclose(f);
     ESP_LOGI(TAG, "File written");
 
@@ -179,7 +216,9 @@ void app_main(void)
         return;
     }
     char line[64];
+    char line2[64];
     fgets(line, sizeof(line), f);
+    fgets(line2, sizeof(line2), f);
     fclose(f);
     // strip newline
     char* pos = strchr(line, '\n');
@@ -188,11 +227,16 @@ void app_main(void)
     }
     ESP_LOGI(TAG, "Read from file: '%s'", line);
 
-    // All done, unmount partition and disable SDMMC or SPI peripheral
-    esp_vfs_fat_sdcard_unmount(mount_point, card);
-    ESP_LOGI(TAG, "Card unmounted");
-#ifdef USE_SPI_MODE
-    //deinitialize the bus after all devices are removed
-    spi_bus_free(host.slot);
-#endif
+    char* pos2 = strchr(line2, '\n');
+    if (pos2) {
+        *pos2 = '\0';
+    }
+    ESP_LOGI(TAG, "Read from file: '%s'", line2);
+//    // All done, unmount partition and disable SDMMC or SPI peripheral
+//    esp_vfs_fat_sdcard_unmount(mount_point, card);
+//    ESP_LOGI(TAG, "Card unmounted");
+//#ifdef USE_SPI_MODE
+//    //deinitialize the bus after all devices are removed
+//    spi_bus_free(host.slot);
+//#endif
 }
