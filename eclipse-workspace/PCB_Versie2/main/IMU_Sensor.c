@@ -21,7 +21,7 @@ void IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data)
 	spi_transaction_t t;
 	uint8_t buf[2];
 
-	gpio_set_level(PIN_NUM_CS, 0);
+	gpio_set_level(IMU_NUM_CS, 0);
 
 	reg &= 0x7f;
 	buf[0] = reg;
@@ -31,13 +31,13 @@ void IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data)
 	t.tx_buffer = buf;
 
 	spi_device_transmit(spi, &t);
-	gpio_set_level(PIN_NUM_CS, 1);
+	gpio_set_level(IMU_NUM_CS, 1);
 }
 
 void IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data)
 {
 	spi_transaction_t t;
-	gpio_set_level(PIN_NUM_CS, 0);
+	gpio_set_level(IMU_NUM_CS, 0);
 
 	reg = ((reg & 0x7F) | 0x80);
 	memset(&t, 0, sizeof(t));
@@ -50,7 +50,7 @@ void IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data)
 	t.flags = SPI_TRANS_USE_RXDATA;
 	spi_device_transmit(spi, &t);
 
-	gpio_set_level(PIN_NUM_CS, 1);
+	gpio_set_level(IMU_NUM_CS, 1);
 	*data = t.rx_data[0];
 }
 
@@ -78,8 +78,8 @@ void IMU_read_ID(spi_device_handle_t spi)
 
 void imu_cs_init(void)
 {
-    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
+    gpio_set_direction(IMU_NUM_CS, GPIO_MODE_OUTPUT);
+    gpio_set_level(IMU_NUM_CS, 1);				//CS = Hoog
 }
 
 void IMU_init_Magneto(spi_device_handle_t spi)

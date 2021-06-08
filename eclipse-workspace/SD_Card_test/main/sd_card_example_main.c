@@ -31,7 +31,7 @@ static const char *TAG = "example";
 // By default, SDMMC peripheral is used.
 // To enable SPI mode, uncomment the following line:
 
-// #define USE_SPI_MODE
+#define USE_SPI_MODE
 
 // ESP32-S2 doesn't have an SD Host peripheral, always use SPI:
 #ifdef CONFIG_IDF_TARGET_ESP32S2
@@ -60,6 +60,8 @@ static const char *TAG = "example";
 #define PIN_NUM_CLK  18
 #define PIN_NUM_CS   4
 
+#define IMU_HOST    VSPI_HOST
+#define PARALLEL_LINES 16
 
 #define Power_sense_pin			GPIO_NUM_34
 #define Power_on_off_pin		GPIO_NUM_33
@@ -94,6 +96,7 @@ static void GPIO_init(void)
 	gpio_set_level(Power_on_off_pin, 1); //Zet systeem meteen aan
 }
 
+
 void app_main(void)
 {
 	GPIO_init();
@@ -114,32 +117,7 @@ void app_main(void)
     const char mount_point[] = MOUNT_POINT;
     ESP_LOGI(TAG, "Initializing SD card");
 
-    // Use settings defined above to initialize SD card and mount FAT filesystem.
-    // Note: esp_vfs_fat_sdmmc/sdspi_mount is all-in-one convenience functions.
-    // Please check its source code and implement error recovery when developing
-    // production applications.
-//#ifndef USE_SPI_MODE
-//    ESP_LOGI(TAG, "Using SDMMC peripheral");
-//    sdmmc_host_t host = SDMMC_HOST_DEFAULT();
-//
-//    // This initializes the slot without card detect (CD) and write protect (WP) signals.
-//    // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
-//    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
-//
-//    // To use 1-line SD mode, uncomment the following line:
-//    // slot_config.width = 1;
-//
-//    // GPIOs 15, 2, 4, 12, 13 should have external 10k pull-ups.
-//    // Internal pull-ups are not sufficient. However, enabling internal pull-ups
-//    // does make a difference some boards, so we do that here.
-//    gpio_set_pull_mode(15, GPIO_PULLUP_ONLY);   // CMD, needed in 4- and 1- line modes
-//    gpio_set_pull_mode(2, GPIO_PULLUP_ONLY);    // D0, needed in 4- and 1-line modes
-//    gpio_set_pull_mode(4, GPIO_PULLUP_ONLY);    // D1, needed in 4-line mode only
-//    gpio_set_pull_mode(12, GPIO_PULLUP_ONLY);   // D2, needed in 4-line mode only
-//    gpio_set_pull_mode(13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
-//
-//    ret = esp_vfs_fat_sdmmc_mount(mount_point, &host, &slot_config, &mount_config, &card);
-//#else
+
     ESP_LOGI(TAG, "Using SPI peripheral");
 
     sdmmc_host_t host = SDSPI_HOST_DEFAULT();
@@ -164,7 +142,6 @@ void app_main(void)
     slot_config.host_id = host.slot;
 
     ret = esp_vfs_fat_sdspi_mount(mount_point, &host, &slot_config, &mount_config, &card);
-//#endif //USE_SPI_MODE
 
     if (ret != ESP_OK) {
         if (ret == ESP_FAIL) {
@@ -232,11 +209,11 @@ void app_main(void)
         *pos2 = '\0';
     }
     ESP_LOGI(TAG, "Read from file: '%s'", line2);
-//    // All done, unmount partition and disable SDMMC or SPI peripheral
-//    esp_vfs_fat_sdcard_unmount(mount_point, card);
-//    ESP_LOGI(TAG, "Card unmounted");
-//#ifdef USE_SPI_MODE
-//    //deinitialize the bus after all devices are removed
-//    spi_bus_free(host.slot);
-//#endif
+    // All done, unmount partition and disable SDMMC or SPI peripheral
+    esp_vfs_fat_sdcard_unmount(mount_point, card);
+    ESP_LOGI(TAG, "Card unmounted");
+#ifdef USE_SPI_MODE
+    //deinitialize the bus after all devices are removed
+    spi_bus_free(host.slot);
+#endif
 }

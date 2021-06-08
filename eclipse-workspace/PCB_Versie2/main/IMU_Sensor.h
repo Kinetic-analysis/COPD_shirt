@@ -18,7 +18,7 @@
 #include "driver/gpio.h"
 
 
-#define PIN_NUM_CS   5
+#define IMU_NUM_CS   5
 
 
 void IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data);

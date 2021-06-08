@@ -5,4 +5,5 @@ idf_component_register(SRCS "main.c"
 							"Touchpad.c"
 							"Resistive_Stretch.c"
 							"Speaker.c"
+							"Capacitive_Stretch.c"
                     INCLUDE_DIRS ".")

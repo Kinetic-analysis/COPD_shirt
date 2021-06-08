@@ -20,6 +20,64 @@
 #include "pretty_effect.h"
 #include "IMU_sensor.h"
 #include "BMS.h"
+#include "driver/timer.h"
+#include <inttypes.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <sys/unistd.h>
+#include <sys/stat.h>
+#include "esp_err.h"
+#include "esp_log.h"
+#include "esp_vfs_fat.h"
+#include "driver/sdspi_host.h"
+#include "driver/spi_common.h"
+#include "sdmmc_cmd.h"
+#include "sdkconfig.h"
+#include "driver/gpio.h"
+
+#ifdef CONFIG_IDF_TARGET_ESP32
+#include "driver/sdmmc_host.h"
+#endif
+
+static const char *TAG = "example";
+
+#define MOUNT_POINT "/sdcard"
+
+// This example can use SDMMC and SPI peripherals to communicate with SD card.
+// By default, SDMMC peripheral is used.
+// To enable SPI mode, uncomment the following line:
+
+#define USE_SPI_MODE
+
+// ESP32-S2 doesn't have an SD Host peripheral, always use SPI:
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+#ifndef USE_SPI_MODE
+#define USE_SPI_MODE
+#endif // USE_SPI_MODE
+// on ESP32-S2, DMA channel must be the same as host id
+#define SPI_DMA_CHAN    host.slot
+#endif //CONFIG_IDF_TARGET_ESP32S2
+
+// DMA channel to be used by the SPI peripheral
+#ifndef SPI_DMA_CHAN
+#define SPI_DMA_CHAN    1
+#endif //SPI_DMA_CHAN
+
+// When testing SD and SPI modes, keep in mind that once the card has been
+// initialized in SPI mode, it can not be reinitialized in SD mode without
+// toggling power to the card.
+
+
+// Pin mapping when using SPI mode.
+// With this mapping, SD card can be used both in SPI and 1-line SD mode.
+// Note that a pull-up on CS line is required in SD mode.
+#define PIN_NUM_MISO 19
+#define PIN_NUM_MOSI 23
+#define PIN_NUM_CLK  18
+#define SD_CS   4
+
+
 
 #define DEFAULT_VREF    	3300
 #define NO_OF_SAMPLES   	16
@@ -56,161 +114,7 @@ static const adc_unit_t adc_unit = ADC_UNIT_1;
 //but less overhead for setting up / finishing transfers. Make sure 240 is dividable by this.
 //#define PARALLEL_LINES 16
 
-//void IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data)
-//{
-//	spi_transaction_t t;
-//	uint8_t buf[2];
-//
-//	gpio_set_level(PIN_NUM_CS, 0);
-//
-//	reg &= 0x7f;
-//	buf[0] = reg;
-//	buf[1] = data;
-//	memset(&t, 0, sizeof(t));
-//	t.length = 8*2;
-//	t.tx_buffer = buf;
-//
-//	spi_device_transmit(spi, &t);
-//	gpio_set_level(PIN_NUM_CS, 1);
-//}
-//
-//void IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data)
-//{
-//	spi_transaction_t t;
-//	gpio_set_level(PIN_NUM_CS, 0);
-//
-//	reg = ((reg & 0x7F) | 0x80);
-//	memset(&t, 0, sizeof(t));
-//	t.length = 8;
-//	t.tx_buffer = &reg;
-//	spi_device_transmit(spi, &t);
-//
-//	memset(&t, 0, sizeof(t));
-//	t.length = 8;
-//	t.flags = SPI_TRANS_USE_RXDATA;
-//	spi_device_transmit(spi, &t);
-//
-//	gpio_set_level(PIN_NUM_CS, 1);
-//	*data = t.rx_data[0];
-//}
-//
-//void IMU_read_ID(spi_device_handle_t spi)
-//{
-//	//Leest de ID van de IMU sensor
-//	//De ID van de IMU is 0xAE
-//	uint8_t reg = 0x00;
-//	uint8_t id;
-//
-//	uint8_t write;
-//	uint8_t read;
-//
-//	//write REG_BANK_SEL
-//	reg = 0x7F;
-//	write = 0x00;
-//	IMU_write_reg(spi, reg, write);
-//	IMU_read_reg(spi, reg, &read);
-//	printf("REG_BANK_SEL: 0x%02X\n", read);
-//
-//	reg = 0x00;
-//	IMU_read_reg(spi, reg, &id);
-//	printf("IMU ID: 0x%02X\n", id);
-//}
-//
-//spi_device_handle_t SPI_init(void)
-//{
-//    esp_err_t ret;
-//    spi_device_handle_t spi;
-//    spi_bus_config_t buscfg={
-//        .miso_io_num=PIN_NUM_MISO,
-//        .mosi_io_num=PIN_NUM_MOSI,
-//        .sclk_io_num=PIN_NUM_CLK,
-//        .quadwp_io_num=-1,
-//        .quadhd_io_num=-1,
-//        .max_transfer_sz=PARALLEL_LINES*320*2+8
-//    };
-//    spi_device_interface_config_t devcfg={
-//        .clock_speed_hz=1000000,           		//Clock out at 1 MHz
-//        .mode=0,                                //SPI mode 3
-//        .spics_io_num=-1,               		//CS pin
-//        .queue_size=7,                          //We want to be able to queue 7 transactions at a time
-//        //.pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
-//    };
-//    //Initialize the SPI bus
-//    ret=spi_bus_initialize(IMU_HOST, &buscfg, 1);
-//    ESP_ERROR_CHECK(ret);
-//    //Attach the LCD to the SPI bus
-//    ret=spi_bus_add_device(IMU_HOST, &devcfg, &spi);
-//    ESP_ERROR_CHECK(ret);
-//
-//    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-//    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
-//    return spi;
-//}
-//
-//void IMU_init_Magneto(spi_device_handle_t spi)
-//{
-//	//Initialiseert de magneto om te communiceren met de ICM-20498 via I2C
-//	//De magnetometer data wordt in de externe slave registers geplaatst
-//	uint8_t read[12];
-//	uint8_t reg[12] = {0x7F, 0x03, 0x7F, 0x01, 0x02, 0x03, 0x04, 0x06, 0x05, 0x03, 0x04, 0x7F};
-//	uint8_t write[12] = {0x00, 0x20, 0x30, 0x17, 0x01, 0x0C, 0x31, 0x08, 0x8A, 0x8C, 0x11, 0x00};
-//
-//	for(int i = 0; i < 12; i++)
-//	{
-//		IMU_write_reg(spi, reg[i], write[i]);
-//		IMU_read_reg(spi, reg[i], &read[i]);
-//	}
-//}
-//
-//void IMU_read_data(spi_device_handle_t spi)
-//{
-//
-//	// https://devzone.nordicsemi.com/f/nordic-q-a/36615/invensense-icm-20948
-//
-//	uint8_t reg[28] = {0x39, 0x3A, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
-//					   0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48};
-//	uint8_t data_HL[28];
-//	int16_t data_OUT[14];
-//	float data_Final[14];
-//
-//	for(int i = 0; i < 28; i++)
-//	{
-//		IMU_read_reg(spi, reg[i], &data_HL[i]);	//Leest alle sensor registers uit
-//	}
-//
-//
-//	data_OUT[0] = ((data_HL[0] << 8) | (data_HL[1] & 0xFF));	//Combineert high en low byte van temperatuur sensor met two's complement
-//	data_OUT[1] = ((data_HL[2] << 8) | (data_HL[3] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
-//	data_OUT[2] = ((data_HL[4] << 8) | (data_HL[5] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
-//	data_OUT[3] = ((data_HL[6] << 8) | (data_HL[7] & 0xFF));	//Combineert high en low byte van accelerometer met two's complement
-//	data_OUT[4] = ((data_HL[8] << 8) | (data_HL[9] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
-//	data_OUT[5] = ((data_HL[10] << 8) | (data_HL[11] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
-//	data_OUT[6] = ((data_HL[12] << 8) | (data_HL[13] & 0xFF));	//Combineert high en low byte van gyroscope met two's complement
-//
-//	data_OUT[7] = ((data_HL[15] << 8) | (data_HL[14] & 0xFF));	//Combineert high en low byte van Magnetometer X-as met Little Endian
-//	data_OUT[8] = ((data_HL[17] << 8) | (data_HL[16] & 0xFF));	//Combineert high en low byte van Magnetometer Y-as met Little Endian
-//	data_OUT[9] = ((data_HL[19] << 8) | (data_HL[18] & 0xFF));	//Combineert high en low byte van Magnetometer Z-as met Little Endian
-//
-//	data_Final[0] = ((data_OUT[0]-20)/333.87)+21;	//Berekend de temperatuur in graden celcius
-//	data_Final[1] = data_OUT[1]/16.384;				//Berekend de accelerometer waarde van de X-axis in mg
-//	data_Final[2] = data_OUT[2]/16.384;				//Berekend de accelerometer waarde van de Y-axis in mg
-//	data_Final[3] = data_OUT[3]/16.384;				//Berekend de accelerometer waarde van de Z-axis in mg
-//	data_Final[4] = data_OUT[4]/131;				//Berekend de gyroscope waarde van de X-axis in dps
-//	data_Final[5] = data_OUT[5]/131;				//Berekend de gyroscope waarde van de Y-axis in dps
-//	data_Final[6] = data_OUT[6]/131;				//Berekend de gyroscope waarde van de Z-axis in dps
-//	data_Final[7] = data_OUT[7]*0.15;				//Berekend de magnetometer waarde van de X-axis in uT
-//	data_Final[8] = data_OUT[8]*0.15;				//Berekend de magnetometer waarde van de Y-axis in uT
-//	data_Final[9] = data_OUT[9]*0.15;				//Berekend de magnetometer waarde van de Z-axis in uT
-//
-//	printf("Temp (C) = [%0.2f]\t "
-//			"Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t "
-//			"Gyro XYZ (dps) = [%0.2f, %0.2f, %0.2f]\t "
-//			"Magn XYZ (uT) = [%0.2f, %0.2f, %0.2f]\n"
-//			, data_Final[0],
-//			data_Final[1], data_Final[2], data_Final[3],
-//			data_Final[4], data_Final[5], data_Final[6],
-//			data_Final[7], data_Final[8], data_Final[9]);
-//}
+
 static void ADC_init(void)
 {
 	adc1_config_width(adc_resolution);
@@ -233,32 +137,330 @@ static void Battery_task(void *pvParameter)
 	}
 }
 
+spi_device_handle_t SPI_init(void)
+{
+    esp_err_t ret;
+    spi_device_handle_t spi;
+    spi_bus_config_t buscfg={
+        .miso_io_num=PIN_NUM_MISO,
+        .mosi_io_num=PIN_NUM_MOSI,
+        .sclk_io_num=PIN_NUM_CLK,
+        .quadwp_io_num=-1,
+        .quadhd_io_num=-1,
+        .max_transfer_sz=PARALLEL_LINES*320*2+8
+    };
+    spi_device_interface_config_t devcfg={
+        .clock_speed_hz=1000000,           		//Clock out at 1 MHz
+        .mode=0,                                //SPI mode 3
+        .spics_io_num=-1,               		//CS pin
+        .queue_size=7,                          //We want to be able to queue 7 transactions at a time
+        //.pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
+    };
+    //Initialize the SPI bus
+    ret=spi_bus_initialize(IMU_HOST, &buscfg, 2);
+    ESP_ERROR_CHECK(ret);
+    //Attach the LCD to the SPI bus
+    ret=spi_bus_add_device(IMU_HOST, &devcfg, &spi);
+    ESP_ERROR_CHECK(ret);
+    return spi;
+}
+
 static void IMU_task(void *pvParameter)
 {
 	spi_device_handle_t spi = *(spi_device_handle_t *)pvParameter;
+    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
+    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
+
 	while(1)
 	{
+		printf("start\n");
+		spi_device_acquire_bus(spi, portMAX_DELAY);
 		IMU_read_data(spi);
-		vTaskDelay(10 / portTICK_PERIOD_MS);
+		spi_device_release_bus(spi);
+		spi_bus_remove_device(spi);
+		spi_bus_free(IMU_HOST);
+		printf("eind\n");
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		spi = SPI_init();
 	}
 }
 
+static void sd_task(void *pvParameter)
+{
+	while(1)
+	{
+    esp_err_t ret;
 
+    esp_vfs_fat_sdmmc_mount_config_t mount_config = {
+#ifdef CONFIG_EXAMPLE_FORMAT_IF_MOUNT_FAILED
+        .format_if_mount_failed = true,
+#else
+        .format_if_mount_failed = false,
+#endif // EXAMPLE_FORMAT_IF_MOUNT_FAILED
+        .max_files = 5,
+        .allocation_unit_size = 16 * 1024
+    };
+    sdmmc_card_t* card;
+    const char mount_point[] = MOUNT_POINT;
+    ESP_LOGI(TAG, "Initializing SD card");
+
+    ESP_LOGI(TAG, "Using SPI peripheral");
+
+    sdmmc_host_t host = SDSPI_HOST_DEFAULT();
+    spi_bus_config_t bus_cfg = {
+        .mosi_io_num = PIN_NUM_MOSI,
+        .miso_io_num = PIN_NUM_MISO,
+        .sclk_io_num = PIN_NUM_CLK,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 4000,
+    };
+    ret = spi_bus_initialize(host.slot, &bus_cfg, SPI_DMA_CHAN);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize bus.");
+        return;
+    }
+
+    // This initializes the slot without card detect (CD) and write protect (WP) signals.
+    // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
+    sdspi_device_config_t slot_config = SDSPI_DEVICE_CONFIG_DEFAULT();
+    slot_config.gpio_cs = SD_CS;
+    slot_config.host_id = host.slot;
+
+    ret = esp_vfs_fat_sdspi_mount(mount_point, &host, &slot_config, &mount_config, &card);
+//#endif //USE_SPI_MODE
+
+    if (ret != ESP_OK) {
+        if (ret == ESP_FAIL) {
+            ESP_LOGE(TAG, "Failed to mount filesystem. "
+                "If you want the card to be formatted, set the EXAMPLE_FORMAT_IF_MOUNT_FAILED menuconfig option.");
+        } else {
+            ESP_LOGE(TAG, "Failed to initialize the card (%s). "
+                "Make sure SD card lines have pull-up resistors in place.", esp_err_to_name(ret));
+        }
+        return;
+    }
+
+//    // Card has been initialized, print its properties
+//    sdmmc_card_print_info(stdout, card);
+//
+//    // Use POSIX and C standard library functions to work with files.
+//    // First create a file.
+//    ESP_LOGI(TAG, "Opening file");
+//    FILE* f = fopen(MOUNT_POINT"/hello.txt", "w");
+//    if (f == NULL) {
+//        ESP_LOGE(TAG, "Failed to open file for writing");
+//        return;
+//    }
+//    //fprintf(f, "Hello %s!\n", card->cid.name);
+//    fprintf(f, "Goeie dag!\n");
+//    fprintf(f, "Goeie dag numero twee!\n");
+//    fclose(f);
+//    ESP_LOGI(TAG, "File written");
+//
+//    // Check if destination file exists before renaming
+//    struct stat st;
+//    if (stat(MOUNT_POINT"/foo.txt", &st) == 0) {
+//        // Delete it if it exists
+//        unlink(MOUNT_POINT"/foo.txt");
+//    }
+//
+//    // Rename original file
+//    ESP_LOGI(TAG, "Renaming file");
+//    if (rename(MOUNT_POINT"/hello.txt", MOUNT_POINT"/foo.txt") != 0) {
+//        ESP_LOGE(TAG, "Rename failed");
+//        return;
+//    }
+
+    FILE* f;
+    // Open renamed file for reading
+    ESP_LOGI(TAG, "Reading file");
+    f = fopen(MOUNT_POINT"/foo.txt", "r");
+    if (f == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for reading");
+        return;
+    }
+    char line[64];
+    char line2[64];
+    fgets(line, sizeof(line), f);
+    fgets(line2, sizeof(line2), f);
+    fclose(f);
+    // strip newline
+    char* pos = strchr(line, '\n');
+    if (pos) {
+        *pos = '\0';
+    }
+    ESP_LOGI(TAG, "Read from file: '%s'", line);
+
+    char* pos2 = strchr(line2, '\n');
+    if (pos2) {
+        *pos2 = '\0';
+    }
+    ESP_LOGI(TAG, "Read from file: '%s'", line2);
+    // All done, unmount partition and disable SDMMC or SPI peripheral
+    esp_vfs_fat_sdcard_unmount(mount_point, card);
+    ESP_LOGI(TAG, "Card unmounted");
+
+    //deinitialize the bus after all devices are removed
+    spi_bus_free(host.slot);
+
+    vTaskDelay(10000 / portTICK_PERIOD_MS);
+	}
+}
 
 void app_main(void)
 {
+	int64_t temp = 0;
+	int64_t temp2 = 0;
 	gpio_bms_init();
     ADC_init();
+//    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
+//    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
+//	static spi_device_handle_t spi;
+//	temp = esp_timer_get_time();
+//	spi = SPI_init();
+//	spi_device_acquire_bus(spi, portMAX_DELAY);
+//	IMU_write_reg(spi, 0x06, 0x01); 				//Selecteerd de klok van de IMU
+//    //IMU_read_ID(spi);							//Leest de ID van de IMU
+//    IMU_init_Magneto(spi);						//Initialiseert de magnetometer voor communicatie
+//    spi_device_release_bus(spi);
+//    temp2 = esp_timer_get_time();
+//    temp2 = temp2-temp;
+    printf("%" PRId64 "\n", temp2);
+    xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
+    //xTaskCreate(&sd_task, "sdcard", 2048, NULL, 5, NULL);
+//    xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
+    esp_err_t ret;
+    // Options for mounting the filesystem.
+    // If format_if_mount_failed is set to true, SD card will be partitioned and
+    // formatted in case when mounting fails.
+    esp_vfs_fat_sdmmc_mount_config_t mount_config = {
+#ifdef CONFIG_EXAMPLE_FORMAT_IF_MOUNT_FAILED
+        .format_if_mount_failed = true,
+#else
+        .format_if_mount_failed = false,
+#endif // EXAMPLE_FORMAT_IF_MOUNT_FAILED
+        .max_files = 5,
+        .allocation_unit_size = 16 * 1024
+    };
+    sdmmc_card_t* card;
+    const char mount_point[] = MOUNT_POINT;
+    ESP_LOGI(TAG, "Initializing SD card");
 
-	uint8_t reg = 0x06;
-	uint8_t data = 0x01;
+
+    ESP_LOGI(TAG, "Using SPI peripheral");
+
+    sdmmc_host_t host = SDSPI_HOST_DEFAULT();
+    spi_bus_config_t bus_cfg = {
+        .mosi_io_num = PIN_NUM_MOSI,
+        .miso_io_num = PIN_NUM_MISO,
+        .sclk_io_num = PIN_NUM_CLK,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 4000,
+    };
+    ret = spi_bus_initialize(host.slot, &bus_cfg, SPI_DMA_CHAN);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize bus.");
+        return;
+    }
+
+    // This initializes the slot without card detect (CD) and write protect (WP) signals.
+    // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
+    sdspi_device_config_t slot_config = SDSPI_DEVICE_CONFIG_DEFAULT();
+    slot_config.gpio_cs = PIN_NUM_CS;
+    slot_config.host_id = host.slot;
+
+    ret = esp_vfs_fat_sdspi_mount(mount_point, &host, &slot_config, &mount_config, &card);
+
+    if (ret != ESP_OK) {
+        if (ret == ESP_FAIL) {
+            ESP_LOGE(TAG, "Failed to mount filesystem. "
+                "If you want the card to be formatted, set the EXAMPLE_FORMAT_IF_MOUNT_FAILED menuconfig option.");
+        } else {
+            ESP_LOGE(TAG, "Failed to initialize the card (%s). "
+                "Make sure SD card lines have pull-up resistors in place.", esp_err_to_name(ret));
+        }
+        return;
+    }
+
+    // Card has been initialized, print its properties
+    sdmmc_card_print_info(stdout, card);
+
+    // Use POSIX and C standard library functions to work with files.
+    // First create a file.
+    ESP_LOGI(TAG, "Opening file");
+    FILE* f = fopen(MOUNT_POINT"/hello.txt", "w");
+    if (f == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for writing");
+        return;
+    }
+    //fprintf(f, "Hello %s!\n", card->cid.name);
+    fprintf(f, "Goeie dag!\n");
+    fprintf(f, "Goeie dag numero twee!\n");
+    fclose(f);
+    ESP_LOGI(TAG, "File written");
+
+    // Check if destination file exists before renaming
+    struct stat st;
+    if (stat(MOUNT_POINT"/foo.txt", &st) == 0) {
+        // Delete it if it exists
+        unlink(MOUNT_POINT"/foo.txt");
+    }
+
+    // Rename original file
+    ESP_LOGI(TAG, "Renaming file");
+    if (rename(MOUNT_POINT"/hello.txt", MOUNT_POINT"/foo.txt") != 0) {
+        ESP_LOGE(TAG, "Rename failed");
+        return;
+    }
+
+    // Open renamed file for reading
+    ESP_LOGI(TAG, "Reading file");
+    f = fopen(MOUNT_POINT"/foo.txt", "r");
+    if (f == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for reading");
+        return;
+    }
+    char line[64];
+    char line2[64];
+    fgets(line, sizeof(line), f);
+    fgets(line2, sizeof(line2), f);
+    fclose(f);
+    // strip newline
+    char* pos = strchr(line, '\n');
+    if (pos) {
+        *pos = '\0';
+    }
+    ESP_LOGI(TAG, "Read from file: '%s'", line);
+
+    char* pos2 = strchr(line2, '\n');
+    if (pos2) {
+        *pos2 = '\0';
+    }
+    ESP_LOGI(TAG, "Read from file: '%s'", line2);
+    // All done, unmount partition and disable SDMMC or SPI peripheral
+    esp_vfs_fat_sdcard_unmount(mount_point, card);
+    ESP_LOGI(TAG, "Card unmounted");
+
+    //deinitialize the bus after all devices are removed
+    spi_bus_free(host.slot);
+    sdspi_host_deinit();
+
+    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
+    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
 	static spi_device_handle_t spi;
+	temp = esp_timer_get_time();
 	spi = SPI_init();
-	IMU_write_reg(spi, reg, data); 				//Selecteerd de klok van de IMU
+	spi_device_acquire_bus(spi, portMAX_DELAY);
+	IMU_write_reg(spi, 0x06, 0x01); 				//Selecteerd de klok van de IMU
     IMU_read_ID(spi);							//Leest de ID van de IMU
     IMU_init_Magneto(spi);						//Initialiseert de magnetometer voor communicatie
-    xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);
-    xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
+    spi_device_release_bus(spi);
+//    temp2 = esp_timer_get_time();
+//    temp2 = temp2-temp;
+//    printf("%" PRId64 "\n", temp2);
+//    xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
 }
 
 

@@ -30,7 +30,6 @@
 void IMU_write_reg(spi_device_handle_t spi, uint8_t reg, uint8_t data);
 void IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data);
 void IMU_read_ID(spi_device_handle_t spi);
-spi_device_handle_t SPI_init(void);
 void IMU_init_Magneto(spi_device_handle_t spi);
 void IMU_read_data(spi_device_handle_t spi);
 

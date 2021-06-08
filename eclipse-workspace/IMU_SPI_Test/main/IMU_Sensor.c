@@ -76,36 +76,6 @@ void IMU_read_ID(spi_device_handle_t spi)
 	printf("IMU ID: 0x%02X\n", id);
 }
 
-spi_device_handle_t SPI_init(void)
-{
-    esp_err_t ret;
-    spi_device_handle_t spi;
-    spi_bus_config_t buscfg={
-        .miso_io_num=PIN_NUM_MISO,
-        .mosi_io_num=PIN_NUM_MOSI,
-        .sclk_io_num=PIN_NUM_CLK,
-        .quadwp_io_num=-1,
-        .quadhd_io_num=-1,
-        .max_transfer_sz=PARALLEL_LINES*320*2+8
-    };
-    spi_device_interface_config_t devcfg={
-        .clock_speed_hz=1000000,           		//Clock out at 1 MHz
-        .mode=0,                                //SPI mode 3
-        .spics_io_num=-1,               		//CS pin
-        .queue_size=7,                          //We want to be able to queue 7 transactions at a time
-        //.pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
-    };
-    //Initialize the SPI bus
-    ret=spi_bus_initialize(IMU_HOST, &buscfg, 1);
-    ESP_ERROR_CHECK(ret);
-    //Attach the LCD to the SPI bus
-    ret=spi_bus_add_device(IMU_HOST, &devcfg, &spi);
-    ESP_ERROR_CHECK(ret);
-
-    gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
-    return spi;
-}
 
 void IMU_init_Magneto(spi_device_handle_t spi)
 {
