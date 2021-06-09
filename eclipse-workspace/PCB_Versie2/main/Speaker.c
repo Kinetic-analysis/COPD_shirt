@@ -25,7 +25,7 @@ void speaker_init(void)
 	Speaker_channel.channel = LEDC_TIMER_1;
 	Speaker_channel.intr_type = LEDC_INTR_DISABLE;
 	Speaker_channel.timer_sel = LEDC_TIMER_1;
-	Speaker_channel.duty = 128;
+	Speaker_channel.duty = 50;
 	Speaker_channel.hpoint = 0;
 	ledc_channel_config(&Speaker_channel);
 }
@@ -34,7 +34,7 @@ void speaker_on(uint32_t frequency, int on_off)
 {
 	if(on_off == 1)
 	{
-		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 128, 0);
+		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 50, 0);
 	}else
 	{
 		ledc_set_duty_and_update(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0, 0);

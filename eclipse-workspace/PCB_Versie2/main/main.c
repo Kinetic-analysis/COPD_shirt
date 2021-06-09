@@ -1,7 +1,5 @@
 /* Touch Pad Read Example
-
    This example code is in the Public Domain (or CC0 licensed, at your option.)
-
    Unless required by applicable law or agreed to in writing, this
    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied.
@@ -123,8 +121,9 @@ volatile int start_measure = 0;
 volatile uint64_t StartValue = 0;
 volatile uint64_t PeriodCount = 0;
 
-int capacitieve_stretch = 0;
-int tijd = 0;
+volatile int Tijd1, Tijd2, Tijd3, Tijd4;
+volatile int CapWaarde1, CapWaarde2;
+volatile int ResWaarde1, ResWaarde2;
 
 int64_t get_current_time()
 {
@@ -156,14 +155,10 @@ void IRAM_ATTR CapStretch_ISR_Handler(void *arg)
 
 static void Cap_NE555_Task(void *pvParameter)
 {
-	int64_t Value = 0;
-	int64_t microseconden = 0;
 	while(1)
 	{
-		microseconden = get_current_time();
-		Value = PeriodCount;
-		capacitieve_stretch = PeriodCount;
-		tijd = microseconden;
+		Tijd1 = get_current_time();
+		CapWaarde1 = PeriodCount;
 		//printf("Capacitieve stretch sensor: ""%" PRId64 "," "%" PRId64 "\n", microseconden, Value);
 		vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
@@ -268,10 +263,6 @@ static void Motor1_task(void *pvParameter)
 
 static void tcp_client_task(void *pvParameters)
 {
-	int cijfer1 = 0;
-	int cijfer2 = 1;
-	int cijfer3 = 2;
-	int cijfer4 = 3;
     char rx_buffer[128];
     char host_ip[] = HOST_IP_ADDR;
     int addr_family = 0;
@@ -300,10 +291,10 @@ static void tcp_client_task(void *pvParameters)
             break;
         }
         ESP_LOGI(TAG, "Successfully connected");
-        vTaskDelay(5000 / portTICK_PERIOD_MS);
+        vTaskDelay(500 / portTICK_PERIOD_MS);
         while (1) {
-        	snprintf(a, sizeof a, "Capacitieve Stretch Sensor waarde = %d, %d", tijd, capacitieve_stretch);
-
+        	snprintf(a, sizeof a, "%d,%d,%d,%d,%d,%d,%d,%d", Tijd1, CapWaarde1, Tijd2, CapWaarde2, Tijd3, ResWaarde1, Tijd4, ResWaarde2);
+        	//printf("STUCK?\n");
             int err = send(sock, test, strlen(test), 0);
             if (err < 0) {
                 ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
@@ -344,9 +335,9 @@ static void Resistive_stretch1_task(void *pvParameter)
 	float sensor_resistance;
 	while(1)
 	{
-		sensor_resistance = measure_resistance(adc_characteristics, adc_resistive_stretch1_channel);
-		microseconden = get_current_time();
-        printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
+		ResWaarde1 = measure_resistance(adc_characteristics, adc_resistive_stretch1_channel);
+		Tijd3 = get_current_time();
+        //printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
         vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }
@@ -358,9 +349,9 @@ static void Resistive_stretch2_task(void *pvParameter)
 
 	while(1)
 	{
-		sensor_resistance = measure_resistance(adc_characteristics, adc_resistive_stretch2_channel);
-		microseconden = get_current_time();
-        printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
+		ResWaarde2 = measure_resistance(adc_characteristics, adc_resistive_stretch2_channel);
+		Tijd4 = get_current_time();
+       // printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
         vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }
@@ -396,9 +387,9 @@ static void touchpad_task(void *pvParameter)
     int64_t microseconden;
     uint16_t touch_value;
     while (1) {
-    	microseconden = get_current_time();
-    	touch_value = read_touchpad();
-        printf("%" PRId64 ", %4d\n", microseconden, touch_value);
+    	Tijd2 = get_current_time();
+    	CapWaarde2 = read_touchpad();
+        //printf("%" PRId64 ", %4d\n", microseconden, touch_value);
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
@@ -408,7 +399,7 @@ void app_main(void)
 	starttime = esp_timer_get_time();
 	capacitive_stretch_init();
 	vibrator_motor_init();
-	speaker_init();
+	//speaker_init();
 	gpio_bms_init();
     ADC_init();
     Interrupt_init();
@@ -421,13 +412,13 @@ void app_main(void)
 //	IMU_init_Magneto(spi);
 //
     tcp_client_init();
-//	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
+	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
 //	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 2, NULL);
 //	xTaskCreate(&Speaker_task, "Speaker", 2048, NULL, 2, NULL);
-//    xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 4, NULL);
-//    xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 2048, NULL, 4, NULL);
+    xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 4, NULL);
+    xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 2048, NULL, 4, NULL);
 	xTaskCreate(&tcp_client_task, "tcp_client", 4096, NULL, 5, NULL);
-//    xTaskCreate(&touchpad_task, "Touchpad", 2048, NULL, 3, NULL);
+    xTaskCreate(&touchpad_task, "Touchpad", 2048, NULL, 3, NULL);
 	xTaskCreate(&Cap_NE555_Task, "Capacitive Stretch Sensor NE555", 2048, NULL,  4, NULL);
 //	xTaskCreate(&IMU_task, "IMU", 2048, &spi, 4, NULL);
 }
