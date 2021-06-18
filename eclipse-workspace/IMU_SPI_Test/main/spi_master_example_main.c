@@ -196,7 +196,6 @@ static void IMU_task(void *pvParameter)
 {
 	spi_device_handle_t spi = *(spi_device_handle_t *)pvParameter;
     gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
-
 	while(1)
 	{
 		IMU_read_data(spi);
@@ -327,17 +326,17 @@ void SD_Card_init(void)
 
 void app_main(void)
 {
-	starttime = esp_timer_get_time();
+	//starttime = esp_timer_get_time();
 	int64_t temp = 0;
 	int64_t temp2 = 0;
 	gpio_bms_init();
-	Interrupt_init();
-    ADC_init();
-    temp = esp_timer_get_time();
-    SD_Card_init();
-    temp2 = esp_timer_get_time();
-    temp2 = temp2-temp;
-    printf("%" PRId64 "\n", temp2);
+	//Interrupt_init();
+    //ADC_init();
+    //temp = esp_timer_get_time();
+
+    //temp2 = esp_timer_get_time();
+    //temp2 = temp2-temp;
+    //printf("%" PRId64 "\n", temp2);
     gpio_set_direction(PIN_NUM_CS, GPIO_MODE_OUTPUT);
     gpio_set_level(PIN_NUM_CS, 1);				//CS = Hoog
 	static spi_device_handle_t spi;
@@ -345,21 +344,10 @@ void app_main(void)
 	spi = SPI_init();
 	IMU_write_reg(spi, 0x06, 0x01); 				//Selecteerd de klok van de IMU
     IMU_read_ID(spi);							//Leest de ID van de IMU
-    spi_bus_remove_device(spi);
-    spi_bus_free(IMU_HOST);
-    //IMU_init_Magneto(spi);						//Initialiseert de magnetometer voor communicatie
-    //temp2 = esp_timer_get_time();
-    //temp2 = temp2-temp;
-    //printf("%" PRId64 "\n", temp2);
-    xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
+    IMU_init_Magneto(spi);						//Initialiseert de magnetometer voor communicatie
+    //xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
     //xTaskCreate(&sd_task, "sdcard", 2048, NULL, 5, NULL);
-    //xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
-
-    SD_Card_init();
-
-    spi = SPI_init();
-    IMU_write_reg(spi, 0x06, 0x01);
-    IMU_read_ID(spi);
+    xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
     //xTaskCreate(&IMU_task, "IMU", 2048, &spi, 5, NULL);
 }
 

@@ -412,7 +412,7 @@ void app_main(void)
 //	IMU_init_Magneto(spi);
 //
     tcp_client_init();
-	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
+	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 5, NULL);
 //	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 2, NULL);
 //	xTaskCreate(&Speaker_task, "Speaker", 2048, NULL, 2, NULL);
     xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 4, NULL);

@@ -42,6 +42,7 @@ def makeFig():
     plt.grid(True)                  #Zet grid aan
     plt.ylabel('Rek (cm)')
     plt.plot(Tijd3, ResWaarde1, 'b-',label='Resistieve Stretch Sensor 1') #Plot de temperatuur
+    plt.xlim(1,5)
     plt.legend(loc='upper left', prop={'size': 8})    #Plot de legenda
     
     plt.subplot(414)                #1e grafiek van de 3
