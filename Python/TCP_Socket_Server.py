@@ -54,4 +54,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 }
                 
                 csv_writer.writerow(info)
-                #print(Tijd1, CapWaarde1, Tijd2, CapWaarde2, Tijd3, ResWaarde1, Tijd4, ResWaarde2, Tijd5, AcceleroX, AcceleroY, AcceleroZ, GyroX, GyroY, GyroZ)
+                print(Tijd1, CapWaarde1, Tijd2, CapWaarde2, Tijd3, ResWaarde1, Tijd4, ResWaarde2, Tijd5, AcceleroX, AcceleroY, AcceleroZ, GyroX, GyroY, GyroZ)
