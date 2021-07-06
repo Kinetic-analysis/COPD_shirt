@@ -6564,3 +6564,44 @@ java.lang.IllegalStateException: Call stack for thread main
 
 !ENTRY org.eclipse.cdt.core 1 0 2021-07-06 23:10:25.988
 !MESSAGE Indexed 'Capacitive_TCP' (7 sources, 259 headers) in 1,46 sec: 11.903 declarations; 12.911 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
+!SESSION 2021-07-06 23:31:42.445 -----------------------------------------------
+eclipse.buildId=4.18.0.I20201202-1800
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-07-06 23:32:20.367
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Gebruiker'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:28.713
+!MESSAGE Initializing toolchain...
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:28.715
+!MESSAGE idf_tools.py path: C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:28.716
+!MESSAGE [C:\.espressif\python_env\idf4.2_py3.6_env\Scripts\python.exe, C:\esp-idf\esp-idf_v4.2/tools/idf_tools.py, export, --format=key-value]
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:29.220
+!MESSAGE idf_tools.py export output: OPENOCD_SCRIPTS=C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\share\openocd\scripts
+IDF_CCACHE_ENABLE=1
+IDF_PYTHON_ENV_PATH=C:\.espressif\python_env\idf4.2_py3.6_env
+PATH=C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:29.221
+!MESSAGE PATH: C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:32:29.222
+!MESSAGE [C:\.espressif\tools\xtensa-esp32-elf\esp-2020r3-8.4.0\xtensa-esp32-elf\bin;C:\.espressif\tools\xtensa-esp32s2-elf\esp-2020r3-8.4.0\xtensa-esp32s2-elf\bin;C:\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin;C:\.espressif\tools\esp32s2ulp-elf\2.28.51-esp-20191205\esp32s2ulp-elf-binutils\bin;C:\.espressif\tools\cmake\3.16.4\bin;C:\.espressif\tools\openocd-esp32\v0.10.0-esp32-20200709\openocd-esp32\bin;C:\.espressif\tools\ninja\1.10.0\;C:\.espressif\tools\idf-exe\1.0.1\;C:\.espressif\tools\ccache\3.7\;C:\.espressif\tools\dfu-util\0.9\dfu-util-0.9-win64;C:\.espressif\python_env\idf4.2_py3.6_env\Scripts;C:\esp-idf\esp-idf_v4.2\tools;%PATH%]
+
+!ENTRY com.espressif.idf.core 1 0 2021-07-06 23:33:40.379
+!MESSAGE C:\esp-idf\esp-idf_v4.2\tools\idf.py -p COM5 flash
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-07-06 23:33:44.464
+!MESSAGE Indexed 'Capacitive_TCP' (6 sources, 259 headers) in 4,13 sec: 11.892 declarations; 12.829 references; 0 unresolved inclusions; 5 syntax errors; 0 unresolved names (0%)
