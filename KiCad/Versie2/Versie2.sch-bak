@@ -1578,17 +1578,6 @@ F 3 "~" H 12000 5625 50  0001 C CNN
 $EndComp
 Text GLabel 12175 5875 2    50   Input ~ 0
 Resistive_Stretch1
-$Comp
-L Sensor_Motion:ICM-20948 U6
-U 1 1 607BA90A
-P 8000 7225
-F 0 "U6" H 8000 8150 50  0000 C CNN
-F 1 "ICM-20948" H 8000 8050 50  0000 C CNN
-F 2 "Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm" H 8000 6225 50  0001 C CNN
-F 3 "http://www.invensense.com/wp-content/uploads/2016/06/DS-000189-ICM-20948-v1.3.pdf" H 8000 7075 50  0001 C CNN
-	1    8000 7225
-	1    0    0    -1  
-$EndComp
 Text GLabel 7400 7025 0    50   Input ~ 0
 IMU_MOSI
 Text GLabel 7400 6925 0    50   Input ~ 0
@@ -1597,38 +1586,6 @@ Text GLabel 7400 7125 0    50   Input ~ 0
 IMU_CLK
 Text GLabel 7400 7225 0    50   Input ~ 0
 IMU_CS
-$Comp
-L power:GND #PWR052
-U 1 1 607CE177
-P 8000 7925
-F 0 "#PWR052" H 8000 7675 50  0001 C CNN
-F 1 "GND" H 8005 7752 50  0000 C CNN
-F 2 "" H 8000 7925 50  0001 C CNN
-F 3 "" H 8000 7925 50  0001 C CNN
-	1    8000 7925
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7900 6525 8100 6525
-Connection ~ 8100 6525
-Wire Wire Line
-	8500 7425 8850 7425
-Wire Wire Line
-	8500 7125 8600 7125
-Wire Wire Line
-	8600 7225 8500 7225
-Wire Wire Line
-	7400 6925 7500 6925
-Wire Wire Line
-	7400 7025 7500 7025
-Wire Wire Line
-	7500 7125 7400 7125
-Wire Wire Line
-	7400 7225 7500 7225
-Wire Wire Line
-	7400 7425 7500 7425
-Wire Wire Line
-	7400 7525 7500 7525
 $Comp
 L Device:C_Small C18
 U 1 1 60878B55
@@ -1654,8 +1611,6 @@ $EndComp
 Wire Wire Line
 	8850 6525 8850 6600
 Wire Wire Line
-	8100 6525 8700 6525
-Wire Wire Line
 	8700 6525 8700 6600
 Connection ~ 8700 6525
 Wire Wire Line
@@ -1663,25 +1618,23 @@ Wire Wire Line
 $Comp
 L Device:C_Small C19
 U 1 1 6089BD5B
-P 8850 7625
-F 0 "C19" H 8975 7675 50  0000 L CNN
-F 1 "100nF" H 8950 7550 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 8850 7625 50  0001 C CNN
-F 3 "~" H 8850 7625 50  0001 C CNN
-	1    8850 7625
+P 8700 7625
+F 0 "C19" H 8825 7675 50  0000 L CNN
+F 1 "100nF" H 8800 7550 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 8700 7625 50  0001 C CNN
+F 3 "~" H 8700 7625 50  0001 C CNN
+	1    8700 7625
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8850 7425 8850 7525
 $Comp
 L power:GND #PWR070
 U 1 1 608ACA25
-P 8850 7725
-F 0 "#PWR070" H 8850 7475 50  0001 C CNN
-F 1 "GND" H 8855 7552 50  0000 C CNN
-F 2 "" H 8850 7725 50  0001 C CNN
-F 3 "" H 8850 7725 50  0001 C CNN
-	1    8850 7725
+P 8700 7725
+F 0 "#PWR070" H 8700 7475 50  0001 C CNN
+F 1 "GND" H 8705 7552 50  0000 C CNN
+F 2 "" H 8700 7725 50  0001 C CNN
+F 3 "" H 8700 7725 50  0001 C CNN
+	1    8700 7725
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1979,8 +1932,6 @@ F 3 "" H 8600 5175 50  0001 C CNN
 	1    8600 5175
 	1    0    0    -1  
 $EndComp
-NoConn ~ 8600 7125
-NoConn ~ 8600 7225
 NoConn ~ 7400 7425
 NoConn ~ 7400 7525
 $Comp
@@ -3228,4 +3179,95 @@ Text GLabel 5475 2725 3    50   Input ~ 0
 Batt_Before_Fuse
 Text GLabel 2675 3025 3    50   Input ~ 0
 Batt_Before_Fuse
+$Comp
+L Device:R R34
+U 1 1 609CD61A
+P 9175 7275
+F 0 "R34" V 9125 7500 50  0000 C CNN
+F 1 "2.2k" V 9175 7275 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 9105 7275 50  0001 C CNN
+F 3 "~" H 9175 7275 50  0001 C CNN
+	1    9175 7275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R33
+U 1 1 609CE8A9
+P 9050 7375
+F 0 "R33" V 9000 7600 50  0000 C CNN
+F 1 "2.2k" V 9050 7375 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 8980 7375 50  0001 C CNN
+F 3 "~" H 9050 7375 50  0001 C CNN
+	1    9050 7375
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7400 6925 7500 6925
+Wire Wire Line
+	7400 7025 7500 7025
+Wire Wire Line
+	7500 7125 7400 7125
+Wire Wire Line
+	7400 7225 7500 7225
+$Comp
+L power:GND #PWR052
+U 1 1 607CE177
+P 8000 7925
+F 0 "#PWR052" H 8000 7675 50  0001 C CNN
+F 1 "GND" H 8005 7752 50  0000 C CNN
+F 2 "" H 8000 7925 50  0001 C CNN
+F 3 "" H 8000 7925 50  0001 C CNN
+	1    8000 7925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8100 6525 8700 6525
+Connection ~ 8100 6525
+Wire Wire Line
+	7900 6525 8100 6525
+Wire Wire Line
+	7400 7525 7500 7525
+Wire Wire Line
+	7400 7425 7500 7425
+Wire Wire Line
+	8700 7425 8700 7525
+$Comp
+L Sensor_Motion:ICM-20948 U6
+U 1 1 607BA90A
+P 8000 7225
+F 0 "U6" H 8000 8150 50  0000 C CNN
+F 1 "ICM-20948" H 8000 8050 50  0000 C CNN
+F 2 "Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm" H 8000 6225 50  0001 C CNN
+F 3 "http://www.invensense.com/wp-content/uploads/2016/06/DS-000189-ICM-20948-v1.3.pdf" H 8000 7075 50  0001 C CNN
+	1    8000 7225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 7425 8700 7425
+$Comp
+L power:+1V8 #PWR06
+U 1 1 60A77F81
+P 9050 7525
+F 0 "#PWR06" H 9050 7375 50  0001 C CNN
+F 1 "+1V8" H 9065 7698 50  0000 C CNN
+F 2 "" H 9050 7525 50  0001 C CNN
+F 3 "" H 9050 7525 50  0001 C CNN
+	1    9050 7525
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+1V8 #PWR013
+U 1 1 60A78CB8
+P 9175 7425
+F 0 "#PWR013" H 9175 7275 50  0001 C CNN
+F 1 "+1V8" H 9190 7598 50  0000 C CNN
+F 2 "" H 9175 7425 50  0001 C CNN
+F 3 "" H 9175 7425 50  0001 C CNN
+	1    9175 7425
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8500 7225 9050 7225
+Wire Wire Line
+	8500 7125 9175 7125
 $EndSCHEMATC

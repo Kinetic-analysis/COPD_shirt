@@ -128,17 +128,47 @@ volatile int start_measure = 0;
 volatile uint64_t StartValue = 0;
 volatile uint64_t PeriodCount = 0;
 
-volatile int Tijd1, Tijd2, Tijd3, Tijd4;
+volatile int64_t Tijd1;
+volatile int Tijd2, Tijd3, Tijd4;
 volatile int CapWaarde1, CapWaarde2;
 volatile int ResWaarde1, ResWaarde2;
 
-volatile int CapBuffer[10];
-volatile int TimeBuffer[10];
+volatile int Cap1Buffer[100];
+volatile int Cap2Buffer[100];
+volatile int Res1Buffer[100];
+volatile int Res2Buffer[100];
 
-volatile int writeSDFLAG = 0;
-volatile int closeFLAG = 0;
+volatile int64_t Time1Buffer[100];
+volatile int64_t Time2Buffer[100];
+volatile int64_t Time3Buffer[100];
+volatile int64_t Time4Buffer[100];
+
+volatile int AcceleroX[1000];
+volatile int AcceleroY[1000];
+volatile int AcceleroZ[1000];
+volatile int GyroX[1000];
+volatile int GyroY[1000];
+volatile int GyroZ[1000];
+
+volatile int64_t Time5Buffer[1000];
+
+volatile int write_cap1_FLAG = 0;
+volatile int write_cap2_FLAG = 0;
+volatile int write_res1_FLAG = 0;
+volatile int write_res2_FLAG = 0;
+volatile int write_imu_FLAG = 0;
+
+volatile int wifi_write_cap1_FLAG = 0;
+volatile int wifi_write_cap2_FLAG = 0;
+volatile int wifi_write_res1_FLAG = 0;
+volatile int wifi_write_res2_FLAG = 0;
+volatile int wifi_write_imu_FLAG = 0;
+
+
+volatile int close_FLAG = 0;
 
 volatile int aa = 0;
+volatile int bb = 0;
 
 volatile FILE* f;
 
@@ -151,6 +181,32 @@ int64_t get_current_time()
 	microseconden = temp - starttime;
 
 	return microseconden;
+}
+
+static void IRAM_ATTR pcnt_isr(void *para)
+{
+	//timer_pause();
+	//aa++;
+	uint64_t timer_counter_value;
+	timer_get_counter_value(TIMER_GROUP_0, TIMER_0, &timer_counter_value);
+	aa = timer_counter_value;
+	//printf("%" PRIu64 "\n", timer_counter_value);
+	timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0);
+	//timer_start();
+	//portYIELD_FROM_ISR();
+}
+
+static void IRAM_ATTR pcnt_isr2(void *para)
+{
+	//timer_pause();
+	//aa++;
+	uint64_t timer_counter_value;
+	timer_get_counter_value(TIMER_GROUP_1, TIMER_1, &timer_counter_value);
+	bb = timer_counter_value;
+	//printf("%" PRIu64 "\n", timer_counter_value);
+	timer_set_counter_value(TIMER_GROUP_1, TIMER_1, 0);
+	//timer_start();
+	//portYIELD_FROM_ISR();
 }
 
 void IRAM_ATTR timer_group0_isr(void *para)
@@ -173,7 +229,7 @@ void IRAM_ATTR power_off_isr_handler(void *arg)
 {
 	if(get_current_time() > 2500000)
 	{
-		closeFLAG = 1;
+		close_FLAG = 1;
 	}
 }
 
@@ -189,24 +245,62 @@ static void Cap_NE555_Task(void *pvParameter)
 {
 	int i = 0;
 	int buffercap[10];
-	int buffertime[10];
+	int64_t buffertime[10];
+	float waarde;
 	while(1)
 	{
 		buffertime[i] = get_current_time();
-		Tijd1 = get_current_time();
 		buffercap[i] = aa;
+		waarde = buffercap[i];
+		waarde = 1/(waarde/40000000/203);
+		waarde = (1.44/waarde)/450*1000*1000*1000;
+		waarde = (waarde-1167.5)/197.5*1000+10000;
+		buffercap[i] = waarde;
+		printf("sensor 1: %d\n", buffercap[i]);
 		i++;
 		if(i == 10)
 		{
-			writeSDFLAG = 1;
 			for(int a = 0; a < 10; a++)
 			{
-				CapBuffer[a] = buffercap[a];
-				TimeBuffer[a] = buffertime[a];
+				Cap1Buffer[a] = buffercap[a];
+				Time1Buffer[a] = buffertime[a];
 			}
+			write_cap1_FLAG = 1;
+			wifi_write_cap1_FLAG = 1;
 			i = 0;
 		}
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+	}
+}
 
+static void Cap_NE555_Task2(void *pvParameter)
+{
+	int i = 0;
+	int buffercap[10];
+	int64_t buffertime[10];
+	float waarde;
+	while(1)
+	{
+		buffertime[i] = get_current_time();
+		buffercap[i] = bb;
+		waarde = buffercap[i];
+		waarde = 1/(waarde/40000000/203);
+		waarde = (1.44/waarde)/450*1000*1000*1000;
+		waarde = (waarde-1167.5)/197.5*1000+10000;
+		buffercap[i] = waarde;
+		printf("sensor 2: %d\n", buffercap[i]);
+		i++;
+		if(i == 10)
+		{
+			for(int a = 0; a < 10; a++)
+			{
+				Cap2Buffer[a] = buffercap[a];
+				Time2Buffer[a] = buffertime[a];
+			}
+			write_cap2_FLAG = 1;
+			wifi_write_cap2_FLAG = 1;
+			i = 0;
+		}
 		vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }
@@ -314,7 +408,7 @@ static void tcp_client_task(void *pvParameters)
     char host_ip[] = HOST_IP_ADDR;
     int addr_family = 0;
     int ip_protocol = 0;
-    static char a[1024];
+    static char a[1023];
     static char *test = &a;
 
     while (1) {
@@ -340,30 +434,59 @@ static void tcp_client_task(void *pvParameters)
         ESP_LOGI(TAG, "Successfully connected");
         vTaskDelay(500 / portTICK_PERIOD_MS);
         while (1) {
-//        	int64_t temp1 = esp_timer_get_time();
-        	snprintf(a, sizeof a, "%d,%d,%d,%d,%d,%d,%d,%d", Tijd1, aa, Tijd2, CapWaarde2, Tijd3, ResWaarde1, Tijd4, ResWaarde2);
-//        	printf("%s\n", test);
-            int err = send(sock, test, strlen(test), 0);
-            if (err < 0) {
-                ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
-                break;
-            }
+//    		printf("In while loop\n");
+    		if((wifi_write_cap1_FLAG == 1) && (wifi_write_imu_FLAG == 1) && (wifi_write_cap2_FLAG == 1) && (wifi_write_res1_FLAG == 1) && (wifi_write_res2_FLAG == 1))
+//    		if((wifi_write_cap1_FLAG == 1) &&  (wifi_write_cap2_FLAG == 1))
+    		{
+//    			printf("in if statement\n");
+    			wifi_write_cap1_FLAG = 0;
+    			wifi_write_cap2_FLAG = 0;
+    			wifi_write_res1_FLAG = 0;
+    			wifi_write_res2_FLAG = 0;
+    			wifi_write_imu_FLAG = 0;
 
-            int len = recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
-            // Error occurred during receiving
-            if (len < 0) {
-                ESP_LOGE(TAG, "recv failed: errno %d", errno);
-                break;
-            }
-            // Data received
-            else {
-                rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
-                //ESP_LOGI(TAG, "Received %d bytes from %s:", len, host_ip);
-                //ESP_LOGI(TAG, "%s", rx_buffer);
-            }
-//            int64_t temp2 = esp_timer_get_time();
-//            temp2 = temp2-temp1;
-//            printf("%" PRId64 "\n", temp2);
+
+    			int ok = 0;
+//    			int c = 0;
+//    			printf("Begin write\n");
+    			for(int b = 0; b < 10; b++)
+    			{
+    				for(int c = (0+ok); c < (ok+10); c++)
+    				{
+    					snprintf(a, sizeof a, "%" PRId64 ",%d,"
+    							"%" PRId64 ",%d,"
+								"%" PRId64 ",%d,"
+								"%" PRId64 ",%d,"
+								"%" PRId64 ",%d,%d,%d,%d,%d,%d",
+    							Time1Buffer[b], Cap1Buffer[b], Time2Buffer[b], Cap2Buffer[b],
+    							Time3Buffer[b], Res1Buffer[b], Time4Buffer[b], Res2Buffer[b],
+    							Time5Buffer[c], AcceleroX[c], AcceleroY[c], AcceleroZ[c],
+    							GyroX[c], GyroY[c], GyroZ[c]);
+    					//fprintf(f, test);
+
+    	                int err = send(sock, test, strlen(test), 0);
+    	                if (err < 0) {
+    	                    ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
+    	                    break;
+    	                }
+
+    	                int len = recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
+    	                // Error occurred during receiving
+    	                if (len < 0) {
+    	                    ESP_LOGE(TAG, "recv failed: errno %d", errno);
+    	                    break;
+    	                }
+    	                // Data received
+    	                else {
+    	                    rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
+    	                }
+
+
+//    					printf("b = %d\t c = %d\n", b, c);
+    				}
+    				ok = ok + 10;
+    			}
+    		}
             vTaskDelay(90 / portTICK_PERIOD_MS);
         }
 
@@ -381,28 +504,61 @@ static void tcp_client_task(void *pvParameters)
 
 static void Resistive_stretch1_task(void *pvParameter)
 {
-	int64_t microseconden = 0;
-	float sensor_resistance;
+	int i = 0;
+	int bufferres[10];
+	int64_t buffertime[10];
+	float waarde = 0;
+
 	while(1)
 	{
 		ResWaarde1 = measure_resistance(adc_characteristics, adc_resistive_stretch1_channel);
-		Tijd3 = get_current_time();
-        //printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+		buffertime[i] = get_current_time();
+		waarde = (ResWaarde1-1683.3)/75*1000+16000;
+		bufferres[i] = waarde;
+		printf("%d\n", bufferres[i]);
+		i++;
+		if(i == 10)
+		{
+			for(int a = 0; a < 10; a++)
+			{
+				Res1Buffer[a] = bufferres[a];
+				Time3Buffer[a] = buffertime[a];
+			}
+			write_res1_FLAG = 1;
+			wifi_write_res1_FLAG = 1;
+			i = 0;
+		}
+		vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }
 
 static void Resistive_stretch2_task(void *pvParameter)
 {
-	int64_t microseconden = 0;
-	float sensor_resistance;
+	int i = 0;
+	int bufferres[10];
+	int64_t buffertime[10];
+	float waarde = 0;
 
 	while(1)
 	{
 		ResWaarde2 = measure_resistance(adc_characteristics, adc_resistive_stretch2_channel);
-		Tijd4 = get_current_time();
-       // printf("%" PRId64 ", %0.1fOhm\n", microseconden, sensor_resistance);
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+		buffertime[i] = get_current_time();
+		waarde = (ResWaarde1-1683.3)/75*1000+16000;
+		bufferres[i] = waarde;
+		printf("%d\n", bufferres[i]);
+		i++;
+		if(i == 10)
+		{
+			for(int a = 0; a < 10; a++)
+			{
+				Res2Buffer[a] = bufferres[a];
+				Time4Buffer[a] = buffertime[a];
+			}
+			write_res2_FLAG = 1;
+			wifi_write_res2_FLAG = 1;
+			i = 0;
+		}
+		vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -413,17 +569,62 @@ static void Battery_task(void *pvParameter)
 	{
 		battery_voltage = measure_battery_voltage(adc_characteristics, adc_bms_channel);
 		control_leds(battery_voltage);
-		vTaskDelay(10000 / portTICK_PERIOD_MS);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
 }
 
 static void IMU_task(void *pvParameter)
 {
 	spi_device_handle_t spi = *(spi_device_handle_t *)pvParameter;
+
+	int i = 0;
+	int buffer_accelero_x[100];
+	int buffer_accelero_y[100];
+	int buffer_accelero_z[100];
+	int buffer_gyro_x[100];
+	int buffer_gyro_y[100];
+	int buffer_gyro_z[100];
+	int64_t buffer_time[100];
+	int accelero_x, accelero_y, accelero_z;
+	int gyro_x, gyro_y, gyro_z;
+	int magn_x, magn_y, magn_z;
 	while(1)
 	{
-		IMU_read_data(spi);
-		vTaskDelay(100 / portTICK_PERIOD_MS);
+		IMU_read_data(spi, &accelero_x, &accelero_y, &accelero_z, &gyro_x, &gyro_y, &gyro_z, &magn_x, &magn_y, &magn_z);
+		printf("Accel XYZ (mg) = [%d, %d, %d]\t"
+				"Gyro XYZ (dps) = [%d, %d, %d]\t"
+				"Magn XYZ (uT) = [%d, %d, %d]\n"
+				,accelero_x, accelero_y, accelero_z
+				,gyro_x, gyro_y, gyro_z
+				,magn_x, magn_y, magn_z);
+
+		buffer_time[i] = get_current_time();
+		buffer_accelero_x[i] = accelero_x;
+		buffer_accelero_y[i] = accelero_y;
+		buffer_accelero_z[i] = accelero_z;
+		buffer_gyro_x[i] = gyro_x;
+		buffer_gyro_y[i] = gyro_y;
+		buffer_gyro_z[i] = gyro_z;
+
+		i++;
+
+		if(i == 100)
+		{
+			for(int a = 0; a < 100; a++)
+			{
+				AcceleroX[a] = buffer_accelero_x[a];
+				AcceleroY[a] = buffer_accelero_y[a];
+				AcceleroZ[a] = buffer_accelero_z[a];
+				GyroX[a] = buffer_gyro_x[a];
+				GyroY[a] = buffer_gyro_y[a];
+				GyroZ[a] = buffer_gyro_z[a];
+				Time5Buffer[a] = buffer_time[a];
+			}
+			write_imu_FLAG = 1;
+			wifi_write_imu_FLAG = 1;
+			i = 0;
+		}
+		vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -450,7 +651,7 @@ static void sd(void *pvParameter)
     int nametakenFLAG = 0;
     int filenummer = 0;
 
-//		ESP_LOGI(TAG, "Opening file");
+		ESP_LOGI(TAG, "Opening file");
 		f = fopen(MOUNT_POINT"/hello.txt", "w");
 		if (f == NULL) {
 			ESP_LOGE(TAG, "Failed to open file for writing");
@@ -458,21 +659,39 @@ static void sd(void *pvParameter)
 		}
 	while(1)
 	{
-		if(writeSDFLAG == 1)
+		printf("In while loop\n");
+		if((write_cap1_FLAG == 1) && (write_imu_FLAG == 1) && (write_cap2_FLAG == 1) && (write_res1_FLAG == 1) && (write_res2_FLAG == 1))
 		{
-			writeSDFLAG = 0;
+			printf("in if statement\n");
+			write_cap1_FLAG = 0;
+			write_cap2_FLAG = 0;
+			write_res1_FLAG = 0;
+			write_res2_FLAG = 0;
+			write_imu_FLAG = 0;
 
+
+			int ok = 0;
+			printf("Begin write\n");
 			for(int b = 0; b < 10; b++)
 			{
-				snprintf(a, sizeof a, "Hallo %d,%d\n", TimeBuffer[b], CapBuffer[b]);
-				fprintf(f, test);
-				printf("OK\n");
+				for(int c = (0+ok); c < (ok+10); c++)
+				{
+					snprintf(a, sizeof a, "%" PRId64 ",%d," "%" PRId64 ",%d," "%" PRId64 ",%d," "%" PRId64 ",%d," "%" PRId64 ",%d,%d,%d,%d,%d,%d\n",
+							Time1Buffer[b], Cap1Buffer[b], Time2Buffer[b], Cap2Buffer[b],
+							Time3Buffer[b], Res1Buffer[b], Time4Buffer[b], Res2Buffer[b],
+							Time5Buffer[c], AcceleroX[c], AcceleroY[c], AcceleroZ[c],
+							GyroX[c], GyroY[c], GyroZ[c]);
+					fprintf(f, test);
+					//printf("b = %d\t c = %d\n", b, c);
+				}
+				ok = ok + 10;
 			}
+			printf("End write\n");
 		}
-		if(closeFLAG == 1)
+		if(close_FLAG == 1)
 		{
 			fclose(f);
-	//		ESP_LOGI(TAG, "File written");
+			ESP_LOGI(TAG, "File written");
 
 			// Check if destination file exists before renaming
 			struct stat st;
@@ -496,31 +715,33 @@ static void sd(void *pvParameter)
 
 static void example_tg0_timer_init()
 {
-	int bla = TIMER_0;
-	printf("Test1\n");
     /* Select and initialize basic parameters of the timer */
     timer_config_t config = {
         .divider = 2,
         .counter_dir = TIMER_COUNT_UP,
         .counter_en = TIMER_PAUSE,
-        .alarm_en = TIMER_ALARM_EN,
-        .auto_reload = 1,
+        .alarm_en = TIMER_ALARM_DIS,
+        .auto_reload = 0,
     }; // default clock source is APB
     timer_init(TIMER_GROUP_0, TIMER_0, &config);
-    printf("Test2\n");
     /* Timer's counter will initially start from value below.
        Also, if auto_reload is set, this value will be automatically reload on alarm */
     timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0x00000000ULL);
-    printf("Test3\n");
-    /* Configure the alarm value and the interrupt on alarm. */
-    timer_set_alarm_value(TIMER_GROUP_0, TIMER_0, 4000000);
-    printf("Test4\n");
-    timer_enable_intr(TIMER_GROUP_0, TIMER_0);
-    printf("Test5\n");
-    timer_isr_register(TIMER_GROUP_0, TIMER_0, timer_group0_isr, (void *) bla, ESP_INTR_FLAG_IRAM, NULL);
-    printf("Test6\n");
     timer_start(TIMER_GROUP_0, TIMER_0);
-    printf("Test7\n");
+
+    /* Select and initialize basic parameters of the timer */
+    timer_config_t config2 = {
+        .divider = 2,
+        .counter_dir = TIMER_COUNT_UP,
+        .counter_en = TIMER_PAUSE,
+        .alarm_en = TIMER_ALARM_DIS,
+        .auto_reload = 0,
+    }; // default clock source is APB
+    timer_init(TIMER_GROUP_1, TIMER_1, &config2);
+    /* Timer's counter will initially start from value below.
+       Also, if auto_reload is set, this value will be automatically reload on alarm */
+    timer_set_counter_value(TIMER_GROUP_1, TIMER_1, 0x00000000ULL);
+    timer_start(TIMER_GROUP_1, TIMER_1);
 }
 
 
@@ -533,7 +754,7 @@ static void pcnt_init()
 	        .hctrl_mode = PCNT_MODE_KEEP,
 	        .pos_mode = PCNT_COUNT_INC,
 			.neg_mode = PCNT_COUNT_DIS,
-			.counter_h_lim = 10000,
+			.counter_h_lim = 200,
 			.counter_l_lim = 0,
 			.unit = PCNT_UNIT_0,
 			.channel = PCNT_CHANNEL_0
@@ -541,20 +762,54 @@ static void pcnt_init()
 
 	pcnt_unit_config(&pcnt_config);
 
+	pcnt_config_t pcnt_config2 = {
+	        .pulse_gpio_num = 32,
+	        .ctrl_gpio_num = -1,
+	        .lctrl_mode = PCNT_MODE_KEEP,
+	        .hctrl_mode = PCNT_MODE_KEEP,
+	        .pos_mode = PCNT_COUNT_INC,
+			.neg_mode = PCNT_COUNT_DIS,
+			.counter_h_lim = 200,
+			.counter_l_lim = 0,
+			.unit = PCNT_UNIT_1,
+			.channel = PCNT_CHANNEL_1
+	    };
+
+	pcnt_unit_config(&pcnt_config2);
+
+
+//	pcnt_set_filter_value(PCNT_UNIT_0, 1023);
+//	pcnt_filter_enable(PCNT_UNIT_0);
+
+    pcnt_event_enable(PCNT_UNIT_0, PCNT_EVT_H_LIM);
+    pcnt_event_enable(PCNT_UNIT_1, PCNT_EVT_H_LIM);
+    pcnt_counter_pause(PCNT_UNIT_0);
+    pcnt_counter_clear(PCNT_UNIT_0);
+    pcnt_counter_pause(PCNT_UNIT_1);
+    pcnt_counter_clear(PCNT_UNIT_1);
+    pcnt_isr_service_install(0);
+    pcnt_isr_handler_add(PCNT_UNIT_0, pcnt_isr, NULL);
+    pcnt_intr_enable(PCNT_UNIT_0);
+    pcnt_isr_handler_add(PCNT_UNIT_1, pcnt_isr2, NULL);
+    pcnt_intr_enable(PCNT_UNIT_1);
+
+        /* Everything is set up, now go to counting */
+    pcnt_counter_resume(PCNT_UNIT_0);
+    pcnt_counter_resume(PCNT_UNIT_1);
 }
 
 void app_main(void)
 {
 	starttime = esp_timer_get_time();
-//	capacitive_stretch_init();
-//	vibrator_motor_init();
-	//speaker_init();
+	//capacitive_stretch_init();
+	vibrator_motor_init();
+	speaker_init();
     example_tg0_timer_init();
     pcnt_init();
 	gpio_bms_init();
     ADC_init();
     Interrupt_init();
-//    touchpad_init();
+    touchpad_init();
 
 	esp_err_t ret;
 	// Options for mounting the filesystem.
@@ -617,17 +872,18 @@ void app_main(void)
 	spi = SPI_init();
 	IMU_write_reg(spi, 0x06, 0x01);
 	IMU_read_ID(spi);
-//	IMU_init_Magneto(spi);
+	IMU_init_Magneto(spi);
 //
-	xTaskCreate(&Battery_task, "Battery voltage measurement", 2048, NULL, 1, NULL);
-//	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 2, NULL);
-//	xTaskCreate(&Speaker_task, "Speaker", 2048, NULL, 2, NULL);
-//    xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 2048, NULL, 4, NULL);
-//    xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 2048, NULL, 4, NULL);
-	xTaskCreate(&Cap_NE555_Task, "Capacitive Stretch Sensor NE555", 2048, NULL,  4, NULL);
-	xTaskCreate(&IMU_task, "IMU", 2048, &spi, 3, NULL);
-	xTaskCreate(&sd, "sdcard", 8192, NULL,  4, NULL);
+	xTaskCreate(&Battery_task, "Battery voltage measurement", 8192, NULL, 1, NULL);
+	xTaskCreate(&Motor1_task, "Vibrator Motor 1", 2048, NULL, 2, NULL);
+	xTaskCreate(&Speaker_task, "Speaker", 2048, NULL, 2, NULL);
+	xTaskCreate(&sd, "sdcard", 16384, NULL,  3, NULL);
+    xTaskCreate(&Resistive_stretch1_task, "Resistive stretch sensor 1", 8192, NULL, 5, NULL);
+    xTaskCreate(&Resistive_stretch2_task, "Resistive stretch sensor 2", 8192, NULL, 5, NULL);
+	xTaskCreate(&Cap_NE555_Task, "Capacitive Stretch Sensor NE555", 8192, NULL,  5, NULL);
+	xTaskCreate(&Cap_NE555_Task2, "Capacitive Stretch Sensor2 NE555", 8192, NULL,  5, NULL);
+	xTaskCreate(&IMU_task, "IMU", 65536, &spi, 4, NULL);
 	tcp_client_init();
-	xTaskCreate(&tcp_client_task, "tcp_client", 8192, NULL, 5, NULL);
-//    xTaskCreate(&touchpad_task, "Touchpad", 2048, NULL, 3, NULL);
+	xTaskCreate(&tcp_client_task, "tcp_client", 8192, NULL, 3, NULL);
+    xTaskCreate(&touchpad_task, "Touchpad", 2048, NULL, 3, NULL);
 }

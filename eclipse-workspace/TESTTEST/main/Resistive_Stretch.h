@@ -13,6 +13,7 @@
 #include "esp_adc_cal.h"
 
 float ADC_voltage;
+float new_voltage;
 float sensor_current;
 float sensor_voltage;
 float sensor_resistance;

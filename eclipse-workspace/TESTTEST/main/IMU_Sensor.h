@@ -26,6 +26,6 @@ void IMU_read_reg(spi_device_handle_t spi, uint8_t reg, uint8_t *data);
 void IMU_read_ID(spi_device_handle_t spi);
 void imu_cs_init(void);
 void IMU_init_Magneto(spi_device_handle_t spi);
-void IMU_read_data(spi_device_handle_t spi);
+void IMU_read_data(spi_device_handle_t spi, int *accelero_x, int *accelero_y, int *accelero_z, int *gyro_x, int *gyro_y, int *gyro_z, int *magn_x, int *magn_y, int *magn_z);
 
 #endif /* MAIN_IMU_SENSOR_H_ */

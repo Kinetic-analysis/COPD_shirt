@@ -94,10 +94,11 @@ void IMU_init_Magneto(spi_device_handle_t spi)
 	{
 		IMU_write_reg(spi, reg[i], write[i]);
 		IMU_read_reg(spi, reg[i], &read[i]);
+		printf("Register written: 0x%02X\n", read[i]);
 	}
 }
 
-void IMU_read_data(spi_device_handle_t spi)
+void IMU_read_data(spi_device_handle_t spi, int *accelero_x, int *accelero_y, int *accelero_z, int *gyro_x, int *gyro_y, int *gyro_z, int *magn_x, int *magn_y, int *magn_z)
 {
 
 	// https://devzone.nordicsemi.com/f/nordic-q-a/36615/invensense-icm-20948
@@ -136,6 +137,17 @@ void IMU_read_data(spi_device_handle_t spi)
 	data_Final[7] = data_OUT[7]*0.15;				//Berekend de magnetometer waarde van de X-axis in uT
 	data_Final[8] = data_OUT[8]*0.15;				//Berekend de magnetometer waarde van de Y-axis in uT
 	data_Final[9] = data_OUT[9]*0.15;				//Berekend de magnetometer waarde van de Z-axis in uT
+
+	*accelero_x = data_Final[1];
+	*accelero_y = data_Final[2];
+	*accelero_z = data_Final[3];
+	*gyro_x = data_Final[4];
+	*gyro_y = data_Final[5];
+	*gyro_z = data_Final[6];
+	*magn_x = data_Final[7];
+	*magn_y = data_Final[8];
+	*magn_z = data_Final[9];
+
 
 //	printf("Temp (C) = [%0.2f]\t "
 //			"Accel XYZ (mg) = [%0.2f, %0.2f, %0.2f]\t "

@@ -145,7 +145,7 @@ static void pcnt_example_init(void)
 void app_main(void)
 {
     /* Initialize LEDC to generate sample pulse signal */
-    ledc_init();
+    //ledc_init();
 
     /* Initialize PCNT event queue and PCNT functions */
     pcnt_evt_queue = xQueueCreate(10, sizeof(pcnt_evt_t));

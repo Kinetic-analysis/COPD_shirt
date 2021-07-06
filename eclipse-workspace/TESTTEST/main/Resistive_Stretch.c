@@ -13,9 +13,12 @@ float measure_resistance(esp_adc_cal_characteristics_t *adc_stretch_chars, adc_c
 {
 	ADC_reading = adc1_get_raw((adc1_channel_t)adc_stretch_channel);
 	ADC_voltage = esp_adc_cal_raw_to_voltage(ADC_reading, adc_stretch_chars);
-	sensor_current = ADC_voltage/1000000;
-	sensor_voltage = (3300-ADC_voltage)/1000;
+	new_voltage = (1.0074074*ADC_voltage)-42.2667;
+//	new_voltage = ADC_voltage;
+	sensor_current = new_voltage/1000000;
+	sensor_voltage = (3300-new_voltage)/1000;
 	sensor_resistance = sensor_voltage/sensor_current;
+//	printf("ADC Reading: %d\t ADC Voltage: %f\t Resistance: %f\n", ADC_reading, new_voltage, sensor_resistance);
 
 	return sensor_resistance;
 }

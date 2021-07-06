@@ -62,6 +62,7 @@ void control_leds(int battery_voltage)
 	if((battery_voltage < 3000))
 	{
 		printf("LOWBATTERYVOLTAGESHUTDOWN\n");
-		gpio_set_level(power_on_off_pin, 0);
+		//gpio_set_level(power_on_off_pin, 0);
 	}
+	printf("Batterij spanning = %d\n", battery_voltage);
 }

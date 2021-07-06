@@ -3060,24 +3060,20 @@ Wire Notes Line
 $Comp
 L Connector:Conn_01x01_Male J12
 U 1 1 60FBE466
-P 6200 5200
-F 0 "J12" H 6325 5300 50  0000 C CNN
-F 1 "Conn_01x01_Male" H 6308 5290 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 6200 5200 50  0001 C CNN
-F 3 "~" H 6200 5200 50  0001 C CNN
-	1    6200 5200
+P 5525 5375
+F 0 "J12" H 5650 5475 50  0000 C CNN
+F 1 "Conn_01x01_Male" H 5633 5465 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 5525 5375 50  0001 C CNN
+F 3 "~" H 5525 5375 50  0001 C CNN
+	1    5525 5375
 	1    0    0    -1  
 $EndComp
-Text GLabel 6500 5200 2    50   Input ~ 0
+Text GLabel 5825 5375 2    50   Input ~ 0
 Touch_Pad
 Wire Wire Line
-	6500 5200 6400 5200
-Text Notes 6175 4500 0    100  ~ 0
+	5825 5375 5725 5375
+Text Notes 5500 4675 0    100  ~ 0
 Touch Pad\n
-Wire Notes Line
-	5900 4200 5900 5875
-Text Notes 5025 4475 0    100  ~ 0
-Zekering
 $Comp
 L Connector:Screw_Terminal_01x02 J13
 U 1 1 6107DBD0
